@@ -11,7 +11,8 @@
     "compile": "webpack",
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
-    "react-test": "jest"
+    "react-test": "jest",
+    "server-test": "mocha --bail --reporter nyan server_test/server.test.js; pkill -n node;"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -30,10 +31,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "express": "^4.15.0",
     "jest": "^21.2.1",
     "jquery": "^3.1.1",
+    "mocha": "^3.5.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-test-renderer": "^16.0.0"
