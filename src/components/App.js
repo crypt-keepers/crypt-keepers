@@ -31,7 +31,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        Hi
         <Search/>
         <DataDisplay data={this.state.model.data}/>
         <Panel/>
