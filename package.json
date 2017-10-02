@@ -22,7 +22,12 @@
     "express": "^4.15.5",
     "mongoose": "^4.11.13",
     "morgan": "^1.8.2",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "body-parser": "^1.18.2",
+    "jquery": "^3.1.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "json-loader": "^0.5.7"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -31,16 +36,10 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
-    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "express": "^4.15.0",
     "jest": "^21.2.1",
-    "jquery": "^3.1.1",
-    "json-loader": "^0.5.7",
     "mocha": "^3.5.3",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
     "react-test-renderer": "^16.0.0"
   },
   "babel": {
