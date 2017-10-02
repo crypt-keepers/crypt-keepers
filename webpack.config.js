@@ -18,6 +18,13 @@ module.exports = {
           'babel-loader',
         ],
       },
+      {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        use: [
+          'json-loader',
+        ],
+      },
     ],
   },
   resolve: {
