@@ -36,11 +36,7 @@ class Search extends React.Component {
   handleCheckChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.checked });
-    if (e.target.checked) {
-      this.props.onSearch(e.target.name.slice(2));
-    } else {
-      this.props.onSearch('');
-    }
+    this.props.onSearch(e.target.name.slice(2), e.target.checked);
   }
 
   render() {

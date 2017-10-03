@@ -3,9 +3,7 @@ import Search from './Search';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
-// import Model from '../model-view';
 import dummyData from '../data.json';
-// import helpers from '../helpers/api-helpers';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,9 +17,13 @@ export default class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch(coin) {
-    console.log('coin is', coin);
-    this.setState({ curCoin: coin.toLowerCase().trim() });
+  handleSearch(coin, isAdded = true) {
+    let newString = `${this.state.curCoin} ${coin.toLowerCase().trim()}`;
+    if (!isAdded) {
+      const re = new RegExp(coin, 'gi');
+      newString = newString.replace(re, '');
+    }
+    this.setState({ curCoin: newString.trim() });
   }
 
   render() {

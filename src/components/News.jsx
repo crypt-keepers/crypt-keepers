@@ -13,6 +13,20 @@ const defaultProps = {
   list: [],
 };
 
+const parseData = (arr) => {
+  return arr.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    if (dateA - dateB > 0) {
+      return -1;
+    }
+    if (dateA - dateB < 0) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
 class News extends React.Component {
   constructor(props) {
     super(props);
@@ -35,9 +49,17 @@ class News extends React.Component {
     }
   }
 
-  setData(coin) {
-    if (coin.length) {
-      this.setState({ curData: newsData[coin] });
+  setData(newCoin) {
+    if (newCoin.length) {
+      const coinArr = newCoin.split(' ');
+      let dataArr = [];
+      coinArr.forEach((coin) => {
+        if (coin) {
+          dataArr = dataArr.concat(newsData[coin]);
+        }
+      });
+      dataArr = parseData(dataArr);
+      this.setState({ curData: dataArr });
     } else {
       this.setState({ curData: newsData.trending });
     }
