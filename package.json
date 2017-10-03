@@ -29,7 +29,6 @@
     "prop-types": "^15.6.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-transition-group": "^1.2.1",
     "webpack": "^3.6.0"
   },
   "devDependencies": {
@@ -49,8 +48,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
-    "mocha": "^3.5.3",
-    "react-test-renderer": "^16.0.0"
+    "mocha": "^3.5.3"
   },
   "babel": {
     "presets": [
