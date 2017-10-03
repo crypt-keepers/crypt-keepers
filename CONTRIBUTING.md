@@ -1,7 +1,7 @@
 # Contributing
 
 ## General Workflow
-heeeeeeyyyyy
+
 1. Fork the repo
 1. Cut a namespaced feature branch from master
 1. Make commits to your feature branch. Prefix each commit like so:
