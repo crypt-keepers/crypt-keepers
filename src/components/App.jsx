@@ -12,6 +12,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       data: dummyData,
+      curCoin: '',
+      list: [],
     };
   }
 
@@ -21,7 +23,7 @@ export default class App extends React.Component {
         <Search />
         <DataDisplay data={this.state.data} />
         <Panel />
-        <News />
+        <News coin={this.state.curCoin} list={this.state.list} />
       </div>
     );
   }
