@@ -1,9 +1,22 @@
 import React from 'react';
 import * as d3 from 'd3';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import helpers from '../helpers/api-helpers';
+=======
+import PropTypes from 'prop-types';
+import coinData from '../coin-data';
+
+const propTypes = {
+  coin: PropTypes.string,
+};
+
+const defaultProps = {
+  coin: '',
+};
+>>>>>>> graph selected coin, currently only one coin at a time
 
 const propTypes = {
   activeCoin: PropTypes.string.isRequired,
@@ -21,6 +34,7 @@ class DataDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
 <<<<<<< HEAD
       coinData: [],
       range: '1D',
@@ -54,6 +68,39 @@ class DataDisplay extends React.Component {
   }
 
   renderTimeSeriesData(coin) {
+=======
+      coinData: [],
+    };
+    this.setData = this.setData.bind(this);
+    this.renderTimeSeriesData = this.renderTimeSeriesData.bind(this);
+  }
+
+  componentDidMount() {
+    this.setData(this.props.coin);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.coin !== nextProps.coin) {
+      this.setData(nextProps.coin);
+    }
+  }
+
+  setData(newCoin) {
+    const coinArr = (newCoin.length) ? newCoin.split(' ') : ['bitcoin', 'etherium', 'litecoin'];
+    let dataArr = [];
+    coinArr.forEach((coin) => {
+      if (coinData[coin]) {
+        dataArr.push(coinData[coin]);
+      }
+    });
+    this.setState({ coinData: dataArr }, () => this.renderTimeSeriesData(this.state.coinData[0]));
+  }
+
+  renderTimeSeriesData(coinData) {
+    // clear svg before every render
+    d3.selectAll('svg').remove();
+
+>>>>>>> graph selected coin, currently only one coin at a time
     // svg / line graph settings, hardcoded, customizable
     const width = 640;
     const height = 400;
@@ -117,7 +164,11 @@ class DataDisplay extends React.Component {
     // extract time and close info from data
     // reverse data which is given reverse-chronologically
     const data = [];
+<<<<<<< HEAD
     this.state.coinData.reverse().forEach((row) => {
+=======
+    coinData.map((row) => {
+>>>>>>> graph selected coin, currently only one coin at a time
       data.push({ time: new Date(row[0] * 1000), close: row[4] });
     });
 
@@ -285,6 +336,7 @@ class DataDisplay extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     let rowData = this.props.data.map((row) => {
       return (
         <tr key={row[0]}>
@@ -294,20 +346,11 @@ class DataDisplay extends React.Component {
       );
     });
 
+=======
+>>>>>>> graph selected coin, currently only one coin at a time
     return (
       <div>DataDisplay
         <div id="data-display"></div>
-        <table>
-          <thead>
-            <tr>
-              <th>time</th>
-              <th>close</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rowData}
-          </tbody>
-        </table>
         <button>1D</button>
         <button>1W</button>
         <button>1M</button>
@@ -330,4 +373,11 @@ const mapStateToProps = (state = {}) => (
 =======
 >>>>>>> display time/value table and render x-y axis correctly
 
+<<<<<<< HEAD
 export default connect(mapStateToProps)(DataDisplay);
+=======
+DataDisplay.propTypes = propTypes;
+DataDisplay.defaultProps = defaultProps;
+
+export default DataDisplay;
+>>>>>>> graph selected coin, currently only one coin at a time
