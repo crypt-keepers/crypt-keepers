@@ -20,6 +20,7 @@ export default class App extends React.Component {
   }
 
   handleSearch(coin) {
+    console.log('coin is', coin);
     this.setState({ curCoin: coin.toLowerCase().trim() });
   }
 

@@ -14,10 +14,14 @@ class Search extends React.Component {
     super(props);
     this.state = {
       dropdownActive: false,
+      isBitcoin: false,
+      isLitecoin: false,
+      isEtherium: false,
     };
 
     this.toggleMenu = this.toggleMenu.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
   }
 
   toggleMenu() {
@@ -29,16 +33,53 @@ class Search extends React.Component {
     this.props.onSearch(e.target.textContent);
   }
 
+  handleCheckChange(e) {
+    const name = e.target.name;
+    this.setState({ [name]: e.target.checked });
+    if (e.target.checked) {
+      this.props.onSearch(e.target.name.slice(2));
+    } else {
+      this.props.onSearch('');
+    }
+  }
+
   render() {
     return (
       <div>
-        <button onClick={this.toggleMenu}>Select Coin</button>
+        <button onClick={this.toggleMenu}>Select Coins</button>
         <div className={this.state.dropdownActive ? 'menu-show' : 'menu-hide'}>
-          <ul>
-            <li role="menuitem" onClick={this.handleClick}>Bitcoin </li>
-            <li role="menuitem" onClick={this.handleClick}>Litecoin </li>
-            <li role="menuitem" onClick={this.handleClick}>Etherium </li>
-          </ul>
+          <form>
+            <label htmlFor="bitcoin">
+              Bitcoin
+              <input
+                name="isBitcoin"
+                type="checkbox"
+                checked={this.state.isBitcoin}
+                onChange={this.handleCheckChange}
+              />
+            </label>
+            <br />
+            <label htmlFor="litecoin">
+              Litecoin
+              <input
+                name="isLitecoin"
+                type="checkbox"
+                checked={this.state.isLitecoin}
+                onChange={this.handleCheckChange}
+              />
+            </label>
+            <br />
+            <label htmlFor="etherium">
+              Etherium
+              <input
+                name="isEtherium"
+                type="checkbox"
+                checked={this.state.isEtherium}
+                onChange={this.handleCheckChange}
+              />
+            </label>
+            <br />
+          </form>
         </div>
       </div>
     );
