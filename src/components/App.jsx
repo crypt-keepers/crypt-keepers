@@ -5,7 +5,7 @@ import Panel from './Panel';
 import News from './News';
 import Model from '../model-view';
 // import dummyData from '../data.json';
-import helpers from '../helpers/api-helpers';
+// import helpers from '../helpers/api-helpers';
 
 export default class App extends React.Component {
 
@@ -18,23 +18,19 @@ export default class App extends React.Component {
 
 
   // handleClick() {
-    // const newData = helpers.test();
-    // Model.data = newData;
-    // console.log('model.data is', Model.data);
-    // this.setState({data: Model});
+  // const newData = helpers.test();
+  // Model.data = newData;
+  // console.log('model.data is', Model.data);
+  // this.setState({data: Model});
   // }
-
-
-
-
 
   render() {
     return (
       <div>
-        <Search/>
-        <DataDisplay data={this.state.model.data}/>
-        <Panel/>
-        <News/>
+        <Search />
+        <DataDisplay data={this.state.model.data} />
+        <Panel />
+        <News />
       </div>
     );
   }
