@@ -5,7 +5,7 @@ import NewsItem from './NewsItem';
 
 const propTypes = {
   coin: PropTypes.string,
-  list: PropTypes.array,
+  list: PropTypes.arrayOf(PropTypes.string),
 };
 
 const defaultProps = {
@@ -22,22 +22,38 @@ class News extends React.Component {
     };
 
     this.setData = this.setData.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.setData();
+    this.setData(this.props.coin);
   }
 
-  setData() {
-    if (this.props.coin.length) {
-      this.setState({ curData: newsData[this.props.coin] });
-    } else {
-      this.setState({ curData: newsData.trending, test: true });
+  componentWillReceiveProps(nextProps) {
+    if (this.props.coin !== nextProps.coin) {
+      this.setData(nextProps.coin);
     }
   }
 
-  handleClick() {
-    console.log('clicked', this);
+  setData(coin) {
+    if (coin.length) {
+      this.setState({ curData: newsData[coin] });
+    } else {
+      this.setState({ curData: newsData.trending });
+    }
+  }
+
+  handleClick(isTrending) {
+    if (isTrending && !this.state.trendingSelected) {
+      this.setState({ curData: newsData.trending, trendingSelected: true });
+    }
+    if (!isTrending && this.state.trendingSelected) {
+      let arr = [];
+      this.props.list.forEach((coin) => {
+        arr = arr.concat(newsData[coin]);
+      });
+      this.setState({ curData: arr, trendingSelected: false });
+    }
   }
 
   render() {

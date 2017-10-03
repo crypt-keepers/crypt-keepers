@@ -15,12 +15,18 @@ export default class App extends React.Component {
       curCoin: '',
       list: [],
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(coin) {
+    this.setState({ curCoin: coin.toLowerCase().trim() });
   }
 
   render() {
     return (
       <div>
-        <Search />
+        <Search onSearch={this.handleSearch} />
         <DataDisplay data={this.state.data} />
         <Panel />
         <News coin={this.state.curCoin} list={this.state.list} />
