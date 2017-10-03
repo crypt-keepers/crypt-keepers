@@ -18,10 +18,10 @@ export default class App extends React.Component {
 
 
   // handleClick() {
-  //   // const newData = helpers.test();
-  //   // Model.data = newData;
-  //   // console.log('model.data is', Model.data);
-  //   // this.setState({data: Model});
+    // const newData = helpers.test();
+    // Model.data = newData;
+    // console.log('model.data is', Model.data);
+    // this.setState({data: Model});
   // }
 
 
