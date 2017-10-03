@@ -1,19 +1,43 @@
 import React from 'react';
 import dummyData from './data.json';
 
-class Model {
-  constructor() {
-    this._data = JSON.stringify(dummyData);
-  }
+// class Model {
+//   constructor() {
+//     this._data = JSON.stringify(dummyData);
+//   }
+//
+//   set data(newData) {
+//     this._data = newData;
+//   }
+//
+//   get data() {
+//     return this._data;
+//   }
+// }
 
-  set data(newData) {
-    this._data = newData;
-  }
+// export default new Model();
 
-  get data() {
-    return this._data;
-  }
+const EventEmitter = require('events').EventEmitter;
 
-}
+const emitter = new EventEmitter();
 
-export default new Model();
+const data = dummyData;
+
+module.exports = {
+  getData: () => (
+    data.concat()
+  ),
+
+  // subscribe: (callback) => {
+  //   emitter.addListener('update', callback);
+  // },
+  //
+  // unsubscribe: (callback) => {
+  //   emitter.removeListener('update', callback);
+  // },
+
+  newData: (element) => {
+    data.push(element);
+    emitter.emit('update');
+  },
+};
