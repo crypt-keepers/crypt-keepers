@@ -20,6 +20,7 @@ const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, cur
     .catch(err => console.error(err));
 };
 
+<<<<<<< HEAD
 const getTickerData = (coin = 'BTC', currency = 'USD') => {
   const options = {
     url: `https://api.gdax.com/products/${coin}-${currency}/ticker`,
@@ -36,3 +37,6 @@ const getTickerData = (coin = 'BTC', currency = 'USD') => {
 
 module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
 module.exports.getTickerData = getTickerData;
+=======
+module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
+>>>>>>> (feat) Get time series by range

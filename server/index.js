@@ -23,6 +23,15 @@ app.get('/range', (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/range', (req, res) => {
+  let coin = req.body.coin;
+  let dateStart = req.body.dateStart;
+  let dateEnd = req.body.dateEnd;
+  gdax.getTimeSeriesByRange(coin, dateStart, dateEnd)
+    .then(series => res.json(series));
+  res.sendStatus(200);
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {});
 
