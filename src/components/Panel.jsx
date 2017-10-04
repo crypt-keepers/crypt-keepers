@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Trending from './Trending';
-import MyList from './MyList';
+import Overview from './Overview';
+import MyFinances from './MyFinances';
 
 const propTypes = {
   coin: PropTypes.string,
@@ -41,8 +41,8 @@ class Panel extends React.Component {
         </div>
         <div className="main">
           {this.state.view === 'trending'
-            ? <Trending />
-            : <MyList list={this.props.list} handleClick={this.props.handleClick}/>}
+            ? <Overview />
+            : <MyFinances list={this.props.list} handleClick={this.props.handleClick}/>}
         </div>
       </div>
     );

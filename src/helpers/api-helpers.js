@@ -66,7 +66,7 @@ const getTickerData = () => {
         url: '/ticker',
         data: { coin },
       }).done((data) => {
-        resolve(data);
+        resolve({ [coin]: data });
       }).fail((error) => {
         reject(error);
       });
@@ -76,4 +76,4 @@ const getTickerData = () => {
   return Promise.all(coinsArr);
 };
 
-export default { getRangeData, getTrendingNews, getCoinData };
+export default { getRangeData, getTrendingNews, getCoinData, getTickerData };
