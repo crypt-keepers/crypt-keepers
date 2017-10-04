@@ -12,7 +12,11 @@ import { expect } from 'chai';
 import App from '../src/components/App';
 import News from '../src/components/News';
 import NewsItem from '../src/components/NewsItem';
+<<<<<<< HEAD
 import Overview from '../src/components/Overview';
+=======
+import Search from '../src/components/Search';
+>>>>>>> get ticker data to show up on trending side panel
 import DataDisplay from '../src/components/DataDisplay';
 
 configure({ adapter: new Adapter() });

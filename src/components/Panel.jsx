@@ -22,6 +22,7 @@ const Panel = (props) => {
   const overviewButton = props.view === 'overview' ? 'select' : 'unselect';
   const financeButton = props.view === 'overview' ? 'unselect' : 'select';
 
+<<<<<<< HEAD
   return (
     <div className="panel-container">
       <div className="panel-nav">
@@ -31,6 +32,25 @@ const Panel = (props) => {
         <button className={financeButton} onClick={() => props.changeView('finances')}>
           My Finances
         </button>
+=======
+  render() {
+    return (
+      <div>
+        <div>Side Panel</div>
+        <div className="nav">
+          <button onClick={() => this.changePanel('trending')}>
+            Panel - Trending
+          </button>
+          <button onClick={() => this.changePanel('myList')}>
+            Panel - My List
+          </button>
+        </div>
+        <div className="main">
+          {this.state.view === 'trending'
+            ? <Trending />
+            : <MyList list={this.props.list} handleClick={this.props.handleClick}/>}
+        </div>
+>>>>>>> get ticker data to show up on trending side panel
       </div>
       <div className="main">
         <Overview className={overviewClass} />
