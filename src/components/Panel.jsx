@@ -41,7 +41,7 @@ class Panel extends React.Component {
         </div>
         <div className="main">
           {this.state.view === 'trending'
-            ? <Trending coin={this.props.coin} />
+            ? <Trending />
             : <MyList list={this.props.list} handleClick={this.props.handleClick}/>}
         </div>
       </div>

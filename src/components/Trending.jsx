@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import tickerData from '../ticker-data';
 
 const propTypes = {
   coin: PropTypes.string,
@@ -10,6 +11,7 @@ const defaultProps = {
 };
 
 const Trending = props => {
+
   return (
     <div>Trending and Pie Chart!
       <div>{props.coin}</div>
