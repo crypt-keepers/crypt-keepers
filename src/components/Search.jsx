@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   onSearch: PropTypes.func,
+  handleAdd: PropTypes.func,
 };
 
 const defaultProps = {
   onSearch: e => (e),
+  handleAdd: e => (e),
 };
 
 class Search extends React.Component {
@@ -22,6 +24,7 @@ class Search extends React.Component {
     this.toggleMenu = this.toggleMenu.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleCheckChange = this.handleCheckChange.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
   }
 
   toggleMenu() {
@@ -37,6 +40,18 @@ class Search extends React.Component {
     const name = e.target.name;
     this.setState({ [name]: e.target.checked });
     this.props.onSearch(e.target.name.slice(2), e.target.checked);
+  }
+
+  handleAddClick() {
+    let coinStr = '';
+    Object.keys(this.state).forEach((key) => {
+      if (key.startsWith('is') && this.state[key]) {
+        coinStr += ` ${key.slice(2)}`;
+        this.setState({ [key]: false });
+      }
+    });
+    this.props.handleAdd(coinStr);
+    this.toggleMenu();
   }
 
   render() {
@@ -76,6 +91,7 @@ class Search extends React.Component {
             </label>
             <br />
           </form>
+          <button onClick={this.handleAddClick}>Add Coins to List</button>
         </div>
       </div>
     );

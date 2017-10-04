@@ -24,11 +24,14 @@
     "express": "^4.15.5",
     "jquery": "^3.1.1",
     "json-loader": "^0.5.7",
+    "lodash": "^4.17.4",
     "mongoose": "^4.11.13",
     "morgan": "^1.8.2",
     "prop-types": "^15.6.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-modal": "^2.3.2",
+    "react-test-renderer": "^16.0.0",
     "webpack": "^3.6.0"
   },
   "devDependencies": {

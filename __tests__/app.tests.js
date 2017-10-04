@@ -2,7 +2,6 @@
 // import react components to test
 // Do something to component (call functions, set state, etc)
 // Run assertion tests.
-// import renderer from 'react-test-renderer';
 import React from 'react';
 import { mount, shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -14,10 +13,17 @@ import Search from '../src/components/Search';
 
 configure({ adapter: new Adapter() });
 
+describe('<App/>', () => {
+  it('should have a modal on popup', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('Modal')).to.have.length(1);
+  });
+});
+
 describe('<Search/>', () => {
-  it('should have a toggle button', () => {
+  it('should have a toggle and add button', () => {
     const wrapper = shallow(<Search />);
-    expect(wrapper.find('button')).to.have.length(1);
+    expect(wrapper.find('button')).to.have.length(2);
   });
 
   it('should intialize to all false coin selections', () => {
