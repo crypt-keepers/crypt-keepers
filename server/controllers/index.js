@@ -7,6 +7,8 @@ module.exports = {
     get: (req, res) => {
       let { coin, dateStart, dateEnd, granularity } = req.query;
       granularity /= 1000;
+      dateStart = Number(dateStart);
+      dateEnd = Number(dateEnd);
       gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity)
         .then((series) => {
           res.json(series);
