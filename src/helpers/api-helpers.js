@@ -3,15 +3,15 @@ import bluebird from 'bluebird';
 import $ from 'jquery';
 import coinData from '../coin-data';
 
-const test = (model) => {
-  model.data = JSON.stringify(['HI']);
-  console.log('model.data is', model.data);
-  return model;
-};
-
-const helpers = {
-  test,
-};
+// const test = (model) => {
+//   model.data = JSON.stringify(['HI']);
+//   console.log('model.data is', model.data);
+//   return model;
+// };
+//
+// const helpers = {
+//   test,
+// };
 
 const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
 
@@ -26,22 +26,22 @@ const getRangeData = (coinName, range) => {
   const granularity = getRange[range] / 200; // GDAX takes 200 datapoints max
 
   return new Promise((resolve, reject) => {
-    resolve(coinData[coinName]);
+    // resolve(coinData[coinName]);
 
     // Actual AJAX call test is waiting until routes are done
-    // $.ajax({
-    //   url: '/range',
-    //   data: { coin, dateStart, dateEnd, granularity },
-    // }).done((data) => {
-    //   resolve(data);
-    // }).fail((error) => {
-    //   reject(error);
-    // });
+    $.ajax({
+      url: '/range',
+      data: { coin, dateStart, dateEnd, granularity },
+    }).done((data) => {
+      resolve(data);
+    }).fail((error) => {
+      reject(error);
+    });
   });
 };
 
-const getTrendingNews = () => {
-  return new Promise((resolve, reject) => {
+const getTrendingNews = () => (
+  new Promise((resolve, reject) => {
     $.ajax({
       url: '/search',
       method: 'GET',
@@ -52,8 +52,8 @@ const getTrendingNews = () => {
         reject(err);
       },
     });
-  });
-};
+  })
+);
 
 const getCoinData = (coin) => {
   const coinSymbol = translateCoin[coin];
@@ -70,6 +70,6 @@ const getCoinData = (coin) => {
       },
     });
   });
-}
+};
 
 export default { getRangeData, getTrendingNews, getCoinData };

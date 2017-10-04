@@ -160,11 +160,11 @@ class News extends React.Component {
   render() {
     return (
       <div>
-        <div className="topButtonBar">
+        <div className="top-button-bar">
           <button onClick={() => { this.handleClick(true); }} >Trending</button>
           <button onClick={() => { this.handleClick(false); }} >My News</button>
         </div>
-        <div className="news">
+        <div className="news-container">
           {this.state.curData.map(article => (
             <NewsItem key={article.id} article={article} />
           ))}

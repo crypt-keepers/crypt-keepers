@@ -1,4 +1,4 @@
-.menu-hide, .menu-show {
+/*.menu-hide, .menu-show {
     font-size: 15px;
     max-height: 0;
     overflow-y: hidden;
@@ -6,7 +6,65 @@
     -moz-transition: max-height 0.5s ease-in-out;
     -o-transition: max-height 0.5s ease-in-out;
     transition: max-height 0.5s ease-in-out;
+    position: relative;
 }
 .menu-show {
     max-height: 1000px;
+}*/
+
+.menu-hide {
+    font-size: 15px;
+    display: none;
+    position: relative;
 }
+.menu-show {
+    position: absolute;
+}
+
+.component-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.news-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100px;
+}
+
+.news-item {
+    width: 25%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/*.top-button-bar {
+    position: fixed;
+}*/
