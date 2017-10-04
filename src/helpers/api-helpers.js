@@ -26,9 +26,6 @@ const getRangeData = (coinName, range) => {
   const granularity = getRange[range] / 200; // GDAX takes 200 datapoints max
 
   return new Promise((resolve, reject) => {
-    // resolve(coinData[coinName]);
-
-    // Actual AJAX call test is waiting until routes are done
     $.ajax({
       url: '/range',
       data: { coin, dateStart, dateEnd, granularity },
