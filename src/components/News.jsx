@@ -3,6 +3,7 @@ import uniqBy from 'lodash/uniqBy';
 import PropTypes from 'prop-types';
 import newsData from '../news-data';
 import NewsItem from './NewsItem';
+import helpers from '../helpers/api-helpers';
 
 const propTypes = {
   coin: PropTypes.string,
@@ -43,11 +44,20 @@ class News extends React.Component {
     this.state = {
       trendingSelected: true,
       curData: [],
+      trending: [],
+      bitcoin: [],
+      litecoin: [],
+      etherium: [],
     };
 
     this.setTrendingData = this.setTrendingData.bind(this);
     this.setMyData = this.setMyData.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.refreshNews = this.refreshNews.bind(this);
+
+    setInterval(() => {
+      this.refreshNews();
+    }, (60000 * 3));
   }
 
   componentDidMount() {
@@ -67,30 +77,80 @@ class News extends React.Component {
     if (newCoin.length) {
       const coinArr = newCoin.split(' ');
       let dataArr = [];
+      const promiseArr = [];
       coinArr.forEach((coin) => {
-        if (coin) {
-          dataArr = dataArr.concat(newsData[coin]);
+        if (this.state[coin].length) {
+          dataArr = dataArr.concat(this.state[coin]);
+        } else {
+          const promise = helpers.getCoinData(coin)
+            .then((data) => {
+              this.setState({ [coin]: data.results });
+              dataArr = dataArr.concat(data.results);
+            });
+          promiseArr.push(promise);
         }
       });
-      dataArr = parseData(dataArr);
-      this.setState({ curData: dataArr });
+      if (promiseArr.length) {
+        Promise.all(promiseArr)
+          .then(() => {
+            dataArr = parseData(dataArr);
+            this.setState({ curData: dataArr });
+          });
+      } else {
+        dataArr = parseData(dataArr);
+        this.setState({ curData: dataArr });
+      }
     } else {
-      this.setState({ curData: newsData.trending });
+      helpers.getTrendingNews()
+        .then((data) => {
+          this.setState({ trending: data.results, curData: data.results });
+        });
     }
   }
 
   setMyData(coinArr) {
     let arr = [];
     coinArr.forEach((coin) => {
-      arr = arr.concat(newsData[coin]);
+      arr = arr.concat(this.state[coin]);
     });
     arr = parseData(arr);
     this.setState({ curData: arr, trendingSelected: false });
   }
 
+  refreshNews() {
+    const newsArr = ['trending', 'bitcoin', 'litecoin', 'etherium'];
+    const promiseArr = [];
+    newsArr.forEach((el) => {
+      if (this.state[el].length) {
+        if (el === 'trending') {
+          const promise = helpers.getTrendingNews()
+            .then((data) => {
+              this.setState({ trending: data.results });
+            });
+          promiseArr.push(promise);
+        } else {
+          const promise = helpers.getCoinData(el)
+            .then((data) => {
+              this.setState({ [el]: data.results });
+            });
+          promiseArr.push(promise);
+        }
+      }
+    });
+
+    Promise.all(promiseArr)
+      .then(() => {
+        if (this.state.trendingSelected) {
+          this.setState({ curData: this.state.trending });
+        } else {
+          this.setMyData(this.props.list);
+        }
+      });
+  }
+
   handleClick(isTrending) {
     if (isTrending && !this.state.trendingSelected) {
-      this.setState({ curData: newsData.trending, trendingSelected: true });
+      this.setState({ curData: this.state.trending, trendingSelected: true });
     }
     if (!isTrending && this.state.trendingSelected) {
       this.setMyData(this.props.list);
