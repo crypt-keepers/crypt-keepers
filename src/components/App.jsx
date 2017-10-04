@@ -18,27 +18,29 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      curCoin: '',
+      coinList: '',
       list: [],
       modalIsOpen: true,
       username: '',
+      activeCoin: '',
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePanelClick = this.handlePanelClick.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   handleSearch(coin, isAdded = true) {
-    let newString = `${this.state.curCoin} ${coin.toLowerCase().trim()}`;
+    let newString = `${this.state.coinList} ${coin.toLowerCase().trim()}`;
     if (!isAdded) {
       const re = new RegExp(coin, 'gi');
       newString = newString.replace(re, '');
     }
-    this.setState({ curCoin: newString.trim() });
+    this.setState({ coinList: newString.trim() });
   }
 
   handleChange(e) {
@@ -66,6 +68,10 @@ export default class App extends React.Component {
 
   handlePanelClick(coin) {
     // TODO: Pass coin down to data display so new graph can be rendered
+    if (this.state.activeCoin !== coin) {
+      console.log('changing active coin', coin);
+      this.setState({ activeCoin: coin });
+    }
   }
 
   openModal() {
@@ -100,14 +106,14 @@ export default class App extends React.Component {
         </Modal>
         <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} />
         <div className="data-container">
-          <DataDisplay coin={this.state.curCoin} />
+          <DataDisplay activeCoin={this.state.activeCoin} />
           <Panel
-            coin={this.state.curCoin}
+            coin={this.state.coinList}
             list={this.state.list}
             handleClick={this.handlePanelClick}
           />
         </div>
-        <News coin={this.state.curCoin} list={this.state.list} />
+        <News coin={this.state.coinList} list={this.state.list} />
       </div>
     );
   }
