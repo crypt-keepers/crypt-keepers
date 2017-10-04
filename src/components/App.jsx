@@ -4,7 +4,7 @@ import Search from './Search';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
-import dummyData from '../data.json';
+// import dummyData from '../data.json';
 
 const customStyles = {
   content: {
@@ -19,7 +19,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: dummyData,
+      // data: dummyData,
       curCoin: '',
       list: [],
       modalIsOpen: true,
@@ -97,7 +97,7 @@ export default class App extends React.Component {
           </form>
         </Modal>
         <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} />
-        <DataDisplay data={this.state.data} />
+        <DataDisplay coin={this.state.curCoin} />
         <Panel />
         <News coin={this.state.curCoin} list={this.state.list} />
       </div>
