@@ -55,7 +55,9 @@ module.exports = {
   },
   search: {
     get: (req, res) => {
-      models.search.get()
+      let {currency} = req.query; // get currency from req.query
+
+      models.search.get(currency)
         .then((data) => {
           res.status(200).send(data);
         })

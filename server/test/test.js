@@ -1,9 +1,10 @@
-// const app = require('../index.js');
 // const request = require('request');
 // const expect = require('chai').expect;
 
-// const port = 4568;
-
+const expect = require('chai').expect;
+const supertest = require('supertest');
+const server = require('../index.js');
+const request = supertest.agent(server);
 
 describe('Cryptonoium Server tests', () => {
   before(() => {
@@ -28,11 +29,23 @@ describe('Cryptonoium Server tests', () => {
   });
 
   describe('Cryptonoium Search tests', () => {
-    it('Should get search details');
-    it('Should post search details');
+    xit('Should get news search for specific currency', (done) => {
+      // http://localhost:3000/search?currency=ETH
+      done();
+    });
+    xit('Should get news search for all currencies', (done) => {
+      // http://localhost:3000/search
+      done();
+    });
   });
 
   describe('Cryptonoium Range tests', () => {
+    it('should return an array of time series data', (done) => {
+      request
+        .get('/range')
+        .expect(200);
+      done();
+    });
     it('Should get range details');
     it('Should post range details');
   });
