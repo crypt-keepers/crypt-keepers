@@ -10,7 +10,7 @@ const getTimeSeriesByRange = (coin = 'BTC',  dateStart = Date.now() - 86400000, 
       granularity: granularity,
     },
     headers: {
-      'User-Agent': 'Request-Promise',
+      'User-Agent': 'Cryptonium',
     },
     json: true,
   };
@@ -24,13 +24,13 @@ const getTickerData = (coin = 'BTC', currency = 'USD') => {
   const options = {
     url: `https://api.gdax.com/products/${coin}-${currency}/ticker`,
     headers: {
-      'User-Agent': 'Request-Promise',
+      'User-Agent': 'Cryptonium',
     },
     json: true,
   };
 
   return rp(options)
-    .then(series => series)
+    .then(data => data)
     .catch(err => console.error(err));
 };
 
