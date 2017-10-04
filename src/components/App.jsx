@@ -55,9 +55,14 @@ export default class App extends React.Component {
   }
 
   handleAdd(coins) {
-    // TODO: Make api POST request to add new list
-    const arr = coins.toLowerCase().trim().split(' ').concat(this.state.list);
-    const set = new Set(arr);
+    // TODO: Make api POST request to change list
+    const arr = coins.toLowerCase().trim().split(' ');
+    const set = new Set(this.state.list);
+    arr.forEach((coin) => {
+      if (!set.has(coin)) {
+        set.add(coin);
+      }
+    });
     this.setState({ list: [...set] });
   }
 
