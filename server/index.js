@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const router = require('./routes');
 const path = require('path');
 const compression = require('compression');
->>>>>>> (feat) Get time series by range
 
 const app = express();
 app.use(morgan('dev'));

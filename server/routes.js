@@ -26,11 +26,7 @@ router.post('/user', controller.user.post);
 // });
 
 router.get('/ticker', controller.ticker.get);
-<<<<<<< HEAD
-=======
-router.post('/ticker', controller.ticker.post);
 
->>>>>>> (feat) Implement ticker route to fetch spot, bid, ask prices
 
 // app.get('/search', () => {
 //   // get news for specific coin
