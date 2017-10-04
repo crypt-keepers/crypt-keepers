@@ -41,17 +41,25 @@ const getTimeSeriesByRange = (coin = 'BTC',  dateStart = Date.now() - 86400000, 
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> (feat) Implement ticker route to fetch spot, bid, ask prices
 const getTickerData = (coin = 'BTC', currency = 'USD') => {
   const options = {
     url: `https://api.gdax.com/products/${coin}-${currency}/ticker`,
     headers: {
+<<<<<<< HEAD
       'User-Agent': 'Cryptonium',
+=======
+      'User-Agent': 'Request-Promise',
+>>>>>>> (feat) Implement ticker route to fetch spot, bid, ask prices
     },
     json: true,
   };
 
   return rp(options)
+<<<<<<< HEAD
     .then(data => data)
     .catch(err => console.error(err));
 };
@@ -64,3 +72,11 @@ module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
 =======
 module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
 >>>>>>> (feat) Get time series by range
+=======
+    .then(series => series)
+    .catch(err => console.error(err));
+};
+
+module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
+module.exports.getTickerData = getTickerData;
+>>>>>>> (feat) Implement ticker route to fetch spot, bid, ask prices
