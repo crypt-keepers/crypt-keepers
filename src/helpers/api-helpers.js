@@ -13,8 +13,9 @@ const helpers = {
   test,
 };
 
+const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
+
 const getRangeData = (coinName, range) => {
-  const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
   const coin = translateCoin[coinName];
 
   // range in milliseconds
@@ -39,5 +40,36 @@ const getRangeData = (coinName, range) => {
   });
 };
 
-export default { getRangeData };
+const getTrendingNews = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: '/search',
+      method: 'GET',
+      success: (data) => {
+        resolve(data);
+      },
+      error: (err) => {
+        reject(err);
+      },
+    });
+  });
+};
 
+const getCoinData = (coin) => {
+  const coinSymbol = translateCoin[coin];
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: '/search',
+      method: 'GET',
+      data: { currency: coinSymbol },
+      success: (data) => {
+        resolve(data);
+      },
+      error: (err) => {
+        reject(err);
+      },
+    });
+  });
+}
+
+export default { getRangeData, getTrendingNews, getCoinData };
