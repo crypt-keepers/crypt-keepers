@@ -20,4 +20,19 @@ const getTimeSeriesByRange = (coin = 'BTC',  dateStart = Date.now() - 86400000, 
     .catch(err => console.error(err));
 };
 
+const getTickerData = (coin = 'BTC', currency = 'USD') => {
+  const options = {
+    url: `https://api.gdax.com/products/${coin}-${currency}/ticker`,
+    headers: {
+      'User-Agent': 'Request-Promise',
+    },
+    json: true,
+  };
+
+  return rp(options)
+    .then(series => series)
+    .catch(err => console.error(err));
+};
+
 module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
+module.exports.getTickerData = getTickerData;
