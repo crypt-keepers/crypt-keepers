@@ -98,7 +98,7 @@ export default class App extends React.Component {
         </Modal>
         <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} />
         <DataDisplay coin={this.state.curCoin} />
-        <Panel />
+        <Panel coin={this.state.curCoin} />
         <News coin={this.state.curCoin} list={this.state.list} />
       </div>
     );
