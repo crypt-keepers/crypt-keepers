@@ -1,16 +1,23 @@
 const models = require('../models');
+const gdax = require('../../helpers/gdax.js')
+
 
 module.exports = {
   range: {
     get: (req, res) => {
-      models.range.get()
-        .then((data) => {
-          res.status(200).send(data);
+      let coin = req.body.coin;
+      let dateStart = req.body.dateStart;
+      let dateEnd = req.body.dateEnd;
+      if (req.body.granularity) {
+        let granularity = (req.body.granularity) / 1000;
+      }
+      gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity = 600)
+        .then((series) => {
+          res.json(series);
         })
         .catch((err) => {
-          // placeholder for response 404
-          res.status(404).send();
-          throw err;
+          console.error(err);
+          res.sendStatus(404);
         });
     },
     post: (req, res) => {
@@ -19,13 +26,33 @@ module.exports = {
           res.status(201).send();
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
     },
   },
-
+  ticker: {
+    get: (req, res) => {
+      gdax.getTickerData('BTC')
+        .then((ticker) => {
+          res.json(ticker);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(404);
+        });
+    },
+    post: (req, res) => {
+      models.range.post()
+        .then(() => {
+          res.status(201).send();
+        })
+        .catch((err) => {
+          res.status(404).send();
+          throw err;
+        });
+    },
+  },
   search: {
     get: (req, res) => {
       models.search.get()
@@ -33,7 +60,6 @@ module.exports = {
           res.status(200).send(data);
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
@@ -44,7 +70,6 @@ module.exports = {
           res.status(201).send();
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
@@ -58,7 +83,6 @@ module.exports = {
           res.status(200).send(data);
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
@@ -69,7 +93,6 @@ module.exports = {
           res.status(201).send();
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
@@ -83,7 +106,6 @@ module.exports = {
           res.status(200).send(data);
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });
@@ -94,7 +116,6 @@ module.exports = {
           res.status(201).send();
         })
         .catch((err) => {
-          // placeholder for response 404
           res.status(404).send();
           throw err;
         });

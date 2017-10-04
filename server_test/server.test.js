@@ -1,20 +1,17 @@
-var expect = require('chai').expect;
-var request = require('request');
 
-var app = require('../server/index.js');
-// var port = 4568;
+const expect = require('chai').expect;
+const server = require('../server/index.js');
+const supertest = require('supertest');
+const request = supertest.agent(server);
 
-//TODO: Fix me once schema is done.
-// This is an example of how to clear Mongo schema before each test
-// Good tutorial for MERN stack tests:
-// https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai
-describe('List', () => {
-  // beforeEach((done) => {
-  //   List.remove({}, (err) => {
-  //     done();
-  //   });
-  // });
-  it ('should test', () => {
-    expect(2 + 2).to.equal(4);
+describe('server', function() {
+  describe('GET /range', function() {
+    it('should return an array of time series data', function(done) {
+      request
+        .get('/range')
+        .expect(200)
+      done();
+    });
   });
+
 });

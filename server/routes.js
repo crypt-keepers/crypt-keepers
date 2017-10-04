@@ -20,6 +20,9 @@ const controller = require('./controllers');
 router.get('/range', controller.range.get);
 router.post('/range', controller.range.post);
 
+router.get('/ticker', controller.ticker.get);
+router.post('/ticker', controller.ticker.post);
+
 
 // app.get('/search', () => {
 //   // get news for specific coin

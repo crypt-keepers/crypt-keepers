@@ -52,7 +52,8 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "supertest": "^3.0.0"
   },
   "babel": {
     "presets": [
