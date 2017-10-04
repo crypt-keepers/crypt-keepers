@@ -20,7 +20,7 @@ const defaultProps = {
 };
 
 const NewsItem = props => (
-  <div className="news">
+  <div className="news-item">
     <div className="title">
       <a href={props.article.url} target="_blank">
         {props.article.title}

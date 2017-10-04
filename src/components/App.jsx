@@ -78,7 +78,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="component-container">
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -99,12 +99,14 @@ export default class App extends React.Component {
           </form>
         </Modal>
         <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} />
-        <DataDisplay coin={this.state.curCoin} />
-        <Panel
-          coin={this.state.curCoin}
-          list={this.state.list}
-          handleClick={this.handlePanelClick}
-        />
+        <div className="data-container">
+          <DataDisplay coin={this.state.curCoin} />
+          <Panel
+            coin={this.state.curCoin}
+            list={this.state.list}
+            handleClick={this.handlePanelClick}
+          />
+        </div>
         <News coin={this.state.curCoin} list={this.state.list} />
       </div>
     );
