@@ -1,6 +1,7 @@
 const request = require('request');
 const rp = require('request-promise');
 
+<<<<<<< HEAD
 const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, currency = 'USD') => {
   const options = {
     url: `https://api.gdax.com/products/${coin}-${currency}/candles`,
@@ -11,6 +12,18 @@ const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, cur
     },
     headers: {
       'User-Agent': 'Cryptonium',
+=======
+const getTimeSeriesByRange = (coin = 'BTC',  dateStart = Date.now() - 86400000, dateEnd = Date.now(), granularity = 600, currency = 'USD') => {
+  const options = {
+    url: `https://api.gdax.com/products/${coin}-${currency}/candles`,
+    qs: {
+      start: new Date(dateStart),
+      end: new Date(dateEnd),
+      granularity: granularity,
+    },
+    headers: {
+      'User-Agent': 'Request-Promise',
+>>>>>>> (feat) Get time series by range
     },
     json: true,
   };
@@ -20,6 +33,7 @@ const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, cur
     .catch(err => console.error(err));
 };
 
+<<<<<<< HEAD
 
 const getTickerData = (coin = 'BTC', currency = 'USD') => {
   const options = {
@@ -37,3 +51,6 @@ const getTickerData = (coin = 'BTC', currency = 'USD') => {
 
 module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
 module.exports.getTickerData = getTickerData;
+=======
+module.exports.getTimeSeriesByRange = getTimeSeriesByRange;
+>>>>>>> (feat) Get time series by range
