@@ -1,25 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tickerData from '../ticker-data';
+import helpers from '../helpers/api-helpers';
 
-const propTypes = {
-  coin: PropTypes.string,
-};
-
-const defaultProps = {
-  coin: '',
-};
-
-const Trending = props => {
+const Trending = () => {
+  helpers.getTickerData()
+    .then((data) => console.log(data));
 
   return (
     <div>Trending and Pie Chart!
-      <div>{props.coin}</div>
+      <div>Ticker</div>
     </div>
   );
 };
-
-Trending.propTypes = propTypes;
-Trending.defaultProps = defaultProps;
 
 export default Trending;
