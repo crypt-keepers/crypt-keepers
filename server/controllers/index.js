@@ -5,13 +5,9 @@ const gdax = require('../../helpers/gdax.js')
 module.exports = {
   range: {
     get: (req, res) => {
-      let coin = req.query.coin;
-      let dateStart = req.query.dateStart;
-      let dateEnd = req.query.dateEnd;
-      if (req.query.granularity) {
-        let granularity = (req.query.granularity) / 1000;
-      }
-      gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity = 600)
+      let { coin, dateStart, dateEnd, granularity } = req.query;
+      granularity /= 1000;
+      gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity)
         .then((series) => {
           res.json(series);
         })
