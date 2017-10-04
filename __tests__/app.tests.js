@@ -10,6 +10,7 @@ import App from '../src/components/App';
 import News from '../src/components/News';
 import NewsItem from '../src/components/NewsItem';
 import Search from '../src/components/Search';
+import DataDisplay from '../src/components/DataDisplay';
 
 configure({ adapter: new Adapter() });
 

@@ -1,23 +1,11 @@
 import Model from '../model-view';
-import bluebird from 'bluebird';
+import Promise from 'bluebird';
 import $ from 'jquery';
-import coinData from '../coin-data';
-
-// const test = (model) => {
-//   model.data = JSON.stringify(['HI']);
-//   console.log('model.data is', model.data);
-//   return model;
-// };
-//
-// const helpers = {
-//   test,
-// };
 
 const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
 
 const getRangeData = (coinName, range) => {
   const coin = translateCoin[coinName];
-
   // range in milliseconds
   const getRange = { '1D': 86400000, '1W': 604800000, '1M': 2592000000, '1Y': 31536000000 };
   const now = new Date();
@@ -26,12 +14,9 @@ const getRangeData = (coinName, range) => {
   const granularity = getRange[range] / 200; // GDAX takes 200 datapoints max
 
   return new Promise((resolve, reject) => {
-    // resolve(coinData[coinName]);
-
-    // Actual AJAX call test is waiting until routes are done
     $.ajax({
       url: '/range',
-      data: { coin, dateStart, dateEnd, granularity },
+      data: { coin, dateStart, dateEnd, granularity }, // send all time-data in milliseconds
     }).done((data) => {
       resolve(data);
     }).fail((error) => {
@@ -72,4 +57,23 @@ const getCoinData = (coin) => {
   });
 };
 
-export default { getRangeData, getTrendingNews, getCoinData };
+const getTickerData = () => {
+  const coins = ['BTC', 'ETH', 'LTC'];
+  const coinsArr = [];
+  coins.forEach((coin) => {
+    coinsArr.push(new Promise((resolve, reject) => {
+      $.ajax({
+        url: '/ticker',
+        data: { coin },
+      }).done((data) => {
+        resolve({ [coin]: data });
+      }).fail((error) => {
+        reject(error);
+      });
+    }));
+  });
+
+  return Promise.all(coinsArr);
+};
+
+export default { getRangeData, getTrendingNews, getCoinData, getTickerData };

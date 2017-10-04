@@ -1,13 +1,13 @@
 const request = require('request');
 const rp = require('request-promise');
 
-const getTimeSeriesByRange = (coin = 'BTC',  dateStart = Date.now() - 86400000, dateEnd = Date.now(), granularity = 600, currency = 'USD') => {
+const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, currency = 'USD') => {
   const options = {
     url: `https://api.gdax.com/products/${coin}-${currency}/candles`,
     qs: {
-      start: new Date(dateStart),
-      end: new Date(dateEnd),
-      granularity: granularity,
+      start: new Date(Number(dateStart)),
+      end: new Date(Number(dateEnd)),
+      granularity: Number(granularity),
     },
     headers: {
       'User-Agent': 'Cryptonium',

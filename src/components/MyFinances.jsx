@@ -9,7 +9,7 @@ const defaultProps = {
   list: [],
 };
 
-const MyList = props => (
+const MyFinances = props => (
   <div>
     {props.list.map(coin => (
       <div
@@ -24,7 +24,7 @@ const MyList = props => (
   </div>
 );
 
-MyList.propTypes = propTypes;
-MyList.defaultProps = defaultProps;
+MyFinances.propTypes = propTypes;
+MyFinances.defaultProps = defaultProps;
 
-export default MyList;
+export default MyFinances;

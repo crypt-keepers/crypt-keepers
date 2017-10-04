@@ -107,8 +107,8 @@ class DataDisplay extends React.Component {
     const coinName = (this.props.activeCoin.length) ? this.props.activeCoin : 'bitcoin';
 
     return (
-      <div className="data-display-container">DataDisplay for {coinName}
-        <div id="data-display" />
+      <div className="data-display-container">Value of {coinName} in USD plotted over {this.state.range} range
+        <div id="data-display"></div>
         <div className={this.state.isLoading ? 'data-overlay' : ''} />
         <div className={this.state.isLoading ? 'loader' : ''} />
         <button onClick={() => this.getRangeData(coinName, '1D')}>1D</button>
