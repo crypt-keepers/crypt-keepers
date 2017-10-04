@@ -4,7 +4,6 @@ import Search from './Search';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
-// import dummyData from '../data.json';
 
 const customStyles = {
   content: {
@@ -19,7 +18,6 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: dummyData,
       curCoin: '',
       list: [],
       modalIsOpen: true,
