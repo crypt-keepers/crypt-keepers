@@ -5,10 +5,12 @@ import MyList from './MyList';
 
 const propTypes = {
   coin: PropTypes.string,
+  list: PropTypes.arrayOf(PropTypes.string),
 };
 
 const defaultProps = {
   coin: '',
+  list: [],
 };
 
 class Panel extends React.Component {
@@ -40,7 +42,7 @@ class Panel extends React.Component {
         <div className="main">
           {this.state.view === 'trending'
             ? <Trending coin={this.props.coin} />
-            : <MyList />}
+            : <MyList list={this.props.list} handleClick={this.props.handleClick}/>}
         </div>
       </div>
     );

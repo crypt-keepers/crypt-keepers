@@ -66,6 +66,10 @@ export default class App extends React.Component {
     this.setState({ list: [...set] });
   }
 
+  handlePanelClick(coin) {
+    // TODO: Pass coin down to data display so new graph can be rendered
+  }
+
   openModal() {
     this.setState({ modalIsOpen: true });
   }
@@ -98,7 +102,11 @@ export default class App extends React.Component {
         </Modal>
         <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} />
         <DataDisplay coin={this.state.curCoin} />
-        <Panel coin={this.state.curCoin} />
+        <Panel
+          coin={this.state.curCoin}
+          list={this.state.list}
+          handleClick={this.handlePanelClick}
+        />
         <News coin={this.state.curCoin} list={this.state.list} />
       </div>
     );
