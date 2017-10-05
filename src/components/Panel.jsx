@@ -4,14 +4,10 @@ import Overview from './Overview';
 import MyFinances from './MyFinances';
 
 const propTypes = {
-  coin: PropTypes.string,
-  list: PropTypes.arrayOf(PropTypes.string),
   handleClick: PropTypes.func,
 };
 
 const defaultProps = {
-  coin: '',
-  list: [],
   handleClick: () => {},
 };
 

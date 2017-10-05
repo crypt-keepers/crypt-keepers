@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import Search from './Search';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
@@ -18,29 +17,16 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      coinList: '',
-      list: [],
       modalIsOpen: true,
       username: '',
       activeCoin: '',
     };
 
-    this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  handleSearch(coin, isAdded = true) {
-    let newString = `${this.state.coinList} ${coin.toLowerCase().trim()}`;
-    if (!isAdded) {
-      const re = new RegExp(coin, 'gi');
-      newString = newString.replace(re, '');
-    }
-    this.setState({ coinList: newString.trim() });
   }
 
   handleChange(e) {
@@ -52,18 +38,6 @@ export default class App extends React.Component {
     // or get existing username's list.
     e.preventDefault();
     this.closeModal();
-  }
-
-  handleAdd(coins) {
-    // TODO: Make api POST request to change list
-    const arr = coins.toLowerCase().trim().split(' ');
-    const set = new Set(this.state.list);
-    arr.forEach((coin) => {
-      if (!set.has(coin)) {
-        set.add(coin);
-      }
-    });
-    this.setState({ list: [...set] });
   }
 
   handlePanelClick(coin) {
@@ -103,14 +77,9 @@ export default class App extends React.Component {
             <input type="submit" value="Submit" />
           </form>
         </Modal>
-        {/* <Search onSearch={this.handleSearch} handleAdd={this.handleAdd} /> */}
         <div className="data-container">
           <DataDisplay activeCoin={this.state.activeCoin} />
-          <Panel
-            coin={this.state.coinList}
-            list={this.state.list}
-            handleClick={this.handlePanelClick}
-          />
+          <Panel handleClick={this.handlePanelClick} />
         </div>
         <News activeCoin={this.state.activeCoin} />
       </div>
