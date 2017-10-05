@@ -5,6 +5,7 @@ const expect = require('chai').expect;
 const supertest = require('supertest');
 const server = require('../index.js');
 const request = supertest.agent(server);
+const assert = require('assert');
 
 describe('Cryptonoium Server tests', () => {
   before(() => {
@@ -54,15 +55,15 @@ describe('Cryptonoium Server tests', () => {
     it('Should post list details', (done) => {
       request
         .post('/list')
-        .send({username: "bob", coin: "TST"})
-        .expect(201)
+        .send({ username: 'bob', coin: 'TST' })
+        .expect(201);
       done();
     });
     xit('Adds coins to a user watchlist', (done) => {
-
+      done();
     });
     xit('Should not add duplicate coins to watchlist', (done) => {
-
+      done();
     });
   });
 });
