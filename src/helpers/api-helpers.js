@@ -1,6 +1,6 @@
-import Model from '../model-view';
 import Promise from 'bluebird';
 import $ from 'jquery';
+import dbData from '../db-data'; // dummy db data
 
 const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
 
@@ -64,6 +64,7 @@ const getTickerData = () => {
     coinsArr.push(new Promise((resolve, reject) => {
       $.ajax({
         url: '/ticker',
+        method: 'GET',
         data: { coin },
       }).done((data) => {
         resolve({ coin, data });
@@ -76,4 +77,38 @@ const getTickerData = () => {
   return Promise.all(coinsArr);
 };
 
-export default { getRangeData, getTrendingNews, getCoinData, getTickerData };
+const getUserData = username => (
+  new Promise((resolve, reject) => {
+    resolve(dbData[username]);
+
+    // USE THIS WHEN SERVER SIDE IS READY
+    // $.ajax({
+    //   url: '/user',
+    //   method: 'GET',
+    //   data: { username },
+    // }).done((userData) => {
+    //   resolve(userData);
+    // }).fail((error) => {
+    //   reject(error);
+    // });
+  })
+);
+
+const postUserData = (username, coin, quantity) => (
+  new Promise((resolve, reject) => {
+    resolve(dbData[username]);
+
+    // USE THIS WHEN SERVER SIDE IS READY
+    // $.ajax({
+    //   url: '/user',
+    //   method: 'POST',
+    //   data: { username, coin, quantity },
+    // }).done((data) => {
+    //   resolve(data);
+    // }).fail((error) => {
+    //   reject(error);
+    // });
+  })
+);
+
+export default { getRangeData, getTrendingNews, getCoinData, getTickerData, getUserData, postUserData };
