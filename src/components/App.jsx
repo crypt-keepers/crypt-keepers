@@ -33,11 +33,13 @@ export default class App extends React.Component {
     this.setState({ username: e.target.value });
   }
 
-  handleSubmit(e) {
-    // TODO: Make API call with username to either create new username
-    // or get existing username's list.
+  handleSubmit(e, coin, amount) {
     e.preventDefault();
     this.closeModal();
+    
+    // TODO: Make API call with username to either create new username
+    // or get existing username's list.
+    console.log('handleSubmit', e, coin, amount);
   }
 
   handlePanelClick(coin) {
@@ -79,7 +81,7 @@ export default class App extends React.Component {
         </Modal>
         <div className="data-container">
           <DataDisplay activeCoin={this.state.activeCoin} />
-          <Panel handleClick={this.handlePanelClick} />
+          <Panel handleClick={this.handlePanelClick} handleSubmit={this.handleSubmit} />
         </div>
         <News activeCoin={this.state.activeCoin} />
       </div>
