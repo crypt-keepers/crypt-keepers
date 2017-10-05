@@ -7,19 +7,28 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: String,
-  watchlist: Array,
+  position: {
+    BTC: { type: Number, default: 0 },
+    ETH: { type: Number, default: 0 },
+    LTC: { type: Number, default: 0 },
+  },
 });
 const User = mongoose.model('User', userSchema);
 
 
 // add coin to watchlist
-const updateWatchList = (user, coin) => {
+const updatePosition = (user, coin, quantity) => {
+  let p = `position.${user}`;
   return User.collection.findOneAndUpdate(
     { username: user },
-    { $addToSet: { watchlist: coin } },
+    { $inc: { p: quantity } },
     { upsert: true, returnNewDocument: true }
   );
 };
 
+const findUser = (user) => {
+  // wants position
+}
+
 module.exports.User = User;
-module.exports.updateWatchList = updateWatchList;
+module.exports.updateWatchList = updatePosition;

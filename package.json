@@ -24,26 +24,17 @@
     "compression": "^1.7.1",
     "d3": "^4.11.0",
     "express": "^4.15.5",
-<<<<<<< HEAD
-    "jquery": "^3.2.1",
-=======
     "gdax": "^0.4.2",
     "jquery": "^3.1.1",
->>>>>>> (feat) Get time series by range
     "json-loader": "^0.5.7",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.13",
     "morgan": "^1.8.2",
     "prop-types": "^15.6.0",
-<<<<<<< HEAD
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-modal": "^2.3.2",
     "react-test-renderer": "^16.0.0",
-=======
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
->>>>>>> (feat) Get time series by range
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "webpack": "^3.6.0"

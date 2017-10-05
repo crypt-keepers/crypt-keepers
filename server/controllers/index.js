@@ -58,9 +58,7 @@ module.exports = {
         });
     },
     post: (req, res) => {
-      const { username, coin } = req.body;
-      db.updateWatchList(username, coin)
-        .then(res.sendStatus(201));
+
     },
   },
 
@@ -76,14 +74,9 @@ module.exports = {
         });
     },
     post: (req, res) => {
-      models.user.post()
-        .then(() => {
-          res.status(201).send();
-        })
-        .catch((err) => {
-          res.status(404).send();
-          throw err;
-        });
+      const { username, coin, quantity } = req.body;
+      db.updateWatchList(username, coin, quantity)
+        .then(res.sendStatus(201));
     },
   },
 
