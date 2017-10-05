@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
+import helpers from '../helpers/api-helpers';
 
 const customStyles = {
   content: {
@@ -33,20 +34,15 @@ export default class App extends React.Component {
     this.setState({ username: e.target.value });
   }
 
-  handleSubmit(e, coin, amount) {
+  handleSubmit(e, coin, quantity) {
     e.preventDefault();
-    
     // two features share this event, modal and addCoin
     // differentiator is this.state.modalIsOpen
-
-    // TODO: Make API call with username to either create new username
-    // or get existing username's list.
-
     if (this.state.modalIsOpen) {
       this.closeModal();
-    } else {
-      console.log('handleSubmit', e, coin, amount);
+      return helpers.getUserData(this.state.username);
     }
+    return helpers.postUserData(this.state.username, coin, quantity);
   }
 
   handlePanelClick(coin) {
