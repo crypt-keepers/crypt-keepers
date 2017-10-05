@@ -51,7 +51,7 @@ const getCoinData = (coin) => {
         resolve(data);
       },
       error: (err) => {
-        reject(err);
+        reject(err.toString());
       },
     });
   });
