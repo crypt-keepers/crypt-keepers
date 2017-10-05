@@ -25,6 +25,7 @@ router.post('/user', controller.user.post);
 //   // Send back coin data with NO metadata
 // });
 
+router.get('/ticker', controller.ticker.get);
 
 // app.get('/search', () => {
 //   // get news for specific coin
