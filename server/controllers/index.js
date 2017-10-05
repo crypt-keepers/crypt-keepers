@@ -80,7 +80,11 @@ module.exports = {
     },
     post: (req, res) => {
       const { username, coin, quantity } = req.body;
+<<<<<<< HEAD
       db.updatePosition(username, coin, Number(quantity))
+=======
+      db.updateWatchList(username, coin, quantity)
+>>>>>>> (feat) Add update position
         .then(res.sendStatus(201));
     },
   },
