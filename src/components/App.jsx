@@ -35,11 +35,18 @@ export default class App extends React.Component {
 
   handleSubmit(e, coin, amount) {
     e.preventDefault();
-    this.closeModal();
     
+    // two features share this event, modal and addCoin
+    // differentiator is this.state.modalIsOpen
+
     // TODO: Make API call with username to either create new username
     // or get existing username's list.
-    console.log('handleSubmit', e, coin, amount);
+
+    if (this.state.modalIsOpen) {
+      this.closeModal();
+    } else {
+      console.log('handleSubmit', e, coin, amount);
+    }
   }
 
   handlePanelClick(coin) {

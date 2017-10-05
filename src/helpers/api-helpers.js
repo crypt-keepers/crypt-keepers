@@ -64,6 +64,7 @@ const getTickerData = () => {
     coinsArr.push(new Promise((resolve, reject) => {
       $.ajax({
         url: '/ticker',
+        method: 'GET',
         data: { coin },
       }).done((data) => {
         resolve({ coin, data });
@@ -76,4 +77,21 @@ const getTickerData = () => {
   return Promise.all(coinsArr);
 };
 
-export default { getRangeData, getTrendingNews, getCoinData, getTickerData };
+const getUserData = (username) => {
+  // new Promise((resolve, reject) => {
+  //   $.ajax({
+  //     url: '/user',
+  //     method: 'GET',
+  //     username: username,
+  //   }).done((isUserInDatabase) =>{
+  //     if (isUserInDatabase) {
+  //       resolve(isUserInDatabase);
+  //     } else {
+
+  //     }
+  //   });
+  // })
+};
+
+
+export default { getRangeData, getTrendingNews, getCoinData, getTickerData, getUserData };

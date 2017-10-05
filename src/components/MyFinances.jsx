@@ -36,9 +36,9 @@ class MyFinances extends React.Component {
         <button onClick={e => this.addCoin(e)}>Add</button>
       </div>;
 
-    const DisplayCoin = <div>List of Transactions</div>;
+    const DisplayCoin = <div>List of Coins, Quantity, Current Value in USD</div>;
 
-    const PieChart = <div>Pie Chart</div>;
+    const PieChart = <div>PIE CHART!!!</div>;
 
     return (
       <div>
