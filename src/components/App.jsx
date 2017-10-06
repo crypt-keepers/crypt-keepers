@@ -76,7 +76,6 @@ export default class App extends React.Component {
                 <input
                   type="text"
                   name="username"
-                  onChange={this.handleChange}
                   id="username-field"
                 />
               </label>
@@ -87,7 +86,6 @@ export default class App extends React.Component {
             <DataDisplay activeCoin={this.state.activeCoin} />
             <Panel
               handleClick={this.handlePanelClick}
-              handleSubmit={this.handleSubmit}
               username={this.state.username}
             />
           </div>

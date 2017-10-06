@@ -13,7 +13,7 @@ const defaultProps = {
 
 const renderTimeSeriesData = (coinData) => {
   // clear svg before every render
-  d3.selectAll('svg').remove();
+  d3.select('#data-display').selectAll('svg').remove();
 
   // svg / line graph settings, hardcoded, customizable
   const width = 600;

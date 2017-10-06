@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import $ from 'jquery';
-import dbData from '../db-data'; // dummy db data
 
 const translateCoin = { bitcoin: 'BTC', etherium: 'ETH', litecoin: 'LTC' };
 
@@ -79,9 +78,6 @@ const getTickerData = () => {
 
 const getUserData = username => (
   new Promise((resolve, reject) => {
-    // resolve(dbData[username]);
-
-    // USE THIS WHEN SERVER SIDE IS READY
     $.ajax({
       url: '/user',
       method: 'GET',
@@ -96,9 +92,6 @@ const getUserData = username => (
 
 const postUserData = (username, coin, quantity) => (
   new Promise((resolve, reject) => {
-    // resolve(dbData[username]);
-
-    // USE THIS WHEN SERVER SIDE IS READY
     $.ajax({
       url: '/user',
       method: 'POST',
