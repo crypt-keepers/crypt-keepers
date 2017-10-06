@@ -65,34 +65,43 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="component-container">
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-          style={customStyles}
-        >
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="username">
-              Enter your username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
-        </Modal>
-        <div className="data-container">
-          <DataDisplay activeCoin={this.state.activeCoin} />
-          <Panel
-            handleClick={this.handlePanelClick}
-            handleSubmit={this.handleSubmit}
-          />
+      <div>
+        <div className="nav-bar">
+          <div className="logo">
+            <div>Cryptonium</div>
+            <img src="logo.png" alt="" />
+          </div>
+          <div className="greeting">
+            <div>Hi {this.state.modalIsOpen ? '' : this.state.username}</div>
+            <img src="avatar.png" alt="" />
+          </div>
         </div>
-        <News activeCoin={this.state.activeCoin} />
+        <div className="component-container">
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal"
+            style={customStyles}
+          >
+            <form onSubmit={this.handleSubmit}>
+              <label htmlFor="username">
+                Enter your username:
+                <input
+                  type="text"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          </Modal>
+          <div className="data-container">
+            <DataDisplay activeCoin={this.state.activeCoin} />
+            <Panel handleClick={this.handlePanelClick} handleSubmit={this.handleSubmit} />
+          </div>
+          <News activeCoin={this.state.activeCoin} />
+        </div>
       </div>
     );
   }

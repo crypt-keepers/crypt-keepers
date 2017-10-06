@@ -29,9 +29,8 @@ class Panel extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Side Panel</div>
-        <div className="nav">
+      <div className="panel-container">
+        <div className="panel-nav">
           <button onClick={() => this.changePanel('overview')}>
             Coin Overview
           </button>

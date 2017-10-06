@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import helpers from '../helpers/api-helpers';
+import OverviewItem from './OverviewItem';
 
 const propTypes = {
   handleClick: PropTypes.func,
@@ -31,7 +32,7 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div>Coin Overview
+      <div>Click a coin to see data<br />
         <div
           className="coin-item"
           onClick={() => { this.props.handleClick('bitcoin'); }}
@@ -39,9 +40,7 @@ class Overview extends React.Component {
           tabIndex="0"
         >
           Bitcoin
-          <div>
-            Price: {this.state.BTC ? Number(this.state.BTC.price).toFixed(2) : ''}
-          </div>
+          <OverviewItem coin={this.state.BTC} />
         </div>
         <div
           className="coin-item"
@@ -50,9 +49,7 @@ class Overview extends React.Component {
           tabIndex="0"
         >
           Litecoin
-          <div>
-            Price: {this.state.LTC ? Number(this.state.LTC.price).toFixed(2) : ''}
-          </div>
+          <OverviewItem coin={this.state.LTC} />
         </div>
         <div
           className="coin-item"
@@ -61,9 +58,7 @@ class Overview extends React.Component {
           tabIndex="0"
         >
           Etherium
-          <div>
-            Price: {this.state.ETH ? Number(this.state.ETH.price).toFixed(2) : ''}
-          </div>
+          <OverviewItem coin={this.state.ETH} />
         </div>
       </div>
     );

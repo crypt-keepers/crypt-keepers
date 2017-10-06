@@ -99,13 +99,13 @@ class News extends React.Component {
       ? this.props.activeCoin[0].toUpperCase() + this.props.activeCoin.slice(1)
       : 'Bitcoin';
     return (
-      <div>
+      <div className="news-panel">
         <div className="top-button-bar">
           <button onClick={() => { this.handleClick(true); }} >
-            Trending
+            <img src="trending.png" alt="Trending" />
           </button>
           <button onClick={() => { this.handleClick(false); }} >
-            {`${curCoinName} News`}
+            <img src="newspaper.ico" alt="News for Coin" />
           </button>
         </div>
         <div className="news-container">
