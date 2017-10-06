@@ -49,7 +49,6 @@ export default class App extends React.Component {
   }
 
   handlePanelClick(coin) {
-    // TODO: Pass coin down to data display so new graph can be rendered
     if (this.state.activeCoin !== coin) {
       this.setState({ activeCoin: coin });
     }

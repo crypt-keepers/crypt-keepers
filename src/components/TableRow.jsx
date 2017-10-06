@@ -11,11 +11,13 @@ const propTypes = {
     volume: PropTypes.string,
   }),
   name: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 const defaultProps = {
   coin: {},
   name: '',
+  onClick: e => (e),
 };
 
 const nameToSymbol = { BTC: 'Bitcoin', LTC: 'Litecoin', ETH: 'Etherium' };

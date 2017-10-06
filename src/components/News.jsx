@@ -95,9 +95,6 @@ class News extends React.Component {
 
   render() {
     const curArr = this.state[this.state.curSelection];
-    const curCoinName = this.props.activeCoin.length
-      ? this.props.activeCoin[0].toUpperCase() + this.props.activeCoin.slice(1)
-      : 'Bitcoin';
     return (
       <div className="news-panel">
         <div className="top-button-bar">

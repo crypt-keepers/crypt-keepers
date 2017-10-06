@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import helpers from '../helpers/api-helpers';
-import OverviewItem from './OverviewItem';
+// import OverviewItem from './OverviewItem';
 import TableRow from './TableRow';
 
 const propTypes = {
