@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
-import helpers from '../helpers/api-helpers';
 
 const customStyles = {
   content: {
@@ -23,29 +22,18 @@ export default class App extends React.Component {
       activeCoin: '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({ username: e.target.value });
-  }
-
-  handleSubmit(e, coin, quantity) {
-    if (e) {
-      e.preventDefault();
-      if (this.state.modalIsOpen) {
-        this.closeModal();
-      }
-      if (coin) {
-        return helpers.postUserData(this.state.username, coin, quantity)
-          .then(() => helpers.getUserData(this.state.username));
-      }
-    }
-    return helpers.getUserData(this.state.username);
+  handleSubmit(e) {
+    const node = document.getElementById('username-field');
+    const value = node ? node.value : '';
+    this.setState({ username: value });
+    e.preventDefault();
+    this.closeModal();
   }
 
   handlePanelClick(coin) {
@@ -88,8 +76,8 @@ export default class App extends React.Component {
                 <input
                   type="text"
                   name="username"
-                  value={this.state.username}
                   onChange={this.handleChange}
+                  id="username-field"
                 />
               </label>
               <input type="submit" value="Submit" />
@@ -97,7 +85,11 @@ export default class App extends React.Component {
           </Modal>
           <div className="data-container">
             <DataDisplay activeCoin={this.state.activeCoin} />
-            <Panel handleClick={this.handlePanelClick} handleSubmit={this.handleSubmit} />
+            <Panel
+              handleClick={this.handlePanelClick}
+              handleSubmit={this.handleSubmit}
+              username={this.state.username}
+            />
           </div>
           <News activeCoin={this.state.activeCoin} />
         </div>

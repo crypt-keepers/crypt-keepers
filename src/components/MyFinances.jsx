@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import helpers from '../helpers/api-helpers';
 
 const propTypes = {
-  handleSubmit: PropTypes.func,
+  className: PropTypes.string,
+  username: PropTypes.string,
 };
 
 const defaultProps = {
-  handleSubmit: () => {},
+  className: '',
+  username: '',
 };
 
 class MyFinances extends React.Component {
@@ -16,7 +18,6 @@ class MyFinances extends React.Component {
     this.state = {
       coin: 'ETH',
       quantity: '',
-      username: '',
       position: {},
       value: {},
       sum: 0,
@@ -24,17 +25,34 @@ class MyFinances extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.handleSubmit()
-      .then(userData => this.calculateValue(userData));
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.username.length) {
+      this.handleSubmit(null, null, null, nextProps.username)
+        .then(userData => this.calculateValue(userData));
+    }
+  }
+
+  handleSubmit(e, coin, quantity, username) {
+    if (e && coin) {
+      return helpers.postUserData(this.props.username, coin, quantity)
+        .then(() => helpers.getUserData(this.props.username));
+    }
+    return helpers.getUserData(username);
   }
 
   addCoin(e) {
-    this.props.handleSubmit(e, this.state.coin, this.state.quantity)
+    this.handleSubmit(e, this.state.coin, this.state.quantity)
       .then(userData => this.calculateValue(userData))
-      .then(() => this.setState({
-        showAlert: true,
-      }))
+      .then(() => {
+        this.setState({
+          showAlert: true,
+        });
+        setTimeout(() => {
+          this.setState({
+            showAlert: false,
+          });
+        }, 5000);
+      })
       .then(() => this.setState({
         coin: 'ETH',
         quantity: '',
@@ -52,7 +70,6 @@ class MyFinances extends React.Component {
         });
         sum = sum.toFixed(2);
         return this.setState({
-          username: userData.username,
           position: userData.position,
           value,
           sum,
@@ -62,9 +79,8 @@ class MyFinances extends React.Component {
 
   render() {
     const Alert = (this.state.showAlert)
-      ? <div>Coin added to {`${this.state.username}'`}s Wallet!</div>
+      ? <div>Coin added to {`${this.props.username}'`}s Wallet!</div>
       : '';
-
     const TableData = Object.keys(this.state.position).map(key => (
       <tr key={key}>
         <td>{key}</td>
@@ -76,7 +92,7 @@ class MyFinances extends React.Component {
     const PieChart = <div>PIE CHART!!!</div>;
 
     return (
-      <div>
+      <div className={this.props.className}>
         <div>
           <select
             value={this.state.coin}
@@ -95,7 +111,7 @@ class MyFinances extends React.Component {
           <button onClick={e => this.addCoin(e)}>Add</button>
         </div>
         {Alert}
-        <div>{`${this.state.username}'`}s Wallet in USD</div>
+        <div>{`${this.props.username}'`}s Wallet in USD</div>
         <table>
           <thead>
             <tr>

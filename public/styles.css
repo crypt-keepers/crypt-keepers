@@ -155,6 +155,11 @@ tr:hover {
     cursor: pointer;
 }
 
+.table-header:hover {
+    background-color: white;
+    cursor: auto;
+}
+
 .table-date {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -171,6 +176,15 @@ tr:hover {
 .panel-container {
     width: 30%;
     padding: 0.5em;
+}
+
+.panel-show {
+    display: inline;
+}
+
+.panel-hide {
+    display: none;
+    background-color: red;
 }
 
 .main {

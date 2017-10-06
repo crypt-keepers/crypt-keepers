@@ -6,10 +6,12 @@ import TableRow from './TableRow';
 
 const propTypes = {
   handleClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 const defaultProps = {
   handleClick: e => (e),
+  className: '',
 };
 
 class Overview extends React.Component {
@@ -44,10 +46,10 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div className="table-container">Click a coin to see data<br />
+      <div className={`table-container ${this.props.className}`}>Click a coin to see data<br />
         <table>
           <tbody>
-            <tr>
+            <tr className="table-header">
               <th />
               <th>Price</th>
               <th>Bid</th>
