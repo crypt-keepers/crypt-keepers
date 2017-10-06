@@ -20,15 +20,13 @@ const defaultProps = {
 };
 
 const NewsItem = props => (
-  <div className="news-item">
-    <a href={props.article.url} target="_blank">
-      <div className="title">
-        {props.article.title}
-      </div>
-      <div className="date">{(new Date(props.article.published_at)).toString()}</div>
-      <div className="source">{props.article.source.title}</div>
-    </a>
-  </div>
+  <a className="news-item" href={props.article.url} target="_blank">
+    <div className="title">
+      {props.article.title}
+    </div>
+    <div className="date">{(new Date(props.article.published_at)).toString()}</div>
+    <div className="source">{props.article.source.title}</div>
+  </a>
 );
 
 NewsItem.propTypes = propTypes;

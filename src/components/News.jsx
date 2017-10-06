@@ -95,13 +95,15 @@ class News extends React.Component {
 
   render() {
     const curArr = this.state[this.state.curSelection];
+    const trendClass = this.state.curSelection === 'trending' ? 'select' : 'unselect';
+    const newsClass = this.state.curSelection === 'trending' ? 'unselect' : 'select';
     return (
       <div className="news-panel">
         <div className="top-button-bar">
-          <button onClick={() => { this.handleClick(true); }} >
+          <button className={trendClass} onClick={() => { this.handleClick(true); }} >
             <img src="trending.png" alt="Trending" />
           </button>
-          <button onClick={() => { this.handleClick(false); }} >
+          <button className={newsClass} onClick={() => { this.handleClick(false); }} >
             <img src="newspaper.ico" alt="News for Coin" />
           </button>
         </div>

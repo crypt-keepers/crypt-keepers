@@ -3,8 +3,16 @@ body {
     background-color: #E5FFF7;
     font-family: 'Ubuntu', sans-serif;
 }
+
+.news-container, .data-display-container, .main {
+    background-color: white;
+    border: 1px solid #162521;
+    border-radius: 5px;
+}
+
 button {
     font-family: 'Ubuntu', sans-serif;
+    background-color: white;
 }
 
 .component-container {
@@ -14,10 +22,10 @@ button {
 }
 
 .data-container {
+    margin-top: 1.3em;
     display: flex;
     flex-flow: row wrap;
-    width: 90%;
-    justify-content: space-around;
+    width: 84%;
 }
 
 .top-button-bar {
@@ -27,6 +35,7 @@ button {
 
 .data-button-bar button {
     border: 1px solid black;
+    border-radius: 2px;
     background-color: white;
     margin: 3px;
 }
@@ -35,11 +44,12 @@ button {
     cursor: pointer;
 }
 
-.top-button-bar button {
-    border: 1px solid black;
+.top-button-bar > .select, .top-button-bar > .unselect {
+    border: 1px solid #162521;
     border-right: none;
-    background-color: white;
+    /*background-color: white;*/
     width: 5em;
+    border-bottom: 1px solid #162521;
 }
 
 button img {
@@ -52,6 +62,7 @@ button img {
     width: 100%;
     justify-content: start;
     margin-left: 5em;
+    margin-top: 1.3em;
 }
 
 .news-container {
@@ -60,11 +71,9 @@ button img {
     justify-content: center;
     align-items: center;
     width: 80%;
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
-    background: white;
     height: 15em;
-    overflow-y: scroll !important;
+    overflow-y: scroll;
+    margin-bottom: 1em;
 }
 
 .news-item {
@@ -72,6 +81,8 @@ button img {
     padding: 10px;
     margin: 10px;
     border: 1px solid black;
+    cursor: pointer;
+    border-radius: 2px;
 }
 
 .news-item:hover {
@@ -104,7 +115,6 @@ a {
 
 .loader {
     border: 16px solid #f3f3f3;
-    /*border: 16px solid #162521;*/
     border-top: 16px solid #66D7D1;
     border-radius: 50%;
     width: 120px;
@@ -122,11 +132,8 @@ a {
 
 .data-display-container {
     position: relative;
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
-    margin: 0.5em;
     padding: 0.5em;
-    background-color: white;
+    margin-right: 1.3em;
 }
 
 .data-overlay {
@@ -165,17 +172,12 @@ tr:hover {
     padding-bottom: 5px;
 }
 
-/*.coin-item:hover {
-    font-weight: bold;
-}*/
-
 .table-container {
     overflow-x: auto;
 }
 
 .panel-container {
     width: 30%;
-    padding: 0.5em;
 }
 
 .panel-show {
@@ -188,11 +190,7 @@ tr:hover {
 }
 
 .main {
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
     width: 100%;
-    /*height: 100%;*/
-    background-color: white;
     padding: 0.5em;
 }
 
@@ -201,15 +199,24 @@ tr:hover {
     margin: 2px;
 }
 
-.panel-nav button {
-    border: 1px solid black;
+.select, .unselect {
+    border: 1px solid #162521;
+    border-radius: 2px;
     border-bottom: none;
+
+}
+
+.select {
+    background-color: #58C7C9;
+}
+
+.unselect {
     background-color: white;
 }
 
 .nav-bar {
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: row;
     justify-content: space-between;
     background-color: #162521;
     color: white;
@@ -218,15 +225,13 @@ tr:hover {
 
 .logo img {
     width: 20%;
+    margin-left: 7px;
 }
 
 .logo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-}
-
-.logo {
     padding-left: 1em;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -239,15 +244,17 @@ tr:hover {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 10%;
+    /*width: 10%;*/
     font-family: 'Geo', sans-serif;
     font-size: 1.2em;
+    padding-right: 1em;
+}
+
+.greeting div {
+    margin-right: 7px;
 }
 
 .greeting img {
-    width: 50%;
-}
-
-.greeting {
-    padding-right: 1em;
+    width: 50px;
+    height: 50px;
 }
