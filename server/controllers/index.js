@@ -73,7 +73,7 @@ module.exports = {
     },
     post: (req, res) => {
       const { username, coin, quantity } = req.body;
-      db.updatePosition(username, coin, quantity)
+      db.updatePosition(username, coin, Number(quantity))
         .then(res.sendStatus(201));
     },
   },
