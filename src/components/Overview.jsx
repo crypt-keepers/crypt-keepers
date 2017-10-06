@@ -20,9 +20,20 @@ class Overview extends React.Component {
       LTC: {},
       ETH: {},
     };
+
+    this.updateData = this.updateData.bind(this);
+
+    // Update ticker data every 3 minutes.
+    setInterval(() => {
+      this.updateData();
+    }, 60000 * 3);
   }
 
   componentDidMount() {
+    this.updateData();
+  }
+
+  updateData() {
     helpers.getTickerData()
       .then((tickerData) => {
         tickerData.forEach((coinObj) => {
@@ -59,6 +70,9 @@ class Overview extends React.Component {
             />
           </tbody>
         </table>
+        <div className="table-date">
+          Last updated at {(new Date(this.state.BTC.time || 0)).toTimeString()}
+        </div>
 
         {/* <div
           className="coin-item"

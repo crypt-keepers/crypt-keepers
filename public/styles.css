@@ -143,6 +143,11 @@ tr:hover {
     cursor: pointer;
 }
 
+.table-date {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 /*.coin-item:hover {
     font-weight: bold;
 }*/
