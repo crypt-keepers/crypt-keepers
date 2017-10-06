@@ -37,12 +37,15 @@ export default class App extends React.Component {
   handleSubmit(e, coin, quantity) {
     if (e) {
       e.preventDefault();
+      if (this.state.modalIsOpen) {
+        this.closeModal();
+      }
+      if (coin) {
+        return helpers.postUserData(this.state.username, coin, quantity)
+          .then(() => helpers.getUserData(this.state.username));
+      }
     }
-    if (this.state.modalIsOpen) {
-      this.closeModal();
-    }
-    return helpers.postUserData(this.state.username, coin, quantity)
-      .then(() => helpers.getUserData(this.state.username));
+    return helpers.getUserData(this.state.username);
   }
 
   handlePanelClick(coin) {

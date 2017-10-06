@@ -14,7 +14,7 @@ class MyFinances extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      coin: '',
+      coin: 'ETH',
       quantity: '',
       username: '',
       position: {},
@@ -34,18 +34,23 @@ class MyFinances extends React.Component {
       .then(userData => this.calculateValue(userData))
       .then(() => this.setState({
         showAlert: true,
+      }))
+      .then(() => this.setState({
+        coin: 'ETH',
+        quantity: '',
       }));
   }
 
   calculateValue(userData) {
     return helpers.getTickerData()
       .then((tickerData) => {
-        let value = {};
+        const value = {};
         let sum = 0;
         tickerData.forEach((coinObj) => {
-          value[coinObj.coin] = userData.position[coinObj.coin] * coinObj.data.price;
-          sum += value[coinObj.coin];
+          value[coinObj.coin] = (userData.position[coinObj.coin] * coinObj.data.price).toFixed(2);
+          sum += userData.position[coinObj.coin] * coinObj.data.price;
         });
+        sum = sum.toFixed(2);
         return this.setState({
           username: userData.username,
           position: userData.position,
@@ -82,6 +87,7 @@ class MyFinances extends React.Component {
             <option value="LTC">Litecoin</option>
           </select>
           <input
+            type="number"
             value={this.state.quantity}
             onChange={e => this.setState({ quantity: e.target.value, showAlert: false })}
             placeholder="Enter Quantity"

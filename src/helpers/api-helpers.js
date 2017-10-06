@@ -79,36 +79,37 @@ const getTickerData = () => {
 
 const getUserData = username => (
   new Promise((resolve, reject) => {
-    resolve(dbData[username]);
+    // resolve(dbData[username]);
 
     // USE THIS WHEN SERVER SIDE IS READY
-    // $.ajax({
-    //   url: '/user',
-    //   method: 'GET',
-    //   data: { username },
-    // }).done((userData) => {
-    //   resolve(userData);
-    // }).fail((error) => {
-    //   reject(error);
-    // });
+    $.ajax({
+      url: '/user',
+      method: 'GET',
+      data: { username },
+    }).done((userData) => {
+      resolve(userData);
+    }).fail((error) => {
+      reject(error);
+    });
   })
 );
 
 const postUserData = (username, coin, quantity) => (
   new Promise((resolve, reject) => {
-    resolve(dbData[username]);
+    // resolve(dbData[username]);
 
     // USE THIS WHEN SERVER SIDE IS READY
-    // $.ajax({
-    //   url: '/user',
-    //   method: 'POST',
-    //   data: { username, coin, quantity },
-    // }).done((data) => {
-    //   resolve(data);
-    // }).fail((error) => {
-    //   reject(error);
-    // });
+    $.ajax({
+      url: '/user',
+      method: 'POST',
+      data: { username, coin, quantity },
+    }).done((data) => {
+      resolve(data);
+    }).fail((error) => {
+      reject(error);
+    });
   })
 );
 
 export default { getRangeData, getTrendingNews, getCoinData, getTickerData, getUserData, postUserData };
+
