@@ -17,32 +17,13 @@ const User = mongoose.model('User', userSchema);
 
 
 const updatePosition = (user, coin, quantity) => {
-  if (coin === 'BTC') {
-    return User.collection.findOneAndUpdate(
-      { username: user },
-      { $inc: { 'position.BTC': quantity } },
-      { upsert: true, new: true }
-    );
-  } else if (coin === 'ETH') {
-    return User.collection.findOneAndUpdate(
-      { username: user },
-      { $inc: { 'position.ETH': quantity } },
-      { upsert: true, new: true }
-    );
-  } else if (coin === 'LTC') {
-    return User.collection.findOneAndUpdate(
-      { username: user },
-      { $inc: { 'position.LTC': quantity } },
-      { upsert: true, new: true }
-    );
-  }
-};
-
-const findUser = (user) => {
-  return User.findOne({ username: user });
+  return User.collection.findOneAndUpdate(
+    { username: user },
+    { $inc: { [`position.${coin}`]: quantity } },
+    { upsert: true, new: true }
+  );
 };
 
 
 module.exports.User = User;
 module.exports.updatePosition = updatePosition;
-module.exports.findUser = findUser;

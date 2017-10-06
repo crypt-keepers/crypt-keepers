@@ -21,7 +21,8 @@ module.exports = {
   },
   ticker: {
     get: (req, res) => {
-      gdax.getTickerData('BTC')
+      const { coin } = req.query;
+      gdax.getTickerData(coin)
         .then((ticker) => {
           res.json(ticker);
         })
@@ -33,7 +34,7 @@ module.exports = {
   },
   search: {
     get: (req, res) => {
-      let {currency} = req.query; // get currency from req.query
+      let { currency } = req.query; // get currency from req.query
 
       models.search.get(currency)
         .then((data) => {
@@ -65,9 +66,10 @@ module.exports = {
   user: {
     get: (req, res) => {
       const { username } = req.query;
-      db.findUser(username)
+      // db.findUser(username)
+        db.User.findOne({ username })
         .then((data) => {
-          return data || db.User.create({ username: username });
+          return data || db.User.create({ username });
         })
         .then(res.sendStatus(200));
     },
