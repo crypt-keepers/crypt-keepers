@@ -1,8 +1,17 @@
 body {
     margin: 0;
+    /*background-color: #D9F0FF;*/
     background-color: #E5FFF7;
     font-family: 'Ubuntu', sans-serif;
 }
+
+.news-container, .data-display-container, .main {
+    /*background-color: #E5FCFF;*/
+    background-color: white;
+    border: 1px solid #162521;
+    border-radius: 5px;
+}
+
 button {
     font-family: 'Ubuntu', sans-serif;
 }
@@ -14,10 +23,11 @@ button {
 }
 
 .data-container {
+    margin-top: 1.3em;
     display: flex;
     flex-flow: row wrap;
-    width: 90%;
-    justify-content: space-around;
+    width: 84%;
+    /*justify-content: space-around;*/
 }
 
 .top-button-bar {
@@ -27,6 +37,7 @@ button {
 
 .data-button-bar button {
     border: 1px solid black;
+    border-radius: 2px;
     background-color: white;
     margin: 3px;
 }
@@ -52,6 +63,7 @@ button img {
     width: 100%;
     justify-content: start;
     margin-left: 5em;
+    margin-top: 1.3em;
 }
 
 .news-container {
@@ -60,11 +72,8 @@ button img {
     justify-content: center;
     align-items: center;
     width: 80%;
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
-    background: white;
     height: 15em;
-    overflow-y: scroll !important;
+    overflow-y: scroll;
 }
 
 .news-item {
@@ -72,10 +81,12 @@ button img {
     padding: 10px;
     margin: 10px;
     border: 1px solid black;
+    cursor: pointer;
+    border-radius: 2px;
 }
 
 .news-item:hover {
-    background-color: #E5FFF7;
+    background-color: #B9F3F3;
 }
 
 .title {
@@ -122,11 +133,8 @@ a {
 
 .data-display-container {
     position: relative;
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
-    margin: 0.5em;
     padding: 0.5em;
-    background-color: white;
+    margin-right: 1.3em;
 }
 
 .data-overlay {
@@ -175,7 +183,6 @@ tr:hover {
 
 .panel-container {
     width: 30%;
-    padding: 0.5em;
 }
 
 .panel-show {
@@ -188,11 +195,7 @@ tr:hover {
 }
 
 .main {
-    /*border: 2px solid black;*/
-    border: 2px solid #746D75;
     width: 100%;
-    /*height: 100%;*/
-    background-color: white;
     padding: 0.5em;
 }
 
@@ -202,14 +205,15 @@ tr:hover {
 }
 
 .panel-nav button {
-    border: 1px solid black;
+    border: 1px solid #162521;
+    border-radius: 2px;
     border-bottom: none;
     background-color: white;
 }
 
 .nav-bar {
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: row;
     justify-content: space-between;
     background-color: #162521;
     color: white;
@@ -218,15 +222,13 @@ tr:hover {
 
 .logo img {
     width: 20%;
+    margin-left: 7px;
 }
 
 .logo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-}
-
-.logo {
     padding-left: 1em;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -239,15 +241,17 @@ tr:hover {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 10%;
+    /*width: 10%;*/
     font-family: 'Geo', sans-serif;
     font-size: 1.2em;
+    padding-right: 1em;
+}
+
+.greeting div {
+    margin-right: 7px;
 }
 
 .greeting img {
-    width: 50%;
-}
-
-.greeting {
-    padding-right: 1em;
+    width: 50px;
+    height: 50px;
 }
