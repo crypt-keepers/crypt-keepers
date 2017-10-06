@@ -63,6 +63,10 @@ button img {
     border: 1px solid black;
 }
 
+.news-item:hover {
+    background-color: #E5FFF7;
+}
+
 .title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -71,13 +75,20 @@ button img {
     font-weight: bold;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 a {
     text-decoration: none;
     color: black;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 .loader {

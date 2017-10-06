@@ -21,13 +21,13 @@ const defaultProps = {
 
 const NewsItem = props => (
   <div className="news-item">
-    <div className="title">
-      <a href={props.article.url} target="_blank">
+    <a href={props.article.url} target="_blank">
+      <div className="title">
         {props.article.title}
-      </a>
-    </div>
-    <div className="date">{(new Date(props.article.published_at)).toString()}</div>
-    <div className="source">{props.article.source.title}</div>
+      </div>
+      <div className="date">{(new Date(props.article.published_at)).toString()}</div>
+      <div className="source">{props.article.source.title}</div>
+    </a>
   </div>
 );
 
