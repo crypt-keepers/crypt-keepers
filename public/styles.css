@@ -1,3 +1,12 @@
+body {
+    margin: 0;
+    background-color: #E5FFF7;
+    font-family: 'Ubuntu', sans-serif;
+}
+button {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 .component-container {
     display: flex;
     flex-direction: column;
@@ -6,7 +15,43 @@
 
 .data-container {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
+    width: 90%;
+    justify-content: space-around;
+}
+
+.top-button-bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-button-bar button {
+    border: 1px solid black;
+    background-color: white;
+    margin: 3px;
+}
+.data-button-bar button:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.top-button-bar button {
+    border: 1px solid black;
+    border-right: none;
+    background-color: white;
+    width: 5em;
+}
+
+button img {
+    width: 100%;
+}
+
+.news-panel {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: start;
+    margin-left: 5em;
 }
 
 .news-container {
@@ -14,8 +59,12 @@
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    min-width: 100%;
-    min-height: 100px;
+    width: 80%;
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
+    background: white;
+    height: 15em;
+    overflow-y: scroll !important;
 }
 
 .news-item {
@@ -23,6 +72,10 @@
     padding: 10px;
     margin: 10px;
     border: 1px solid black;
+}
+
+.news-item:hover {
+    background-color: #E5FFF7;
 }
 
 .title {
@@ -33,18 +86,26 @@
     font-weight: bold;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 a {
     text-decoration: none;
     color: black;
 }
 
+.news-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+.news-container::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 .loader {
     border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
+    /*border: 16px solid #162521;*/
+    border-top: 16px solid #66D7D1;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -61,6 +122,11 @@ a {
 
 .data-display-container {
     position: relative;
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
+    margin: 0.5em;
+    padding: 0.5em;
+    background-color: white;
 }
 
 .data-overlay {
@@ -71,14 +137,117 @@ a {
     top: 0%;
 }
 
-.coin-item:hover {
+.data-title {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.table-header:hover {
+    background-color: white;
+    cursor: auto;
+}
+
+.table-date {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/*.coin-item:hover {
     font-weight: bold;
+}*/
+
+.table-container {
+    overflow-x: auto;
 }
 
-table {
-    border-collapse: collapse;
+.panel-container {
+    width: 30%;
+    padding: 0.5em;
 }
 
-table, th, td {
+.panel-show {
+    display: inline;
+}
+
+.panel-hide {
+    display: none;
+    background-color: red;
+}
+
+.main {
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
+    width: 100%;
+    /*height: 100%;*/
+    background-color: white;
+    padding: 0.5em;
+}
+
+.coin-item {
+    padding: 5px;
+    margin: 2px;
+}
+
+.panel-nav button {
     border: 1px solid black;
+    border-bottom: none;
+    background-color: white;
+}
+
+.nav-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    background-color: #162521;
+    color: white;
+    align-items: center;
+}
+
+.logo img {
+    width: 20%;
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo {
+    padding-left: 1em;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 15%;
+    font-family: 'Geo', sans-serif;
+    font-size: 1.5em;
+}
+
+.greeting {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 10%;
+    font-family: 'Geo', sans-serif;
+    font-size: 1.2em;
+}
+
+.greeting img {
+    width: 50%;
+}
+
+.greeting {
+    padding-right: 1em;
 }

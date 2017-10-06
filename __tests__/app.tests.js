@@ -9,7 +9,7 @@ import { expect } from 'chai';
 import App from '../src/components/App';
 import News from '../src/components/News';
 import NewsItem from '../src/components/NewsItem';
-import Search from '../src/components/Search';
+import Overview from '../src/components/Overview';
 import DataDisplay from '../src/components/DataDisplay';
 
 configure({ adapter: new Adapter() });
@@ -21,31 +21,16 @@ describe('<App/>', () => {
   });
 });
 
-describe('<Search/>', () => {
-  it('should have a toggle and add button', () => {
-    const wrapper = shallow(<Search />);
-    expect(wrapper.find('button')).to.have.length(2);
-  });
-
-  it('should intialize to all false coin selections', () => {
-    const wrapper = shallow(<Search />);
-    const state = wrapper.state();
-    expect(state.isBitcoin).to.equal(false);
-    expect(state.isLitecoin).to.equal(false);
-    expect(state.isEtherium).to.equal(false);
-  });
-});
-
 describe('<News/>', () => {
   it('should have a News buttons', () => {
     const wrapper = shallow(<News />);
     expect(wrapper.find('button')).to.have.length(2);
   });
 
-  it('should render the right number of NewsItems', () => {
+  it('should render the right number of trending NewsItems', () => {
     const wrapper = shallow(<News />);
     const state = wrapper.state();
-    const data = state.curData;
+    const data = state.trending;
     expect(wrapper.find('NewsItem')).to.have.length(data.length);
   });
 });
@@ -54,5 +39,16 @@ describe('<NewsItem/>', () => {
   it('should have a link to article', () => {
     const wrapper = shallow(<NewsItem />);
     expect(wrapper.find('a')).to.have.length(1);
+  });
+});
+
+describe('<Overview/>', () => {
+  it('should render a table', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('table')).to.have.length(1);
+  });
+  it('should render data from all three coins', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('TableRow')).to.have.length(3);
   });
 });

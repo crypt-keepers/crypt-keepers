@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import helpers from '../helpers/api-helpers';
+// import OverviewItem from './OverviewItem';
+import TableRow from './TableRow';
 
 const propTypes = {
   handleClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 const defaultProps = {
   handleClick: e => (e),
+  className: '',
 };
 
 class Overview extends React.Component {
@@ -18,9 +22,20 @@ class Overview extends React.Component {
       LTC: {},
       ETH: {},
     };
+
+    this.updateData = this.updateData.bind(this);
+
+    // Update ticker data every 3 minutes.
+    setInterval(() => {
+      this.updateData();
+    }, 60000 * 3);
   }
 
   componentDidMount() {
+    this.updateData();
+  }
+
+  updateData() {
     helpers.getTickerData()
       .then((tickerData) => {
         tickerData.forEach((coinObj) => {
@@ -31,17 +46,44 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div>Coin Overview
-        <div
+      <div className={`table-container ${this.props.className}`}>Click a coin to see data<br />
+        <table>
+          <tbody>
+            <tr className="table-header">
+              <th />
+              <th>Price</th>
+              <th>Bid</th>
+              <th>Ask</th>
+            </tr>
+            <TableRow
+              coin={this.state.BTC}
+              name="BTC"
+              onClick={() => { this.props.handleClick('bitcoin'); }}
+            />
+            <TableRow
+              coin={this.state.LTC}
+              name="LTC"
+              onClick={() => { this.props.handleClick('litecoin'); }}
+            />
+            <TableRow
+              coin={this.state.ETH}
+              name="ETH"
+              onClick={() => { this.props.handleClick('etherium'); }}
+            />
+          </tbody>
+        </table>
+        <div className="table-date">
+          Last updated at {(new Date(this.state.BTC.time || 0)).toTimeString()}
+        </div>
+
+        {/* <div
           className="coin-item"
           onClick={() => { this.props.handleClick('bitcoin'); }}
           role="menuitem"
           tabIndex="0"
         >
           Bitcoin
-          <div>
-            Price: {this.state.BTC ? Number(this.state.BTC.price).toFixed(2) : ''}
-          </div>
+          <OverviewItem coin={this.state.BTC} />
         </div>
         <div
           className="coin-item"
@@ -50,9 +92,7 @@ class Overview extends React.Component {
           tabIndex="0"
         >
           Litecoin
-          <div>
-            Price: {this.state.LTC ? Number(this.state.LTC.price).toFixed(2) : ''}
-          </div>
+          <OverviewItem coin={this.state.LTC} />
         </div>
         <div
           className="coin-item"
@@ -61,10 +101,8 @@ class Overview extends React.Component {
           tabIndex="0"
         >
           Etherium
-          <div>
-            Price: {this.state.ETH ? Number(this.state.ETH.price).toFixed(2) : ''}
-          </div>
-        </div>
+          <OverviewItem coin={this.state.ETH} />
+        </div> */}
       </div>
     );
   }

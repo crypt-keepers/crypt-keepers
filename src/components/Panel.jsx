@@ -6,11 +6,13 @@ import MyFinances from './MyFinances';
 const propTypes = {
   handleClick: PropTypes.func,
   handleSubmit: PropTypes.func,
+  username: PropTypes.string,
 };
 
 const defaultProps = {
   handleClick: () => {},
   handleSubmit: () => {},
+  username: '',
 };
 
 class Panel extends React.Component {
@@ -28,10 +30,11 @@ class Panel extends React.Component {
   }
 
   render() {
+    const overviewClass = this.state.view === 'overview' ? 'panel-show' : 'panel-hide';
+    const myFinancesClass = this.state.view === 'overview' ? 'panel-hide' : 'panel-show';
     return (
-      <div>
-        <div>Side Panel</div>
-        <div className="nav">
+      <div className="panel-container">
+        <div className="panel-nav">
           <button onClick={() => this.changePanel('overview')}>
             Coin Overview
           </button>
@@ -40,9 +43,8 @@ class Panel extends React.Component {
           </button>
         </div>
         <div className="main">
-          {this.state.view === 'overview'
-            ? <Overview handleClick={this.props.handleClick} />
-            : <MyFinances handleSubmit={this.props.handleSubmit} />}
+          <Overview className={overviewClass} handleClick={this.props.handleClick} />
+          <MyFinances className={myFinancesClass} username={this.props.username} />
         </div>
       </div>
     );
