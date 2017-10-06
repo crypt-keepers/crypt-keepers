@@ -64,18 +64,16 @@ module.exports = {
 
   user: {
     get: (req, res) => {
-      models.user.get()
+      const { username } = req.query;
+      db.findUser(username)
         .then((data) => {
-          res.status(200).send(data);
+          return data || db.User.create({ username: username });
         })
-        .catch((err) => {
-          res.status(404).send();
-          throw err;
-        });
+        .then(res.sendStatus(200));
     },
     post: (req, res) => {
       const { username, coin, quantity } = req.body;
-      db.updateWatchList(username, coin, quantity)
+      db.updatePosition(username, coin, quantity)
         .then(res.sendStatus(201));
     },
   },

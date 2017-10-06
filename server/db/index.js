@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/cryptonium';
 
 mongoose.connect(MONGODB_URI);
@@ -16,19 +15,34 @@ const userSchema = new Schema({
 const User = mongoose.model('User', userSchema);
 
 
-// add coin to watchlist
+
 const updatePosition = (user, coin, quantity) => {
-  let p = `position.${user}`;
-  return User.collection.findOneAndUpdate(
-    { username: user },
-    { $inc: { p: quantity } },
-    { upsert: true, returnNewDocument: true }
-  );
+  if (coin === 'BTC') {
+    return User.collection.findOneAndUpdate(
+      { username: user },
+      { $inc: { 'position.BTC': quantity } },
+      { upsert: true, new: true }
+    );
+  } else if (coin === 'ETH') {
+    return User.collection.findOneAndUpdate(
+      { username: user },
+      { $inc: { 'position.ETH': quantity } },
+      { upsert: true, new: true }
+    );
+  } else if (coin === 'LTC') {
+    return User.collection.findOneAndUpdate(
+      { username: user },
+      { $inc: { 'position.LTC': quantity } },
+      { upsert: true, new: true }
+    );
+  }
 };
 
 const findUser = (user) => {
-  // wants position
-}
+  return User.findOne({ username: user });
+};
+
 
 module.exports.User = User;
-module.exports.updateWatchList = updatePosition;
+module.exports.updatePosition = updatePosition;
+module.exports.findUser = findUser;
