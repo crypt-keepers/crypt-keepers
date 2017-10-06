@@ -74,3 +74,11 @@ a {
 .coin-item:hover {
     font-weight: bold;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}

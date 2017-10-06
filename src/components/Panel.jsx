@@ -42,7 +42,7 @@ class Panel extends React.Component {
         <div className="main">
           {this.state.view === 'overview'
             ? <Overview handleClick={this.props.handleClick} />
-            : <MyFinances list={this.props.list} handleSubmit={this.props.handleSubmit} />}
+            : <MyFinances handleSubmit={this.props.handleSubmit} />}
         </div>
       </div>
     );
