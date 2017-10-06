@@ -35,14 +35,14 @@ export default class App extends React.Component {
   }
 
   handleSubmit(e, coin, quantity) {
-    e.preventDefault();
-    // two features share this event, modal and addCoin
-    // differentiator is this.state.modalIsOpen
+    if (e) {
+      e.preventDefault();
+    }
     if (this.state.modalIsOpen) {
       this.closeModal();
-      return helpers.getUserData(this.state.username);
     }
-    return helpers.postUserData(this.state.username, coin, quantity);
+    return helpers.postUserData(this.state.username, coin, quantity)
+      .then(() => helpers.getUserData(this.state.username));
   }
 
   handlePanelClick(coin) {
@@ -84,7 +84,10 @@ export default class App extends React.Component {
         </Modal>
         <div className="data-container">
           <DataDisplay activeCoin={this.state.activeCoin} />
-          <Panel handleClick={this.handlePanelClick} handleSubmit={this.handleSubmit} />
+          <Panel
+            handleClick={this.handlePanelClick}
+            handleSubmit={this.handleSubmit}
+          />
         </div>
         <News activeCoin={this.state.activeCoin} />
       </div>
