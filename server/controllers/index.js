@@ -66,16 +66,14 @@ module.exports = {
   user: {
     get: (req, res) => {
       const { username } = req.query;
-      // db.findUser(username)
-        db.User.findOne({ username })
+      db.User.findOne({ username })
         .then((data) => {
-          return data || db.User.create({ username });
+          res.status(200).send(data || db.User.create({ username }));
         })
-        .then(res.sendStatus(200));
     },
     post: (req, res) => {
       const { username, coin, quantity } = req.body;
-      db.updatePosition(username, coin, quantity)
+      db.updatePosition(username, coin, Number(quantity))
         .then(res.sendStatus(201));
     },
   },
