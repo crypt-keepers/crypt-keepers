@@ -113,7 +113,7 @@ class DataDisplay extends React.Component {
           <div>
             Value of {coinName} in USD plotted over {this.state.range} range
           </div>
-          <div>
+          <div className="data-button-bar">
             Change range:
             <button onClick={() => this.getRangeData(coinName, '1D')}>1D</button>
             <button onClick={() => this.getRangeData(coinName, '1W')}>1W</button>

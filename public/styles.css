@@ -25,6 +25,16 @@ button {
     flex-direction: column;
 }
 
+.data-button-bar button {
+    border: 1px solid black;
+    background-color: white;
+    margin: 3px;
+}
+.data-button-bar button:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .top-button-bar button {
     border: 1px solid black;
     border-right: none;
@@ -50,7 +60,8 @@ button img {
     justify-content: center;
     align-items: center;
     width: 80%;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
     background: white;
     height: 15em;
     overflow-y: scroll !important;
@@ -111,7 +122,8 @@ a {
 
 .data-display-container {
     position: relative;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
     margin: 0.5em;
     padding: 0.5em;
     background-color: white;
@@ -162,7 +174,8 @@ tr:hover {
 }
 
 .main {
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+    border: 2px solid #746D75;
     width: 100%;
     /*height: 100%;*/
     background-color: white;
