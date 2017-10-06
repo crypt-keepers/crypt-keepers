@@ -131,8 +131,24 @@ a {
     justify-content: space-between;
 }
 
-.coin-item:hover {
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+/*.coin-item:hover {
     font-weight: bold;
+}*/
+
+.table-container {
+    overflow-x: auto;
 }
 
 .panel-container {

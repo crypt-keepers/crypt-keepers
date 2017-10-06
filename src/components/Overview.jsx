@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import helpers from '../helpers/api-helpers';
 import OverviewItem from './OverviewItem';
+import TableRow from './TableRow';
 
 const propTypes = {
   handleClick: PropTypes.func,
@@ -32,8 +33,34 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div>Click a coin to see data<br />
-        <div
+      <div className="table-container">Click a coin to see data<br />
+        <table>
+          <tbody>
+            <tr>
+              <th />
+              <th>Price</th>
+              <th>Bid</th>
+              <th>Ask</th>
+            </tr>
+            <TableRow
+              coin={this.state.BTC}
+              name="BTC"
+              onClick={() => { this.props.handleClick('bitcoin'); }}
+            />
+            <TableRow
+              coin={this.state.LTC}
+              name="LTC"
+              onClick={() => { this.props.handleClick('litecoin'); }}
+            />
+            <TableRow
+              coin={this.state.ETH}
+              name="ETH"
+              onClick={() => { this.props.handleClick('etherium'); }}
+            />
+          </tbody>
+        </table>
+
+        {/* <div
           className="coin-item"
           onClick={() => { this.props.handleClick('bitcoin'); }}
           role="menuitem"
@@ -59,7 +86,7 @@ class Overview extends React.Component {
         >
           Etherium
           <OverviewItem coin={this.state.ETH} />
-        </div>
+        </div> */}
       </div>
     );
   }
