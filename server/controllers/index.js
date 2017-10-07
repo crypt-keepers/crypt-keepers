@@ -12,11 +12,6 @@ module.exports = {
       dateEnd = Number(dateEnd);
       gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity)
         .then((series) => {
-          // console.log(ta.sma(series));
-          // console.log(ta.ema(series));
-          // console.log(ta.bollinger(series));
-          // console.log(ta.macd(series));
-
           res.json(series);
         })
         .catch((err) => {
