@@ -1,6 +1,7 @@
 const models = require('../models');
 const gdax = require('../../helpers/gdax.js');
-const db = require('../db/index.js')
+const ta = require('../../helpers/techAnal.js');
+const db = require('../db/index.js');
 
 module.exports = {
   range: {
@@ -11,27 +12,9 @@ module.exports = {
       dateEnd = Number(dateEnd);
       gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity)
         .then((series) => {
+          console.log(ta.sma(series));
+          console.log(ta.ema(series));
           res.json(series);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.sendStatus(404);
-        });
-    },
-  },
-  sma: {
-    get: (req, res) => {
-      let { coin, dateStart, dateEnd, granularity, period } = req.query;
-      granularity /= 1000;
-      dateStart = Number(dateStart);
-      dateEnd = Number(dateEnd);
-      gdax.getTimeSeriesByRange(coin, dateStart, dateEnd, granularity)
-        .then((series) => {
-          let ma = series.map(d => d[4]).reverse();
-          for (var i = period; i < ma.length; i++) {
-            ma[i] = ma.slice(i - period, i).reduce((a, b) => a + b)/period;
-          }
-          res.json(ma);
         })
         .catch((err) => {
           console.error(err);
