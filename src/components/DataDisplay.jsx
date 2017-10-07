@@ -22,11 +22,11 @@ const renderTimeSeriesData = (coin, coinData) => {
   d3.select('#data-display').selectAll('svg').remove();
 
   // svg / line graph settings, hardcoded, customizable
-  const width = 600;
+  const width = 640;
   const height = 400;
-  const padding = 40;
-  const xTicks = 6;
-  const yTicks = 4;
+  const padding = 60;
+  const xTicks = 7;
+  const yTicks = 5;
 
   // extract time and close info from data
   const data = [];
@@ -43,7 +43,6 @@ const renderTimeSeriesData = (coin, coinData) => {
   // x range is set this way because data given reverse-chronologically
   const x = d3.scaleTime()
     .range([padding, (width - padding)]);
-
   const y = d3.scaleLinear()
     .range([(height - padding), padding]);
 
@@ -60,32 +59,63 @@ const renderTimeSeriesData = (coin, coinData) => {
     .ticks(yTicks);
 
   // generate initial flat line
-  const line = d3.line()
+  const flatLine = d3.line()
     .x(d => x(d.time))
     .y(() => y(yDom[0]));
 
-  // append everything
+  // generate data line
+  const dataLine = d3.line()
+    .x(d => x(d.time))
+    .y(d => y(d.close));
+
+  // APPEND EVERYTHING
+  // x-axis with ticks
   svg.append('g')
+    .attr('class', 'axis')
     .attr('transform', `translate(0, ${height - padding})`)
-    .attr('stroke-width', 1.25)
     .call(xAxis);
 
+  // x-axis label
+  svg.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('transform', `translate(${width / 2},${height - (padding / 4)})`)
+    .text('Time');
+
+  // x-axis gridlines
   svg.append('g')
+    .attr('class', 'grid')
+    .attr('transform', `translate(0, ${height - padding})`)
+    .call(xAxis.tickSize((2 * padding) - height).tickFormat(''));
+
+  // y-axis with ticks
+  svg.append('g')
+    .attr('class', 'axis')
     .attr('transform', `translate(${padding}, 0)`)
-    .attr('stroke-width', 1.25)
     .call(yAxis);
+
+  // y-axis label
+  svg.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('transform', `translate(${padding / 4},${height / 2}) rotate(-90)`)
+    .text('Price ($)');
+
+  // y-axis gridlines
+  svg.append('g')
+    .attr('class', 'grid')
+    .attr('transform', `translate(${padding}, 0)`)
+    .call(yAxis.tickSize((2 * padding) - width).tickFormat(''));
 
   // animate from flat line to actual y values
   svg.append('path')
     .data([data])
-    .attr('fill', 'none')
+    .attr('class', 'plot')
     .attr('stroke', coinColor[coin])
-    .attr('stroke-width', 2)
-    .attr('d', line)
+    .attr('d', flatLine)
     .transition()
     .duration(1000)
-    .attr('d', d3.line().x(d => x(d.time)).y(d => y(d.close)));
+    .attr('d', dataLine);
 };
+
 
 class DataDisplay extends React.Component {
   constructor(props) {
