@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
@@ -16,15 +17,27 @@ const customStyles = {
   },
 };
 
+const propTypes = {
+  activeCoin: PropTypes.string,
+  isModalOpen: PropTypes.bool,
+  username: PropTypes.string,
+  changeCoin: PropTypes.func,
+  changeUsername: PropTypes.func,
+  modalIsOpen: PropTypes.func,
+};
+
+const defaultProps = {
+  activeCoin: 'Bitcoin',
+  isModalOpen: true,
+  username: '',
+  changeCoin: e => (e),
+  changeUsername: e => (e),
+  modalIsOpen: e => (e),
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // modalIsOpen: true,
-      username: '',
-      // activeCoin: 'Bitcoin',
-    };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -33,7 +46,7 @@ class App extends React.Component {
   handleSubmit(e) {
     const node = document.getElementById('username-field');
     const value = node ? node.value : '';
-    this.setState({ username: value });
+    this.props.changeUsername(value);
     e.preventDefault();
     this.closeModal();
   }
@@ -41,19 +54,15 @@ class App extends React.Component {
   handlePanelClick(coin) {
     if (this.props.activeCoin !== coin) {
       this.props.changeCoin(coin);
-      // this.setState({ activeCoin: coin });
     }
   }
 
   closeModal() {
-    console.log('closing modal');
     this.props.modalIsOpen(false);
   }
 
   render() {
-    console.log('props are', this.props.activeCoin);
-    console.log('props are', this.props.isModalOpen);
-    const { isModalOpen, activeCoin } = this.props;
+    const { isModalOpen, activeCoin, username } = this.props;
     return (
       <div>
         <div className="nav-bar">
@@ -62,7 +71,7 @@ class App extends React.Component {
             <img src="logo.png" alt="" />
           </div>
           <div className="greeting">
-            <div>Hi {isModalOpen ? '' : this.state.username}</div>
+            <div>Hi {username}</div>
             <img src="avatar.png" alt="" />
           </div>
         </div>
@@ -89,7 +98,7 @@ class App extends React.Component {
             <DataDisplay activeCoin={activeCoin} />
             <Panel
               handleClick={this.handlePanelClick}
-              username={this.state.username}
+              username={username}
             />
           </div>
           <News activeCoin={activeCoin} />
@@ -99,11 +108,14 @@ class App extends React.Component {
   }
 }
 
+App.propTypes = propTypes;
+App.defaultProps = defaultProps;
 
 const mapStateToProps = (state = {}) => (
   {
     activeCoin: state.coin,
     isModalOpen: state.modalIsOpen,
+    username: state.username,
   }
 );
 
@@ -111,6 +123,7 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({
     changeCoin: actions.changeCoin,
     modalIsOpen: actions.modalIsOpen,
+    changeUsername: actions.changeUsername,
   }, dispatch)
 );
 

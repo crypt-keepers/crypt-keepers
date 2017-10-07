@@ -15,3 +15,12 @@ export function modalIsOpen(state = true, action) {
       return state;
   }
 }
+
+export function username(state = '', action) {
+  switch (action.type) {
+    case 'CHANGE_USERNAME':
+      return action.payload.username;
+    default:
+      return state;
+  }
+}
