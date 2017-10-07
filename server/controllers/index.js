@@ -68,8 +68,14 @@ module.exports = {
       const { username } = req.query;
       db.User.findOne({ username })
         .then((data) => {
-          res.status(200).send(data || db.User.create({ username }));
-        })
+          if (data) {
+            res.status(200).send(data);
+          } else { // if username not found, create one, then fetch, then return
+            db.User.create({ username })
+              .then(() => db.User.findOne({ username }))
+              .then(newData => res.status(200).send(newData));
+          }
+        });
     },
     post: (req, res) => {
       const { username, coin, quantity } = req.body;

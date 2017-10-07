@@ -30,13 +30,16 @@ const renderTimeSeriesData = (coin, coinData) => {
 
   // extract time and close info from data
   const data = [];
-  coinData.map(row => data.push({ time: new Date(row[0] * 1000), close: row[4] }));
+  coinData.forEach((row) => {
+    data.push({ time: new Date(row[0] * 1000), close: row[4] });
+  });
 
   const svg = d3.select('#data-display')
     .append('svg')
     .attr('width', width)
     .attr('height', height);
 
+  // set x and y range
   // x range is set this way because data given reverse-chronologically
   const x = d3.scaleTime()
     .range([padding, (width - padding)]);
@@ -44,33 +47,44 @@ const renderTimeSeriesData = (coin, coinData) => {
   const y = d3.scaleLinear()
     .range([(height - padding), padding]);
 
+  // set x and y domain
+  const xDom = d3.extent(data, d => d.time);
+  const yDom = d3.extent(data, d => d.close);
+
   // set x and y axis, use extend to calculate domain
   const xAxis = d3
-    .axisBottom(x.domain(d3.extent(data, d => d.time)))
+    .axisBottom(x.domain(xDom))
     .ticks(xTicks);
   const yAxis = d3
-    .axisLeft(y.domain(d3.extent(data, d => d.close)))
+    .axisLeft(y.domain(yDom))
     .ticks(yTicks);
 
-  // generate line
+  // generate initial flat line
   const line = d3.line()
     .x(d => x(d.time))
-    .y(d => y(d.close));
+    .y(() => y(yDom[0]));
 
   // append everything
   svg.append('g')
     .attr('transform', `translate(0, ${height - padding})`)
+    .attr('stroke-width', 1.25)
     .call(xAxis);
 
   svg.append('g')
     .attr('transform', `translate(${padding}, 0)`)
+    .attr('stroke-width', 1.25)
     .call(yAxis);
 
+  // animate from flat line to actual y values
   svg.append('path')
     .data([data])
     .attr('fill', 'none')
     .attr('stroke', coinColor[coin])
-    .attr('d', line);
+    .attr('stroke-width', 2)
+    .attr('d', line)
+    .transition()
+    .duration(1000)
+    .attr('d', d3.line().x(d => x(d.time)).y(d => y(d.close)));
 };
 
 class DataDisplay extends React.Component {

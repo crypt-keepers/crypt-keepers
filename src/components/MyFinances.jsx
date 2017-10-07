@@ -79,7 +79,11 @@ class MyFinances extends React.Component {
           position: userData.position,
           value,
           sum,
-        }, () => this.renderPieChart(this.state.value));
+        }, () => {
+          if (this.state.sum !== '0.00') {
+            this.renderPieChart(this.state.value);
+          }
+        });
       });
   }
 
@@ -95,7 +99,11 @@ class MyFinances extends React.Component {
 
     // process data
     const data = [];
-    Object.keys(valueData).map(key => data.push({ coin: coinName[key], value: valueData[key] }));
+    Object.keys(valueData).forEach((key) => {
+      if (valueData[key] !== '0.00') {
+        data.push({ coin: coinName[key], value: valueData[key] });
+      }
+    });
 
     const pie = d3.pie().value(d => d.value);
 
@@ -118,10 +126,11 @@ class MyFinances extends React.Component {
     // append everything
     const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    const arc = g.selectAll('.arc')
+    const arc = g.selectAll('.slice')
       .data(pie(data))
-      .enter().append('g')
-      .attr('class', d => d.data.coin)
+      .enter()
+      .append('g')
+      .attr('class', d => `slice ${d.data.coin}`)
       .on('click', d => this.props.handleClick(d.data.coin))
       .on('mouseover', (d) => {
         d3.select(`.${d.data.coin}`)
