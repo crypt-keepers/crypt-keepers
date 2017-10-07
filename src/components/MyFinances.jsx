@@ -17,8 +17,8 @@ const defaultProps = {
 
 const coinName = {
   BTC: 'Bitcoin',
-  ETH: 'Litecoin',
-  LTC: 'Etherium',
+  ETH: 'Etherium',
+  LTC: 'Litecoin',
 };
 
 class MyFinances extends React.Component {
@@ -109,7 +109,7 @@ class MyFinances extends React.Component {
       .innerRadius(radius - padding);
 
     // pie chart colors
-    const color = d3.scaleOrdinal(['red', 'blue', 'green']);
+    const color = d3.scaleOrdinal(['#81F7E5', '#7DDF64', '#F7567C']);
 
     // append everything
     const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
