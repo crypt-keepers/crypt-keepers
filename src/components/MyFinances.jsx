@@ -95,7 +95,7 @@ class MyFinances extends React.Component {
     const height = 205;
     const radius = 85;
     const labelPadding = 40;
-    const animationPadding = 20;
+    const animationPadding = 15;
 
     // process data
     const data = [];

@@ -155,7 +155,7 @@ a {
 .data-overlay {
     background-color: rgba(255, 255, 255, 0.8);
     position: absolute;
-    width: 600px;
+    width: 640px;
     height: 400px;
     top: 0%;
 }
@@ -273,4 +273,27 @@ tr:hover {
 .greeting img {
     width: 50px;
     height: 50px;
+}
+
+/* D3 data display css */
+
+.axis { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12px;
+    stroke-width: 1.25;
+}
+
+.grid line {
+    opacity: 0.75;
+    stroke: lightgrey;
+    stroke-dasharray: 5;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
+.plot {
+    fill: none;
+    stroke-width: 2;
 }
