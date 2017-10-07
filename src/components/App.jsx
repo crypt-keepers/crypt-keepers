@@ -19,7 +19,7 @@ export default class App extends React.Component {
     this.state = {
       modalIsOpen: true,
       username: '',
-      activeCoin: '',
+      activeCoin: 'Bitcoin',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);

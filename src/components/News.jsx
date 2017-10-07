@@ -8,7 +8,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  activeCoin: '',
+  activeCoin: 'Bitcoin',
 };
 
 class News extends React.Component {

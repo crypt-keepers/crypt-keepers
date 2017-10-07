@@ -21,6 +21,12 @@ const coinName = {
   LTC: 'Litecoin',
 };
 
+const coinColor = {
+  Bitcoin: '#81F7E5',
+  Etherium: '#7DDF64',
+  Litecoin: '#F7567C',
+};
+
 class MyFinances extends React.Component {
   constructor(props) {
     super(props);
@@ -84,7 +90,8 @@ class MyFinances extends React.Component {
     const width = 240;
     const height = 240;
     const radius = 90;
-    const padding = 40;
+    const labelPadding = 40;
+    const animationPadding = 20;
 
     // process data
     const data = [];
@@ -105,11 +112,8 @@ class MyFinances extends React.Component {
 
     // text label position
     const label = d3.arc()
-      .outerRadius(radius - padding)
-      .innerRadius(radius - padding);
-
-    // pie chart colors
-    const color = d3.scaleOrdinal(['#81F7E5', '#7DDF64', '#F7567C']);
+      .outerRadius(radius - labelPadding)
+      .innerRadius(radius - labelPadding);
 
     // append everything
     const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
@@ -117,15 +121,38 @@ class MyFinances extends React.Component {
     const arc = g.selectAll('.arc')
       .data(pie(data))
       .enter().append('g')
-      .on('click', d => this.props.handleClick(d.data.coin));
+      .attr('class', d => d.data.coin)
+      .on('click', d => this.props.handleClick(d.data.coin))
+      .on('mouseover', (d) => {
+        d3.select(`.${d.data.coin}`)
+          .transition()
+          .duration(500)
+          .attr('transform', () => {
+            const midAngle = ((d.endAngle - d.startAngle) / 2) + d.startAngle;
+            const x = Math.sin(midAngle) * animationPadding;
+            const y = -Math.cos(midAngle) * animationPadding;
+            return `translate(${x},${y})`;
+          });
+      })
+      .on('mouseout', (d) => {
+        d3.select(`.${d.data.coin}`)
+          .transition()
+          .duration(500)
+          .attr('transform', 'translate(0, 0)');
+      });
 
     arc.append('path')
       .attr('d', path)
-      .attr('fill', d => color(d.data.coin));
+      .attr('fill', d => coinColor[d.data.coin]);
+
+    const rotateLabel = (d) => {
+      const midAngle = (180 * (d.startAngle + d.endAngle)) / (2 * Math.PI);
+      return (midAngle > 180) ? midAngle + 90 : midAngle - 90;
+    };
 
     arc.append('text')
       .attr('text-anchor', 'middle')
-      .attr('transform', d => `translate(${label.centroid(d)})`)
+      .attr('transform', d => `translate(${label.centroid(d)}) rotate(${rotateLabel(d)})`)
       .text(d => d.data.coin);
   }
 

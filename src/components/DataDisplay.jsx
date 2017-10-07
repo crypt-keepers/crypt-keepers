@@ -8,10 +8,16 @@ const propTypes = {
 };
 
 const defaultProps = {
-  activeCoin: '',
+  activeCoin: 'Bitcoin',
 };
 
-const renderTimeSeriesData = (coinData) => {
+const coinColor = {
+  Bitcoin: '#81F7E5',
+  Etherium: '#7DDF64',
+  Litecoin: '#F7567C',
+};
+
+const renderTimeSeriesData = (coin, coinData) => {
   // clear svg before every render
   d3.select('#data-display').selectAll('svg').remove();
 
@@ -63,7 +69,7 @@ const renderTimeSeriesData = (coinData) => {
   svg.append('path')
     .data([data])
     .attr('fill', 'none')
-    .attr('stroke', 'blue')
+    .attr('stroke', coinColor[coin])
     .attr('d', line);
 };
 
@@ -91,9 +97,9 @@ class DataDisplay extends React.Component {
 
   getRangeData(coin, range) {
     this.spinner(true);
-    helpers.getRangeData((coin.length) ? coin : 'Bitcoin', range)
+    helpers.getRangeData(coin, range)
       .then((coinData) => {
-        this.setState({ coinData, range }, () => renderTimeSeriesData(this.state.coinData));
+        this.setState({ coinData, range }, () => renderTimeSeriesData(coin, this.state.coinData));
         this.spinner(false);
       });
   }
@@ -103,20 +109,18 @@ class DataDisplay extends React.Component {
   }
 
   render() {
-    const coinName = (this.props.activeCoin.length) ? this.props.activeCoin : 'Bitcoin';
-
     return (
       <div className="data-display-container">
         <div className="data-title">
           <div>
-            Value of {coinName} in USD plotted over {this.state.range} range
+            Value of {this.props.activeCoin} in USD plotted over {this.state.range} range
           </div>
           <div className="data-button-bar">
             Change range:
-            <button onClick={() => this.getRangeData(coinName, '1D')}>1D</button>
-            <button onClick={() => this.getRangeData(coinName, '1W')}>1W</button>
-            <button onClick={() => this.getRangeData(coinName, '1M')}>1M</button>
-            <button onClick={() => this.getRangeData(coinName, '1Y')}>1Y</button>
+            <button onClick={() => this.getRangeData(this.props.activeCoin, '1D')}>1D</button>
+            <button onClick={() => this.getRangeData(this.props.activeCoin, '1W')}>1W</button>
+            <button onClick={() => this.getRangeData(this.props.activeCoin, '1M')}>1M</button>
+            <button onClick={() => this.getRangeData(this.props.activeCoin, '1Y')}>1Y</button>
           </div>
         </div>
         <div id="data-display" />
