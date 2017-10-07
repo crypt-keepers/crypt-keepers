@@ -161,7 +161,7 @@ class DataDisplay extends React.Component {
       <div className="data-display-container">
         <div className="data-title">
           <div>
-            {this.props.activeCoin} {this.state.range} Chart
+            Value of {this.props.activeCoin} in USD over
           </div>
           <div className="data-button-bar">
             <button
