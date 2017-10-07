@@ -1,6 +1,7 @@
 const models = require('../models');
 const gdax = require('../../helpers/gdax.js');
-const db = require('../db/index.js')
+const ta = require('../../helpers/techAnal.js');
+const db = require('../db/index.js');
 
 module.exports = {
   range: {
