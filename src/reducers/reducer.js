@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 export function coin(state = 'Bitcoin', action) {
   switch (action.type) {
     case 'CHANGE_COIN':
       return action.payload.coin;
+=======
+export function changeCoin(state = 'Bitcoin', action) {
+  switch (action.type) {
+    case 'CHANGE_COIN':
+      return action.coin;
+>>>>>>> (feat) redux setup
     default:
       return state;
   }
 }
 
+<<<<<<< HEAD
 export function username(state = '', action) {
   switch (action.type) {
     case 'CHANGE_USERNAME':
@@ -80,6 +88,12 @@ export function userData(state = {}, action) {
     case 'USER_DB_GET_SUCCESS': {
       return Object.assign({}, state, action.userData);
     }
+=======
+export function modalIsOpen(state = 'true', action) {
+  switch (action.type) {
+    case 'MODAL_IS_OPEN':
+      return action.isOpen;
+>>>>>>> (feat) redux setup
     default:
       return state;
   }

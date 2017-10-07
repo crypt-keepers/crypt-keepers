@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+<<<<<<< HEAD
 import {
   coin,
   username,
@@ -21,4 +22,11 @@ export default combineReducers({
   panelSelect,
   tickerData,
   userData,
+=======
+import { changeCoin, modalIsOpen } from './reducer';
+
+export default combineReducers({
+  changeCoin,
+  modalIsOpen,
+>>>>>>> (feat) redux setup
 });

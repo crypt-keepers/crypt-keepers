@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -8,6 +9,11 @@ import * as actions from '../actions/appActions';
 =======
 import Search from './Search';
 >>>>>>> (feat) Add my list add button in search that updates my news
+=======
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
+>>>>>>> (feat) redux setup
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
@@ -32,6 +38,7 @@ const customStyles = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const propTypes = {
   username: PropTypes.string.isRequired,
   changeUsername: PropTypes.func.isRequired,
@@ -51,6 +58,9 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 =======
 export default class App extends React.Component {
+=======
+class App extends React.Component {
+>>>>>>> (feat) redux setup
   constructor(props) {
     super(props);
     this.state = {
@@ -174,6 +184,7 @@ export default class App extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 App.propTypes = propTypes;
 App.defaultProps = defaultProps;
 
@@ -188,5 +199,25 @@ const mapDispatchToProps = dispatch => (
     changeUsername: actions.changeUsername,
   }, dispatch)
 );
+=======
+const mapStateToProps = (state = {}, props) => {
+  return {
+    results: state.results.returnedResults,
+    saved: state.saved,
+    noResults: state.results.noResults,
+    page: state.page,
+    isFetching: state.isFetching,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addNasaItem: actions.addNasaItem,
+    deleteItem: actions.deleteItem,
+    searchNasa: actions.searchNASA,
+    setSavedFromStorage: actions.setSavedFromStorage,
+    changePage: actions.changePage
+  }, dispatch)
+}
+>>>>>>> (feat) redux setup
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
