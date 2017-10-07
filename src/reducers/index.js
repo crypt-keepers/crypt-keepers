@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { changeCoin, modalIsOpen } from './reducer';
+import { coin, modalIsOpen } from './reducer';
 
 export default combineReducers({
-  changeCoin,
+  coin,
   modalIsOpen,
 });
