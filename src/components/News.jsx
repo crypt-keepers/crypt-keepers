@@ -17,9 +17,9 @@ class News extends React.Component {
     this.state = {
       curSelection: 'trending',
       trending: [],
-      bitcoin: [],
-      litecoin: [],
-      etherium: [],
+      Bitcoin: [],
+      Litecoin: [],
+      Etherium: [],
     };
 
     this.setTrendingData = this.setTrendingData.bind(this);
@@ -32,7 +32,7 @@ class News extends React.Component {
   }
 
   componentDidMount() {
-    this.setTrendingData('bitcoin', true);
+    this.setTrendingData('Bitcoin', true);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,7 +63,7 @@ class News extends React.Component {
   }
 
   refreshNews() {
-    const newsArr = ['trending', 'bitcoin', 'litecoin', 'etherium'];
+    const newsArr = ['trending', 'Bitcoin', 'Litecoin', 'Etherium'];
     newsArr.forEach((el) => {
       if (this.state[el].length) {
         if (el === 'trending') {
@@ -88,7 +88,7 @@ class News extends React.Component {
       this.setState({ curSelection: 'trending' });
     }
     if (!isTrending && this.state.curSelection === 'trending') {
-      const newCoin = this.props.activeCoin ? this.props.activeCoin : 'bitcoin';
+      const newCoin = this.props.activeCoin ? this.props.activeCoin : 'Bitcoin';
       this.setState({ curSelection: newCoin });
     }
   }

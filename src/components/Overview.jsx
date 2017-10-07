@@ -58,17 +58,17 @@ class Overview extends React.Component {
             <TableRow
               coin={this.state.BTC}
               name="BTC"
-              onClick={() => { this.props.handleClick('bitcoin'); }}
+              onClick={() => { this.props.handleClick('Bitcoin'); }}
             />
             <TableRow
               coin={this.state.LTC}
               name="LTC"
-              onClick={() => { this.props.handleClick('litecoin'); }}
+              onClick={() => { this.props.handleClick('Litecoin'); }}
             />
             <TableRow
               coin={this.state.ETH}
               name="ETH"
-              onClick={() => { this.props.handleClick('etherium'); }}
+              onClick={() => { this.props.handleClick('Etherium'); }}
             />
           </tbody>
         </table>

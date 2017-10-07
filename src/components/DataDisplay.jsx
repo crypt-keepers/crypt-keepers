@@ -13,7 +13,7 @@ const defaultProps = {
 
 const renderTimeSeriesData = (coinData) => {
   // clear svg before every render
-  d3.selectAll('svg').remove();
+  d3.select('#data-display').selectAll('svg').remove();
 
   // svg / line graph settings, hardcoded, customizable
   const width = 600;
@@ -80,20 +80,18 @@ class DataDisplay extends React.Component {
   }
 
   componentDidMount() {
-    const coin = (this.props.activeCoin.length) ? this.props.activeCoin : 'bitcoin';
-    this.getRangeData(coin, '1D');
+    this.getRangeData(this.props.activeCoin, '1D');
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.activeCoin !== nextProps.activeCoin) {
-      const coin = (nextProps.activeCoin.length) ? nextProps.activeCoin : 'bitcoin';
-      this.getRangeData(coin, this.state.range);
+      this.getRangeData(nextProps.activeCoin, this.state.range);
     }
   }
 
   getRangeData(coin, range) {
     this.spinner(true);
-    helpers.getRangeData(coin, range)
+    helpers.getRangeData((coin.length) ? coin : 'Bitcoin', range)
       .then((coinData) => {
         this.setState({ coinData, range }, () => renderTimeSeriesData(this.state.coinData));
         this.spinner(false);
@@ -105,7 +103,7 @@ class DataDisplay extends React.Component {
   }
 
   render() {
-    const coinName = (this.props.activeCoin.length) ? this.props.activeCoin : 'bitcoin';
+    const coinName = (this.props.activeCoin.length) ? this.props.activeCoin : 'Bitcoin';
 
     return (
       <div className="data-display-container">

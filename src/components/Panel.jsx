@@ -39,12 +39,12 @@ class Panel extends React.Component {
             Coin Overview
           </button>
           <button className={financeButton} onClick={() => this.changePanel('finances')}>
-            Panel - My Finances
+            My Finances
           </button>
         </div>
         <div className="main">
           <Overview className={overviewClass} handleClick={this.props.handleClick} />
-          <MyFinances className={myFinancesClass} username={this.props.username} />
+          <MyFinances className={myFinancesClass} username={this.props.username} handleClick={this.props.handleClick} />
         </div>
       </div>
     );
