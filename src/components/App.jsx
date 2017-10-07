@@ -1,5 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
@@ -13,7 +16,7 @@ const customStyles = {
   },
 };
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,3 +98,24 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state = {}, props) => {
+  return {
+    results: state.results.returnedResults,
+    saved: state.saved,
+    noResults: state.results.noResults,
+    page: state.page,
+    isFetching: state.isFetching,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addNasaItem: actions.addNasaItem,
+    deleteItem: actions.deleteItem,
+    searchNasa: actions.searchNASA,
+    setSavedFromStorage: actions.setSavedFromStorage,
+    changePage: actions.changePage
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
