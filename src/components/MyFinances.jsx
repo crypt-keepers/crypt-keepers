@@ -5,65 +5,20 @@ import helpers from '../helpers/api-helpers';
 
 const propTypes = {
   className: PropTypes.string,
+  handleClick: PropTypes.func,
   username: PropTypes.string,
 };
 
 const defaultProps = {
   className: '',
+  handleClick: e => (e),
   username: '',
 };
 
-const renderPieChart = (valueData) => {
-  d3.select('#pie-chart').selectAll('svg').remove();
-
-  // process data
-  const data = [];
-  Object.keys(valueData).map(coin => data.push({ coin, value: valueData[coin] }));
-
-  // customizable parameters
-  const width = 240;
-  const height = 240;
-  const radius = 90;
-  const padding = 40;
-
-  // append svg
-  const svg = d3.select('#pie-chart')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height);
-
-  const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
-
-  const color = d3.scaleOrdinal(['red', 'blue', 'green']);
-
-  // pie chart with no hole
-  const path = d3.arc()
-    .outerRadius(radius)
-    .innerRadius(0);
-
-  // text label position
-  const label = d3.arc()
-    .outerRadius(radius - padding)
-    .innerRadius(radius - padding);
-
-  // data
-  const pie = d3.pie()
-    .sort(null)
-    .value(d => d.value);
-
-  const arc = g.selectAll('.arc')
-    .data(pie(data))
-    .enter().append('g')
-    .attr('class', 'arc');
-
-  arc.append('path')
-    .attr('d', path)
-    .attr('fill', d => color(d.data.coin));
-
-  arc.append('text')
-    .attr("text-anchor", "middle")
-    .attr('transform', d => `translate(${label.centroid(d)})`)
-    .text(d => d.data.coin);
+const coinName = {
+  BTC: 'Bitcoin',
+  ETH: 'Litecoin',
+  LTC: 'Etherium',
 };
 
 class MyFinances extends React.Component {
@@ -118,8 +73,60 @@ class MyFinances extends React.Component {
           position: userData.position,
           value,
           sum,
-        }, () => renderPieChart(this.state.value));
+        }, () => this.renderPieChart(this.state.value));
       });
+  }
+
+  renderPieChart(valueData) {
+    d3.select('#pie-chart').selectAll('svg').remove();
+
+    // customizable parameters
+    const width = 240;
+    const height = 240;
+    const radius = 90;
+    const padding = 40;
+
+    // process data
+    const data = [];
+    Object.keys(valueData).map(key => data.push({ coin: coinName[key], value: valueData[key] }));
+
+    const pie = d3.pie().value(d => d.value);
+
+    // append svg
+    const svg = d3.select('#pie-chart')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+
+    // pie chart with no hole
+    const path = d3.arc()
+      .outerRadius(radius)
+      .innerRadius(0);
+
+    // text label position
+    const label = d3.arc()
+      .outerRadius(radius - padding)
+      .innerRadius(radius - padding);
+
+    // pie chart colors
+    const color = d3.scaleOrdinal(['red', 'blue', 'green']);
+
+    // append everything
+    const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+    const arc = g.selectAll('.arc')
+      .data(pie(data))
+      .enter().append('g')
+      .on('click', d => this.props.handleClick(d.data.coin));
+
+    arc.append('path')
+      .attr('d', path)
+      .attr('fill', d => color(d.data.coin));
+
+    arc.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('transform', d => `translate(${label.centroid(d)})`)
+      .text(d => d.data.coin);
   }
 
   render() {
@@ -127,8 +134,8 @@ class MyFinances extends React.Component {
       ? <div>Coin added to {`${this.props.username}'`}s Wallet!</div>
       : '';
     const TableData = Object.keys(this.state.position).map(key => (
-      <tr key={key}>
-        <td>{key}</td>
+      <tr key={key} onClick={() => this.props.handleClick(coinName[key])}>
+        <td>{coinName[key]}</td>
         <td>{this.state.position[key]}</td>
         <td>$ {this.state.value[key]}</td>
       </tr>
