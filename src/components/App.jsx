@@ -19,20 +19,14 @@ const customStyles = {
 
 const propTypes = {
   activeCoin: PropTypes.string.isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
-  changeCoin: PropTypes.func.isRequired,
   changeUsername: PropTypes.func.isRequired,
-  modalIsOpen: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   activeCoin: 'Bitcoin',
-  isModalOpen: true,
   username: '',
-  changeCoin: e => (e),
   changeUsername: e => (e),
-  modalIsOpen: e => (e),
 };
 
 class App extends React.Component {
