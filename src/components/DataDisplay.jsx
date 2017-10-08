@@ -29,8 +29,9 @@ const renderTimeSeriesData = (coin, coinData) => {
   const yTicks = 5;
 
   // extract time and close info from data
+  // reverse data which is given reverse-chronologically
   const data = [];
-  coinData.forEach((row) => {
+  coinData.reverse().forEach((row) => {
     data.push({ time: new Date(row[0] * 1000), close: row[4] });
   });
 
@@ -39,10 +40,8 @@ const renderTimeSeriesData = (coin, coinData) => {
     .attr('width', width)
     .attr('height', height);
 
-  // set x and y range
-  // x range is set this way because data given reverse-chronologically
   const x = d3.scaleTime()
-    .range([padding, (width - padding)]);
+    .range([(width - padding), padding]);
   const y = d3.scaleLinear()
     .range([(height - padding), padding]);
 
@@ -114,8 +113,34 @@ const renderTimeSeriesData = (coin, coinData) => {
     .transition()
     .duration(1000)
     .attr('d', dataLine);
-};
 
+  // add a pointer with a dot and a text
+  const pointer = svg.append('g')
+    .attr('class', 'pointer')
+    .style('display', 'none');
+  pointer.append('circle');
+  pointer.append('text');
+
+  // create a mouse overlay to capture mouse movement, display 
+  svg.append('rect')
+    .attr('class', 'mouse-overlay')
+    .attr('width', width)
+    .attr('height', height)
+    .on('mouseover', () => d3.selectAll('.pointer').style('display', null))
+    .on('mouseout', () => d3.selectAll('.pointer').style('display', 'none'))
+    .on('mousemove', () => {
+      // get x y position of where the mouse is
+      const pos = d3.mouse(d3.select('.mouse-overlay').node());
+      // invert x position to get corresponding time data
+      const xTime = x.invert(pos[0]);
+      // convert it to data index, limit it to the size of data array
+      const i = d3.bisector(d => d.time).left(data, xTime, 0, data.length - 1);
+      // move the pointer to the corresponding spot in the data line
+      pointer.attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
+      // display data
+      pointer.select('text').text(`$${data[i].close}`);
+    });
+};
 
 class DataDisplay extends React.Component {
   constructor(props) {
