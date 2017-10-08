@@ -41,7 +41,7 @@ const renderTimeSeriesData = (coin, coinData) => {
     .attr('height', height);
 
   const x = d3.scaleTime()
-    .range([(width - padding), padding]);
+    .range([padding, (width - padding)]);
   const y = d3.scaleLinear()
     .range([(height - padding), padding]);
 
