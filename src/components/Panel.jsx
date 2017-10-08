@@ -40,42 +40,6 @@ const Panel = (props) => {
   );
 };
 
-// class Panel extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       view: 'overview',
-//     };
-//   }
-//
-//   changePanel(view) {
-//     this.setState({ view });
-//   }
-//
-//   render() {
-//     const overviewClass = this.state.view === 'overview' ? 'panel-show' : 'panel-hide';
-//     const myFinancesClass = this.state.view === 'overview' ? 'panel-hide' : 'panel-show';
-//     const overviewButton = this.state.view === 'overview' ? 'select' : 'unselect';
-//     const financeButton = this.state.view === 'overview' ? 'unselect' : 'select';
-//     return (
-//       <div className="panel-container">
-//         <div className="panel-nav">
-//           <button className={overviewButton} onClick={() => this.changePanel('overview')}>
-//             Coin Overview
-//           </button>
-//           <button className={financeButton} onClick={() => this.changePanel('finances')}>
-//             My Finances
-//           </button>
-//         </div>
-//         <div className="main">
-//           <Overview className={overviewClass} />
-//           <MyFinances className={myFinancesClass} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
 Panel.propTypes = propTypes;
 Panel.defaultProps = defaultProps;
 

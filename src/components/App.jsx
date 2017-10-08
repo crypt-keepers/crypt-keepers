@@ -38,8 +38,10 @@ const defaultProps = {
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      modalIsOpen: true,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePanelClick = this.handlePanelClick.bind(this);
   }
 
   handleSubmit(e) {
@@ -47,17 +49,11 @@ class App extends React.Component {
     const value = node ? node.value : '';
     this.props.changeUsername(value);
     e.preventDefault();
-    this.props.modalIsOpen(false);
-  }
-
-  handlePanelClick(coin) {
-    if (this.props.activeCoin !== coin) {
-      this.props.changeCoin(coin);
-    }
+    this.setState({ modalIsOpen: false });
   }
 
   render() {
-    const { isModalOpen, activeCoin, username } = this.props;
+    const { activeCoin, username } = this.props;
     return (
       <div>
         <div className="nav-bar">
@@ -72,7 +68,7 @@ class App extends React.Component {
         </div>
         <div className="component-container">
           <Modal
-            isOpen={isModalOpen}
+            isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
             contentLabel="Login"
             style={customStyles}
@@ -106,7 +102,6 @@ App.defaultProps = defaultProps;
 const mapStateToProps = (state = {}) => (
   {
     activeCoin: state.coin,
-    isModalOpen: state.modalIsOpen,
     username: state.username,
   }
 );
@@ -114,7 +109,6 @@ const mapStateToProps = (state = {}) => (
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     changeCoin: actions.changeCoin,
-    modalIsOpen: actions.modalIsOpen,
     changeUsername: actions.changeUsername,
   }, dispatch)
 );

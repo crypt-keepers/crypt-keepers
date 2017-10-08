@@ -7,13 +7,6 @@ export function changeCoin(coin) {
   };
 }
 
-export function modalIsOpen(bool) {
-  return {
-    type: 'MODAL_IS_OPEN',
-    isOpen: bool,
-  };
-}
-
 export function changeUsername(username) {
   return {
     type: 'CHANGE_USERNAME',
