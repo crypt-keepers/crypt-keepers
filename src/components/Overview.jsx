@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/overviewActions';
+import { changeCoin } from '../actions/appActions';
 import helpers from '../helpers/api-helpers';
-// import OverviewItem from './OverviewItem';
 import TableRow from './TableRow';
 
 const propTypes = {
@@ -83,4 +86,18 @@ class Overview extends React.Component {
 Overview.propTypes = propTypes;
 Overview.defaultProps = defaultProps;
 
-export default Overview;
+const mapStateToProps = (state = {}) => (
+  {
+    // activeCoin: state.coin,
+    tickerData: state.tickerData,
+  }
+);
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    tickerFetch: actions.tickerFetch,
+    handleClick: changeCoin,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);

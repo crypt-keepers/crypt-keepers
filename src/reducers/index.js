@@ -7,6 +7,8 @@ import {
   newsTrending,
   newsSelect,
   newsCoin,
+  panelSelect,
+  tickerData,
 } from './reducer';
 
 export default combineReducers({
@@ -17,4 +19,6 @@ export default combineReducers({
   newsTrending,
   newsSelect,
   newsCoin,
+  panelSelect,
+  tickerData,
 });

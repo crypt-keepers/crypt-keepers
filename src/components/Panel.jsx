@@ -1,37 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import changePanelSelection from '../actions/panelActions';
 import Overview from './Overview';
 import MyFinances from './MyFinances';
 
 const propTypes = {
   handleClick: PropTypes.func,
-  username: PropTypes.string,
+  username: PropTypes.string.isRequired,
+  view: PropTypes.string.isRequired,
+  changeView: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   handleClick: () => {},
   username: '',
+  view: 'overview',
+  changeView: e => (e),
 };
 
 class Panel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      view: 'overview',
-    };
-  }
-
   changePanel(view) {
-    this.setState({
-      view,
-    });
+    this.props.changeView(view);
   }
 
   render() {
-    const overviewClass = this.state.view === 'overview' ? 'panel-show' : 'panel-hide';
-    const myFinancesClass = this.state.view === 'overview' ? 'panel-hide' : 'panel-show';
-    const overviewButton = this.state.view === 'overview' ? 'select' : 'unselect';
-    const financeButton = this.state.view === 'overview' ? 'unselect' : 'select';
+    const overviewClass = this.props.view === 'overview' ? 'panel-show' : 'panel-hide';
+    const myFinancesClass = this.props.view === 'overview' ? 'panel-hide' : 'panel-show';
+    const overviewButton = this.props.view === 'overview' ? 'select' : 'unselect';
+    const financeButton = this.props.view === 'overview' ? 'unselect' : 'select';
     return (
       <div className="panel-container">
         <div className="panel-nav">
@@ -43,7 +41,8 @@ class Panel extends React.Component {
           </button>
         </div>
         <div className="main">
-          <Overview className={overviewClass} handleClick={this.props.handleClick} />
+          {/* <Overview className={overviewClass} handleClick={this.props.handleClick} /> */}
+          <Overview className={overviewClass} />
           <MyFinances
             className={myFinancesClass}
             username={this.props.username}
@@ -58,4 +57,16 @@ class Panel extends React.Component {
 Panel.propTypes = propTypes;
 Panel.defaultProps = defaultProps;
 
-export default Panel;
+const mapStateToProps = (state = {}) => (
+  {
+    view: state.panelSelect,
+  }
+);
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    changeView: changePanelSelection,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Panel);

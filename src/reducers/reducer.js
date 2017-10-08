@@ -60,3 +60,26 @@ export function newsCoin(state = {}, action) {
       return state;
   }
 }
+
+export function panelSelect(state = 'overview', action) {
+  switch (action.type) {
+    case 'CHANGE_PANEL_SELECTION':
+      return action.payload.selection;
+    default:
+      return state;
+  }
+}
+
+export function tickerData(state = {}, action) {
+  switch (action.type) {
+    case 'TICKER_FETCH_DATA_SUCCESS': {
+      const newObj = {};
+      action.tickerData.forEach((item) => {
+        newObj[item.coin] = item.data;
+      });
+      return Object.assign({}, state, newObj);
+    }
+    default:
+      return state;
+  }
+}
