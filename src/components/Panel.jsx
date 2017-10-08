@@ -7,20 +7,37 @@ import Overview from './Overview';
 import MyFinances from './MyFinances';
 
 const propTypes = {
+<<<<<<< HEAD
+=======
+  handleClick: PropTypes.func,
+  username: PropTypes.string.isRequired,
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
   view: PropTypes.string.isRequired,
   changeView: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
+<<<<<<< HEAD
+=======
+  handleClick: () => {},
+  username: '',
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
   view: 'overview',
   changeView: e => (e),
 };
 
+<<<<<<< HEAD
 const Panel = (props) => {
   const overviewClass = props.view === 'overview' ? 'panel-show' : 'panel-hide';
   const myFinancesClass = props.view === 'overview' ? 'panel-hide' : 'panel-show';
   const overviewButton = props.view === 'overview' ? 'select' : 'unselect';
   const financeButton = props.view === 'overview' ? 'unselect' : 'select';
+=======
+class Panel extends React.Component {
+  changePanel(view) {
+    this.props.changeView(view);
+  }
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
 
 <<<<<<< HEAD
   return (
@@ -34,6 +51,13 @@ const Panel = (props) => {
         </button>
 =======
   render() {
+<<<<<<< HEAD
+=======
+    const overviewClass = this.props.view === 'overview' ? 'panel-show' : 'panel-hide';
+    const myFinancesClass = this.props.view === 'overview' ? 'panel-hide' : 'panel-show';
+    const overviewButton = this.props.view === 'overview' ? 'select' : 'unselect';
+    const financeButton = this.props.view === 'overview' ? 'unselect' : 'select';
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
     return (
       <div>
         <div>Side Panel</div>
@@ -46,9 +70,19 @@ const Panel = (props) => {
           </button>
         </div>
         <div className="main">
+<<<<<<< HEAD
           {this.state.view === 'trending'
             ? <Trending />
             : <MyList list={this.props.list} handleClick={this.props.handleClick}/>}
+=======
+          {/* <Overview className={overviewClass} handleClick={this.props.handleClick} /> */}
+          <Overview className={overviewClass} />
+          <MyFinances
+            className={myFinancesClass}
+            username={this.props.username}
+            handleClick={this.props.handleClick}
+          />
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
         </div>
 >>>>>>> get ticker data to show up on trending side panel
       </div>

@@ -82,6 +82,7 @@ export function tickerData(state = {}, action) {
       return state;
   }
 }
+<<<<<<< HEAD
 
 export function userData(state = {}, action) {
   switch (action.type) {
@@ -98,3 +99,5 @@ export function modalIsOpen(state = 'true', action) {
       return state;
   }
 }
+=======
+>>>>>>> (refactor) Add redux to panel, begin refactor for overview
