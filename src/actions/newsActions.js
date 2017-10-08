@@ -14,31 +14,6 @@ const parseData = arr => (
   })
 );
 
-export function changeCoin(coin) {
-  return {
-    type: 'CHANGE_COIN',
-    payload: {
-      coin,
-    },
-  };
-}
-
-export function modalIsOpen(bool) {
-  return {
-    type: 'MODAL_IS_OPEN',
-    isOpen: bool,
-  };
-}
-
-export function changeUsername(username) {
-  return {
-    type: 'CHANGE_USERNAME',
-    payload: {
-      username,
-    },
-  };
-}
-
 export function newsHasErrored(bool) {
   return {
     type: 'NEWS_HAS_ERRORED',
@@ -50,6 +25,13 @@ export function newsTrendingFetchDataSuccess(news) {
   return {
     type: 'NEWS_TRENDING_FETCH_DATA_SUCCESS',
     news,
+  };
+}
+
+export function newsCoinFetchDataSuccess(coin, news) {
+  return {
+    type: 'NEWS_COIN_FETCH_DATA_SUCCESS',
+    payload: { coin, news },
   };
 }
 
@@ -69,5 +51,17 @@ export function changeNewsSelection(selection) {
   return {
     type: 'CHANGE_NEWS_SELECTION',
     payload: { selection },
+  };
+}
+
+export function newsFetchCoin(coin) {
+  return (dispatch) => {
+    helpers.getCoinNews(coin)
+      .then(data => (
+        dispatch(newsCoinFetchDataSuccess(coin, parseData(data.results)))
+      ))
+      .catch(() => {
+        dispatch(newsHasErrored(true));
+      });
   };
 }

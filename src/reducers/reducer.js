@@ -51,3 +51,12 @@ export function newsSelect(state = 'trending', action) {
       return state;
   }
 }
+
+export function newsCoin(state = {}, action) {
+  switch (action.type) {
+    case 'NEWS_COIN_FETCH_DATA_SUCCESS':
+      return Object.assign({}, state, { [action.payload.coin]: action.payload.news });
+    default:
+      return state;
+  }
+}

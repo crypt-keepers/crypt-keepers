@@ -39,7 +39,7 @@ const getTrendingNews = () => (
   })
 );
 
-const getCoinData = (coin) => {
+const getCoinNews = (coin) => {
   const coinSymbol = translateCoin[coin];
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -107,7 +107,7 @@ const postUserData = (username, coin, quantity) => (
 export default {
   getRangeData,
   getTrendingNews,
-  getCoinData,
+  getCoinNews,
   getTickerData,
   getUserData,
   postUserData,

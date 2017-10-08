@@ -6,6 +6,7 @@ import {
   newsHasErrored,
   newsTrending,
   newsSelect,
+  newsCoin,
 } from './reducer';
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   newsHasErrored,
   newsTrending,
   newsSelect,
+  newsCoin,
 });

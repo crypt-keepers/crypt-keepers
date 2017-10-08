@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+import * as actions from '../actions/appActions';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
