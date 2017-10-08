@@ -7,47 +7,74 @@ import Overview from './Overview';
 import MyFinances from './MyFinances';
 
 const propTypes = {
-  handleClick: PropTypes.func,
-  username: PropTypes.string.isRequired,
   view: PropTypes.string.isRequired,
   changeView: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  handleClick: () => {},
-  username: '',
   view: 'overview',
   changeView: e => (e),
 };
 
-class Panel extends React.Component {
-  changePanel(view) {
-    this.props.changeView(view);
-  }
+const Panel = (props) => {
+  const overviewClass = props.view === 'overview' ? 'panel-show' : 'panel-hide';
+  const myFinancesClass = props.view === 'overview' ? 'panel-hide' : 'panel-show';
+  const overviewButton = props.view === 'overview' ? 'select' : 'unselect';
+  const financeButton = props.view === 'overview' ? 'unselect' : 'select';
 
-  render() {
-    const overviewClass = this.props.view === 'overview' ? 'panel-show' : 'panel-hide';
-    const myFinancesClass = this.props.view === 'overview' ? 'panel-hide' : 'panel-show';
-    const overviewButton = this.props.view === 'overview' ? 'select' : 'unselect';
-    const financeButton = this.props.view === 'overview' ? 'unselect' : 'select';
-    return (
-      <div className="panel-container">
-        <div className="panel-nav">
-          <button className={overviewButton} onClick={() => this.changePanel('overview')}>
-            Coin Overview
-          </button>
-          <button className={financeButton} onClick={() => this.changePanel('finances')}>
-            My Finances
-          </button>
-        </div>
-        <div className="main">
-          <Overview className={overviewClass} />
-          <MyFinances className={myFinancesClass} />
-        </div>
+  return (
+    <div className="panel-container">
+      <div className="panel-nav">
+        <button className={overviewButton} onClick={() => props.changeView('overview')}>
+          Coin Overview
+        </button>
+        <button className={financeButton} onClick={() => props.changeView('finances')}>
+          My Finances
+        </button>
       </div>
-    );
-  }
-}
+      <div className="main">
+        <Overview className={overviewClass} />
+        <MyFinances className={myFinancesClass} />
+      </div>
+    </div>
+  );
+};
+
+// class Panel extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       view: 'overview',
+//     };
+//   }
+//
+//   changePanel(view) {
+//     this.setState({ view });
+//   }
+//
+//   render() {
+//     const overviewClass = this.state.view === 'overview' ? 'panel-show' : 'panel-hide';
+//     const myFinancesClass = this.state.view === 'overview' ? 'panel-hide' : 'panel-show';
+//     const overviewButton = this.state.view === 'overview' ? 'select' : 'unselect';
+//     const financeButton = this.state.view === 'overview' ? 'unselect' : 'select';
+//     return (
+//       <div className="panel-container">
+//         <div className="panel-nav">
+//           <button className={overviewButton} onClick={() => this.changePanel('overview')}>
+//             Coin Overview
+//           </button>
+//           <button className={financeButton} onClick={() => this.changePanel('finances')}>
+//             My Finances
+//           </button>
+//         </div>
+//         <div className="main">
+//           <Overview className={overviewClass} />
+//           <MyFinances className={myFinancesClass} />
+//         </div>
+//       </div>
+//     );
+//   }
+// }
 
 Panel.propTypes = propTypes;
 Panel.defaultProps = defaultProps;

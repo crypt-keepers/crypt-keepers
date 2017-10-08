@@ -74,7 +74,7 @@ class App extends React.Component {
           <Modal
             isOpen={isModalOpen}
             onRequestClose={this.closeModal}
-            contentLabel="Example Modal"
+            contentLabel="Login"
             style={customStyles}
           >
             <form onSubmit={this.handleSubmit}>
