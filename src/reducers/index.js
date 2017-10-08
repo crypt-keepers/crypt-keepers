@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import {
   coin,
-  modalIsOpen,
   username,
   newsHasErrored,
   newsTrending,
@@ -14,7 +13,6 @@ import {
 
 export default combineReducers({
   coin,
-  modalIsOpen,
   username,
   newsHasErrored,
   newsTrending,
