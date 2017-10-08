@@ -24,3 +24,21 @@ export function username(state = '', action) {
       return state;
   }
 }
+
+export function newsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'NEWS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function newsTrending(state = [], action) {
+  switch (action.type) {
+    case 'NEWS_TRENDING_FETCH_DATA_SUCCESS':
+      return action.news;
+    default:
+      return state;
+  }
+}

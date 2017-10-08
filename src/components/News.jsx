@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { newsFetchTrending } from '../actions/actions';
 import NewsItem from './NewsItem';
 import helpers from '../helpers/api-helpers';
 
@@ -31,7 +34,7 @@ class News extends React.Component {
     super(props);
     this.state = {
       curSelection: 'trending',
-      trending: [],
+      // trending: [],
       Bitcoin: [],
       Litecoin: [],
       Ethereum: [],
@@ -58,11 +61,12 @@ class News extends React.Component {
 
   setTrendingData(newCoin, fetchTrending) {
     if (fetchTrending) {
-      helpers.getTrendingNews()
-        .then((data) => {
-          this.setState({ trending: parseData(data.results) });
-        })
-        .catch(err => (err));
+      this.props.fetchTrending();
+      // helpers.getTrendingNews()
+      //   .then((data) => {
+      //     this.setState({ trending: parseData(data.results) });
+      //   })
+      //   .catch(err => (err));
     }
     if (!this.state[newCoin].length) {
       helpers.getCoinData(newCoin)
@@ -82,11 +86,12 @@ class News extends React.Component {
     newsArr.forEach((el) => {
       if (this.state[el].length) {
         if (el === 'trending') {
-          helpers.getTrendingNews()
-            .then((data) => {
-              this.setState({ trending: parseData(data.results) });
-            })
-            .catch(err => (err));
+          this.props.fetchTrending();
+          // helpers.getTrendingNews()
+          //   .then((data) => {
+          //     this.setState({ trending: parseData(data.results) });
+          //   })
+          //   .catch(err => (err));
         } else {
           helpers.getCoinData(el)
             .then((data) => {
@@ -109,9 +114,12 @@ class News extends React.Component {
   }
 
   render() {
-    const curArr = this.state[this.state.curSelection];
+    // const curArr = this.state[this.state.curSelection];
+    const curArr = this.props.trending;
     const trendClass = this.state.curSelection === 'trending' ? 'select' : 'unselect';
     const newsClass = this.state.curSelection === 'trending' ? 'unselect' : 'select';
+    console.log('cur trending', this.props.trending);
+
     return (
       <div className="news-panel">
         <div className="top-button-bar">
@@ -135,4 +143,22 @@ class News extends React.Component {
 News.propTypes = propTypes;
 News.defaultProps = defaultProps;
 
-export default News;
+const mapStateToProps = (state = {}) => (
+  {
+    trending: state.newsTrending,
+  }
+);
+
+// const mapDispatchToProps = dispatch => (
+//   bindActionCreators({
+//     fetchTrending: newsFetchTrending,
+//   }, dispatch)
+// );
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchTrending: () => dispatch(newsFetchTrending()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);

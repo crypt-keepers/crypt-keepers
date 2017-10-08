@@ -104,4 +104,11 @@ const postUserData = (username, coin, quantity) => (
   })
 );
 
-export default { getRangeData, getTrendingNews, getCoinData, getTickerData, getUserData, postUserData };
+export default {
+  getRangeData,
+  getTrendingNews,
+  getCoinData,
+  getTickerData,
+  getUserData,
+  postUserData,
+};
