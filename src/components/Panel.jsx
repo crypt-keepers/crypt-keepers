@@ -41,13 +41,12 @@ class Panel extends React.Component {
           </button>
         </div>
         <div className="main">
-          {/* <Overview className={overviewClass} handleClick={this.props.handleClick} /> */}
           <Overview className={overviewClass} />
-          <MyFinances
+          {/* <MyFinances
             className={myFinancesClass}
             username={this.props.username}
             handleClick={this.props.handleClick}
-          />
+          /> */}
         </div>
       </div>
     );

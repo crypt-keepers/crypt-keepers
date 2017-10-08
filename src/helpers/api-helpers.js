@@ -60,7 +60,7 @@ const getTickerData = () => {
   const coins = ['BTC', 'ETH', 'LTC'];
   const coinsArr = [];
   coins.forEach((coin) => {
-    coinsArr.push(new Promise((resolve, reject) => {
+    coinsArr.push(new Promise((resolve) => {
       $.ajax({
         url: '/ticker',
         method: 'GET',
@@ -68,7 +68,7 @@ const getTickerData = () => {
       }).done((data) => {
         resolve({ coin, data });
       }).fail((error) => {
-        reject(error);
+        throw error;
       });
     }));
   });

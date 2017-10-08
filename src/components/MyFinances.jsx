@@ -1,6 +1,10 @@
 import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import getUserData from '../actions/myFinanceActions';
+import { changeCoin } from '../actions/appActions';
 import helpers from '../helpers/api-helpers';
 
 const propTypes = {
@@ -41,9 +45,11 @@ class MyFinances extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.username.length) {
+    if (nextProps.username.length && nextProps.username !== this.props.username) {
       helpers.getUserData(nextProps.username)
         .then(userData => this.generateTableAndChart(userData));
+      // this.props.getUserData(nextProps.username);
+      // this.generateTableAndChart(userData);
     }
   }
 
@@ -65,7 +71,26 @@ class MyFinances extends React.Component {
       });
   }
 
-  generateTableAndChart(userData) {
+  generateTableAndChart() {
+    // const value = {};
+    // let sum = 0;
+    // const { tickerData, userData } = this.props;
+    // console.log('user data is', userData);
+    // Object.keys(tickerData).forEach((coinObj) => {
+    //   value[coinObj.coin] = (userData.position[coinObj.coin] * coinObj.data.price).toFixed(2);
+    //   sum += userData.position[coinObj.coin] * coinObj.data.price;
+    // });
+    // sum = sum.toFixed(2);
+    // return this.setState({
+    //   position: userData.position,
+    //   value,
+    //   sum,
+    // }, () => {
+    //   if (this.state.sum !== '0.00') {
+    //     this.renderPieChart(this.state.value);
+    //   }
+    // });
+
     return helpers.getTickerData()
       .then((tickerData) => {
         const value = {};
@@ -224,4 +249,18 @@ class MyFinances extends React.Component {
 MyFinances.propTypes = propTypes;
 MyFinances.defaultProps = defaultProps;
 
-export default MyFinances;
+const mapStateToProps = (state = {}) => (
+  {
+    userData: state.userData,
+    tickerData: state.tickerData,
+  }
+);
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    getUserData,
+    handleClick: changeCoin,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyFinances);

@@ -83,3 +83,13 @@ export function tickerData(state = {}, action) {
       return state;
   }
 }
+
+export function userData(state = {}, action) {
+  switch (action.type) {
+    case 'USER_DB_SUCCESS': {
+      return Object.assign({}, state, action.userData);
+    }
+    default:
+      return state;
+  }
+}

@@ -20,49 +20,56 @@ const defaultProps = {
   tickerData: {},
 };
 
-const Overview = (props) => {
-  props.tickerFetch();
+class Overview extends React.Component {
+  constructor(props) {
+    super();
 
-  setInterval(() => {
     props.tickerFetch();
-  }, 60000 * 3);
 
-  const { tickerData } = props;
-  const timeStr = tickerData.BTC ? tickerData.BTC.time : 0;
+    setInterval(() => {
+      console.log('interval fetch');
+      props.tickerFetch();
+    }, 60000 * 3);
+  }
 
-  return (
-    <div className={`table-container ${props.className}`}>Click a coin to see data<br />
-      <table>
-        <tbody>
-          <tr className="table-header">
-            <th />
-            <th>Price</th>
-            <th>Bid</th>
-            <th>Ask</th>
-          </tr>
-          <TableRow
-            coin={tickerData.BTC}
-            name="BTC"
-            onClick={() => { props.handleClick('Bitcoin'); }}
-          />
-          <TableRow
-            coin={tickerData.LTC}
-            name="LTC"
-            onClick={() => { props.handleClick('Litecoin'); }}
-          />
-          <TableRow
-            coin={tickerData.ETH}
-            name="ETH"
-            onClick={() => { props.handleClick('Ethereum'); }}
-          />
-        </tbody>
-      </table>
-      <div className="table-date">
-        Last updated at {(new Date(timeStr)).toTimeString()}
+  render() {
+    const { tickerData } = this.props;
+    const timeStr = tickerData.BTC ? tickerData.BTC.time : 0;
+
+    return (
+      <div className={`table-container ${this.props.className}`}>Click a coin to see data<br />
+        <table>
+          <tbody>
+            <tr className="table-header">
+              <th />
+              <th>Price</th>
+              <th>Bid</th>
+              <th>Ask</th>
+            </tr>
+            <TableRow
+              coin={tickerData.BTC}
+              name="BTC"
+              onClick={() => { this.props.handleClick('Bitcoin'); }}
+            />
+            <TableRow
+              coin={tickerData.LTC}
+              name="LTC"
+              onClick={() => { this.props.handleClick('Litecoin'); }}
+            />
+            <TableRow
+              coin={tickerData.ETH}
+              name="ETH"
+              onClick={() => { this.props.handleClick('Ethereum'); }}
+            />
+          </tbody>
+        </table>
+        <div className="table-date">
+          Last updated at {(new Date(timeStr)).toTimeString()}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Overview.propTypes = propTypes;
 Overview.defaultProps = defaultProps;
