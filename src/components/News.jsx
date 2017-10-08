@@ -115,6 +115,7 @@ const mapStateToProps = (state = {}) => (
     trending: state.newsTrending,
     curSelection: state.newsSelect,
     coinNewsObj: state.newsCoin,
+    activeCoin: state.coin,
   }
 );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import helpers from '../helpers/api-helpers';
 
 const propTypes = {
@@ -226,4 +227,10 @@ class DataDisplay extends React.Component {
 DataDisplay.propTypes = propTypes;
 DataDisplay.defaultProps = defaultProps;
 
-export default DataDisplay;
+const mapStateToProps = (state = {}) => (
+  {
+    activeCoin: state.coin,
+  }
+);
+
+export default connect(mapStateToProps)(DataDisplay);

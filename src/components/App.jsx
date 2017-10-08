@@ -18,13 +18,11 @@ const customStyles = {
 };
 
 const propTypes = {
-  activeCoin: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   changeUsername: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  activeCoin: 'Bitcoin',
   username: '',
   changeUsername: e => (e),
 };
@@ -47,7 +45,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { activeCoin, username } = this.props;
+    const { username } = this.props;
     return (
       <div>
         <div className="nav-bar">
@@ -80,10 +78,10 @@ class App extends React.Component {
             </form>
           </Modal>
           <div className="data-container">
-            <DataDisplay activeCoin={activeCoin} />
+            <DataDisplay />
             <Panel username={username} />
           </div>
-          <News activeCoin={activeCoin} />
+          <News />
         </div>
       </div>
     );
@@ -95,14 +93,12 @@ App.defaultProps = defaultProps;
 
 const mapStateToProps = (state = {}) => (
   {
-    activeCoin: state.coin,
     username: state.username,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    changeCoin: actions.changeCoin,
     changeUsername: actions.changeUsername,
   }, dispatch)
 );
