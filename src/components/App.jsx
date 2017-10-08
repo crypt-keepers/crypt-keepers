@@ -40,7 +40,6 @@ class App extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePanelClick = this.handlePanelClick.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   handleSubmit(e) {
@@ -48,17 +47,13 @@ class App extends React.Component {
     const value = node ? node.value : '';
     this.props.changeUsername(value);
     e.preventDefault();
-    this.closeModal();
+    this.props.modalIsOpen(false);
   }
 
   handlePanelClick(coin) {
     if (this.props.activeCoin !== coin) {
       this.props.changeCoin(coin);
     }
-  }
-
-  closeModal() {
-    this.props.modalIsOpen(false);
   }
 
   render() {
