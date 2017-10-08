@@ -32,13 +32,11 @@ class News extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.refreshNews = this.refreshNews.bind(this);
 
+    this.setTrendingData('Bitcoin', true);
+
     setInterval(() => {
       this.refreshNews();
     }, (60000 * 3));
-  }
-
-  componentDidMount() {
-    this.setTrendingData('Bitcoin', true);
   }
 
   componentWillReceiveProps(nextProps) {
