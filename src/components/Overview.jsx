@@ -4,91 +4,71 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions/overviewActions';
 import { changeCoin } from '../actions/appActions';
-import helpers from '../helpers/api-helpers';
 import TableRow from './TableRow';
 
 const propTypes = {
-  handleClick: PropTypes.func,
-  className: PropTypes.string,
+  handleClick: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  tickerFetch: PropTypes.func.isRequired,
+  tickerData: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const defaultProps = {
   handleClick: e => (e),
   className: '',
+  tickerFetch: e => (e),
+  tickerData: {},
 };
 
-class Overview extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      BTC: {},
-      LTC: {},
-      ETH: {},
-    };
+const Overview = (props) => {
+  props.tickerFetch();
 
-    this.updateData = this.updateData.bind(this);
+  setInterval(() => {
+    props.tickerFetch();
+  }, 60000 * 3);
 
-    // Update ticker data every 3 minutes.
-    setInterval(() => {
-      this.updateData();
-    }, 60000 * 3);
-  }
+  const { tickerData } = props;
+  const timeStr = tickerData.BTC ? tickerData.BTC.time : 0;
 
-  componentDidMount() {
-    this.updateData();
-  }
-
-  updateData() {
-    helpers.getTickerData()
-      .then((tickerData) => {
-        tickerData.forEach((coinObj) => {
-          this.setState({ [coinObj.coin]: coinObj.data });
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div className={`table-container ${this.props.className}`}>Click a coin to see data<br />
-        <table>
-          <tbody>
-            <tr className="table-header">
-              <th />
-              <th>Price</th>
-              <th>Bid</th>
-              <th>Ask</th>
-            </tr>
-            <TableRow
-              coin={this.state.BTC}
-              name="BTC"
-              onClick={() => { this.props.handleClick('Bitcoin'); }}
-            />
-            <TableRow
-              coin={this.state.LTC}
-              name="LTC"
-              onClick={() => { this.props.handleClick('Litecoin'); }}
-            />
-            <TableRow
-              coin={this.state.ETH}
-              name="ETH"
-              onClick={() => { this.props.handleClick('Ethereum'); }}
-            />
-          </tbody>
-        </table>
-        <div className="table-date">
-          Last updated at {(new Date(this.state.BTC.time || 0)).toTimeString()}
-        </div>
+  return (
+    <div className={`table-container ${props.className}`}>Click a coin to see data<br />
+      <table>
+        <tbody>
+          <tr className="table-header">
+            <th />
+            <th>Price</th>
+            <th>Bid</th>
+            <th>Ask</th>
+          </tr>
+          <TableRow
+            coin={tickerData.BTC}
+            name="BTC"
+            onClick={() => { props.handleClick('Bitcoin'); }}
+          />
+          <TableRow
+            coin={tickerData.LTC}
+            name="LTC"
+            onClick={() => { props.handleClick('Litecoin'); }}
+          />
+          <TableRow
+            coin={tickerData.ETH}
+            name="ETH"
+            onClick={() => { props.handleClick('Ethereum'); }}
+          />
+        </tbody>
+      </table>
+      <div className="table-date">
+        Last updated at {(new Date(timeStr)).toTimeString()}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Overview.propTypes = propTypes;
 Overview.defaultProps = defaultProps;
 
 const mapStateToProps = (state = {}) => (
   {
-    // activeCoin: state.coin,
     tickerData: state.tickerData,
   }
 );
