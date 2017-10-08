@@ -297,3 +297,16 @@ tr:hover {
     fill: none;
     stroke-width: 2;
 }
+
+svg > .mouse-overlay {
+    opacity: 0;
+}
+
+.pointer circle {
+    r: 2;
+}
+
+.pointer text {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+}
