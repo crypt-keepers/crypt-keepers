@@ -77,15 +77,15 @@ class News extends React.Component {
       this.props.changeSelection('trending');
     }
     if (!isTrending && this.props.curSelection === 'trending') {
-      const newCoin = this.props.activeCoin;
-      this.props.changeSelection(newCoin);
+      this.props.changeSelection(this.props.activeCoin);
     }
   }
 
   render() {
-    const curArr = (this.props.curSelection === 'trending'
-      ? this.props.trending
-      : this.props.coinNewsObj[this.props.curSelection]) || [];
+    const curArr =
+      (this.props.curSelection === 'trending'
+        ? this.props.trending
+        : this.props.coinNewsObj[this.props.curSelection]) || [];
     const trendClass = this.props.curSelection === 'trending' ? 'select' : 'unselect';
     const newsClass = this.props.curSelection === 'trending' ? 'unselect' : 'select';
 
