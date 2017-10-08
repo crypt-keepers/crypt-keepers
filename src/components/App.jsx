@@ -18,12 +18,12 @@ const customStyles = {
 };
 
 const propTypes = {
-  activeCoin: PropTypes.string,
-  isModalOpen: PropTypes.bool,
-  username: PropTypes.string,
-  changeCoin: PropTypes.func,
-  changeUsername: PropTypes.func,
-  modalIsOpen: PropTypes.func,
+  activeCoin: PropTypes.string.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+  changeCoin: PropTypes.func.isRequired,
+  changeUsername: PropTypes.func.isRequired,
+  modalIsOpen: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

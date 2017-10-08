@@ -64,3 +64,10 @@ export function newsFetchTrending() {
       });
   };
 }
+
+export function changeNewsSelection(selection) {
+  return {
+    type: 'CHANGE_NEWS_SELECTION',
+    payload: { selection },
+  };
+}

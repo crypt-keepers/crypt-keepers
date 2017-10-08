@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { newsFetchTrending } from '../actions/actions';
+import { newsFetchTrending, changeNewsSelection } from '../actions/actions';
 import NewsItem from './NewsItem';
 import helpers from '../helpers/api-helpers';
 
 const propTypes = {
-  activeCoin: PropTypes.string,
+  activeCoin: PropTypes.string.isRequired,
+  fetchTrending: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   activeCoin: 'Bitcoin',
+  fetchTrending: e => (e),
 };
 
 const parseData = arr => (
@@ -33,8 +35,6 @@ class News extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      curSelection: 'trending',
-      // trending: [],
       Bitcoin: [],
       Litecoin: [],
       Ethereum: [],
@@ -62,11 +62,6 @@ class News extends React.Component {
   setTrendingData(newCoin, fetchTrending) {
     if (fetchTrending) {
       this.props.fetchTrending();
-      // helpers.getTrendingNews()
-      //   .then((data) => {
-      //     this.setState({ trending: parseData(data.results) });
-      //   })
-      //   .catch(err => (err));
     }
     if (!this.state[newCoin].length) {
       helpers.getCoinData(newCoin)
@@ -76,22 +71,18 @@ class News extends React.Component {
         .catch(err => (err));
     }
 
-    if (this.state.curSelection !== 'trending') {
-      this.setState({ curSelection: newCoin });
+    if (this.props.curSelection !== 'trending') {
+      this.props.changeSelection(newCoin);
     }
   }
 
   refreshNews() {
+    //FIXME
     const newsArr = ['trending', 'Bitcoin', 'Litecoin', 'Ethereum'];
     newsArr.forEach((el) => {
       if (this.state[el].length) {
         if (el === 'trending') {
           this.props.fetchTrending();
-          // helpers.getTrendingNews()
-          //   .then((data) => {
-          //     this.setState({ trending: parseData(data.results) });
-          //   })
-          //   .catch(err => (err));
         } else {
           helpers.getCoinData(el)
             .then((data) => {
@@ -104,21 +95,21 @@ class News extends React.Component {
   }
 
   handleClick(isTrending) {
-    if (isTrending && !this.state.curSelection !== 'trending') {
-      this.setState({ curSelection: 'trending' });
+    if (isTrending && !this.props.curSelection !== 'trending') {
+      this.props.changeSelection('trending');
     }
-    if (!isTrending && this.state.curSelection === 'trending') {
+    if (!isTrending && this.props.curSelection === 'trending') {
       const newCoin = this.props.activeCoin ? this.props.activeCoin : 'Bitcoin';
-      this.setState({ curSelection: newCoin });
+      this.props.changeSelection(newCoin);
     }
   }
 
   render() {
     // const curArr = this.state[this.state.curSelection];
     const curArr = this.props.trending;
-    const trendClass = this.state.curSelection === 'trending' ? 'select' : 'unselect';
-    const newsClass = this.state.curSelection === 'trending' ? 'unselect' : 'select';
-    console.log('cur trending', this.props.trending);
+    const trendClass = this.props.curSelection === 'trending' ? 'select' : 'unselect';
+    const newsClass = this.props.curSelection === 'trending' ? 'unselect' : 'select';
+    console.log('cur selected', this.props.curSelection);
 
     return (
       <div className="news-panel">
@@ -146,19 +137,15 @@ News.defaultProps = defaultProps;
 const mapStateToProps = (state = {}) => (
   {
     trending: state.newsTrending,
+    curSelection: state.newsSelect,
   }
 );
 
-// const mapDispatchToProps = dispatch => (
-//   bindActionCreators({
-//     fetchTrending: newsFetchTrending,
-//   }, dispatch)
-// );
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchTrending: () => dispatch(newsFetchTrending()),
-  };
-};
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    fetchTrending: newsFetchTrending,
+    changeSelection: changeNewsSelection,
+  }, dispatch)
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

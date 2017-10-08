@@ -5,6 +5,7 @@ import {
   username,
   newsHasErrored,
   newsTrending,
+  newsSelect,
 } from './reducer';
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
   username,
   newsHasErrored,
   newsTrending,
+  newsSelect,
 });

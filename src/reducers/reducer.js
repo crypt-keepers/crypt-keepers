@@ -42,3 +42,12 @@ export function newsTrending(state = [], action) {
       return state;
   }
 }
+
+export function newsSelect(state = 'trending', action) {
+  switch (action.type) {
+    case 'CHANGE_NEWS_SELECTION':
+      return action.payload.selection;
+    default:
+      return state;
+  }
+}
