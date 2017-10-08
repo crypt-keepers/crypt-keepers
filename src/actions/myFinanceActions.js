@@ -7,9 +7,9 @@ export function dbHasErrored(bool) {
   };
 }
 
-export function dbSuccess(userData) {
+export function dbGetSuccess(userData) {
   return {
-    type: 'USER_DB_SUCCESS',
+    type: 'USER_DB_GET_SUCCESS',
     userData,
   };
 }
@@ -18,7 +18,7 @@ export function getUserData(username) {
   return (dispatch) => {
     helpers.getUserData(username)
       .then(data => (
-        dispatch(dbSuccess(data.results))
+        dispatch(dbGetSuccess(data))
       ))
       .catch(() => {
         dispatch(dbHasErrored(true));
@@ -26,9 +26,14 @@ export function getUserData(username) {
   };
 }
 
-// export function changeNewsSelection(selection) {
-//   return {
-//     type: 'CHANGE_NEWS_SELECTION',
-//     payload: { selection },
-//   };
-// }
+export function updateUserData(username, coin, quantity) {
+  return (dispatch) => {
+    helpers.postUserData(username, coin, quantity)
+      .then(() => (
+        dispatch(getUserData(username))
+      ))
+      .catch(() => {
+        dispatch(dbHasErrored(true));
+      });
+  };
+}

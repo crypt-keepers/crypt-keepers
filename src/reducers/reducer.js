@@ -86,7 +86,7 @@ export function tickerData(state = {}, action) {
 
 export function userData(state = {}, action) {
   switch (action.type) {
-    case 'USER_DB_SUCCESS': {
+    case 'USER_DB_GET_SUCCESS': {
       return Object.assign({}, state, action.userData);
     }
     default:

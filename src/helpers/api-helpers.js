@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import $ from 'jquery';
 
 const translateCoin = { Bitcoin: 'BTC', Ethereum: 'ETH', Litecoin: 'LTC' };

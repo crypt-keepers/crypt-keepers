@@ -27,7 +27,6 @@ class Overview extends React.Component {
     props.tickerFetch();
 
     setInterval(() => {
-      console.log('interval fetch');
       props.tickerFetch();
     }, 60000 * 3);
   }

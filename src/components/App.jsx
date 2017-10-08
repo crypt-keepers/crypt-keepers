@@ -91,10 +91,7 @@ class App extends React.Component {
           </Modal>
           <div className="data-container">
             <DataDisplay activeCoin={activeCoin} />
-            <Panel
-              handleClick={this.handlePanelClick}
-              username={username}
-            />
+            <Panel username={username} />
           </div>
           <News activeCoin={activeCoin} />
         </div>

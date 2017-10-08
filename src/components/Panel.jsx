@@ -42,11 +42,7 @@ class Panel extends React.Component {
         </div>
         <div className="main">
           <Overview className={overviewClass} />
-          {/* <MyFinances
-            className={myFinancesClass}
-            username={this.props.username}
-            handleClick={this.props.handleClick}
-          /> */}
+          <MyFinances className={myFinancesClass} />
         </div>
       </div>
     );

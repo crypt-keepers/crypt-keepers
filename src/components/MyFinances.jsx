@@ -3,20 +3,32 @@ import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import getUserData from '../actions/myFinanceActions';
+import { getUserData, updateUserData } from '../actions/myFinanceActions';
 import { changeCoin } from '../actions/appActions';
-import helpers from '../helpers/api-helpers';
 
 const propTypes = {
-  className: PropTypes.string,
-  handleClick: PropTypes.func,
-  username: PropTypes.string,
+  className: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  getUserData: PropTypes.func.isRequired,
+  updateUserData: PropTypes.func.isRequired,
+  userData: PropTypes.shape({
+    position: PropTypes.object,
+    username: PropTypes.string,
+    __v: PropTypes.number,
+    _id: PropTypes.string,
+  }).isRequired,
+  tickerData: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const defaultProps = {
   className: '',
   handleClick: e => (e),
+  getUserData: e => (e),
+  updateUserData: e => (e),
   username: '',
+  userData: {},
+  tickerData: {},
 };
 
 const coinName = {
@@ -46,70 +58,46 @@ class MyFinances extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.username.length && nextProps.username !== this.props.username) {
-      helpers.getUserData(nextProps.username)
-        .then(userData => this.generateTableAndChart(userData));
-      // this.props.getUserData(nextProps.username);
-      // this.generateTableAndChart(userData);
+      this.props.getUserData(nextProps.username);
+    }
+    if (nextProps.userData.position
+      && JSON.stringify(nextProps.userData) !== JSON.stringify(this.props.userData)) {
+      this.generateTableAndChart(nextProps.userData);
     }
   }
 
   addCoin() {
-    helpers.postUserData(this.props.username, this.state.coin, this.state.quantity)
-      .then(() => helpers.getUserData(this.props.username))
-      .then(userData => this.generateTableAndChart(userData))
-      .then(() => {
-        this.setState({
-          coin: 'BTC',
-          quantity: '',
-          showAlert: true,
-        });
-        setTimeout(() => {
-          this.setState({
-            showAlert: false,
-          });
-        }, 5000);
+    this.props.updateUserData(this.props.username, this.state.coin, this.state.quantity);
+    this.setState({
+      coin: 'BTC',
+      quantity: '',
+      showAlert: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        showAlert: false,
       });
+    }, 5000);
   }
 
-  generateTableAndChart() {
-    // const value = {};
-    // let sum = 0;
-    // const { tickerData, userData } = this.props;
-    // console.log('user data is', userData);
-    // Object.keys(tickerData).forEach((coinObj) => {
-    //   value[coinObj.coin] = (userData.position[coinObj.coin] * coinObj.data.price).toFixed(2);
-    //   sum += userData.position[coinObj.coin] * coinObj.data.price;
-    // });
-    // sum = sum.toFixed(2);
-    // return this.setState({
-    //   position: userData.position,
-    //   value,
-    //   sum,
-    // }, () => {
-    //   if (this.state.sum !== '0.00') {
-    //     this.renderPieChart(this.state.value);
-    //   }
-    // });
-
-    return helpers.getTickerData()
-      .then((tickerData) => {
-        const value = {};
-        let sum = 0;
-        tickerData.forEach((coinObj) => {
-          value[coinObj.coin] = (userData.position[coinObj.coin] * coinObj.data.price).toFixed(2);
-          sum += userData.position[coinObj.coin] * coinObj.data.price;
-        });
-        sum = sum.toFixed(2);
-        return this.setState({
-          position: userData.position,
-          value,
-          sum,
-        }, () => {
-          if (this.state.sum !== '0.00') {
-            this.renderPieChart(this.state.value);
-          }
-        });
-      });
+  generateTableAndChart(userData) {
+    const value = {};
+    let sum = 0;
+    const { tickerData } = this.props;
+    Object.keys(tickerData).forEach((coin) => {
+      value[coin] = (userData.position[coin] * tickerData[coin].price).toFixed(2);
+      sum += userData.position[coin] * tickerData[coin].price;
+    });
+    sum = sum.toFixed(2);
+    return this.setState({
+      position: userData.position,
+      value,
+      sum,
+    }, () => {
+      if (this.state.sum !== '0.00') {
+        this.renderPieChart(this.state.value);
+      }
+    });
   }
 
   renderPieChart(valueData) {
@@ -253,12 +241,14 @@ const mapStateToProps = (state = {}) => (
   {
     userData: state.userData,
     tickerData: state.tickerData,
+    username: state.username,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getUserData,
+    updateUserData,
     handleClick: changeCoin,
   }, dispatch)
 );
