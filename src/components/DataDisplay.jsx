@@ -143,6 +143,7 @@ const renderTimeSeriesData = (coin, coinData) => {
     });
 };
 
+// DataDisplay maintains its own state since graph data is not shared between components
 class DataDisplay extends React.Component {
   constructor(props) {
     super(props);

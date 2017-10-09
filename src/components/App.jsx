@@ -79,7 +79,7 @@ class App extends React.Component {
           </Modal>
           <div className="data-container">
             <DataDisplay />
-            <Panel username={username} />
+            <Panel />
           </div>
           <News />
         </div>

@@ -1,9 +1,5 @@
-//TODO:
-// import react components to test
-// Do something to component (call functions, set state, etc)
-// Run assertion tests.
 import React from 'react';
-import { mount, shallow, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import App from '../src/components/App';

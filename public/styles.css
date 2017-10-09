@@ -1,13 +1,8 @@
+/*General component settings*/
 body {
     margin: 0;
     background-color: #E5FFF7;
     font-family: 'Ubuntu', sans-serif;
-}
-
-.news-container, .data-display-container, .main {
-    background-color: white;
-    border: 1px solid #162521;
-    border-radius: 5px;
 }
 
 button {
@@ -19,155 +14,12 @@ button:focus {
     outline:0;
 }
 
-.component-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.data-container {
-    margin-top: 1.3em;
-    display: flex;
-    flex-flow: row wrap;
-    width: 84%;
-}
-
-.top-button-bar {
-    display: flex;
-    flex-direction: column;
-}
-
-.data-button-bar {
-    margin-left: 10px;
-}
-
-.wallet-entry button {
-    border: 1px solid black;
-    border-radius: 2px;
-    background-color: white;
-    margin: 3px;
-}
-
-.data-button-bar button:hover, .wallet-entry button:hover {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.data-button-bar > .select, .data-button-bar > .unselect {
-    border: 1px solid black;
-    border-radius: 2px;
-    margin: 3px;
-}
-
-.top-button-bar > .select, .top-button-bar > .unselect {
-    border: 1px solid #162521;
-    border-right: none;
-    width: 5em;
-    border-bottom: 1px solid #162521;
-}
-
-button img {
-    width: 100%;
-}
-
-.news-panel {
-    display: flex;
-    flex-flow: row nowrap;
-    width: 100%;
-    justify-content: start;
-    margin-left: 5em;
-    margin-top: 1.3em;
-}
-
-.news-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 15em;
-    overflow-y: scroll;
-    margin-bottom: 1em;
-    background-color: #58C7C9;
-}
-
-.news-item {
-    width: 25%;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid black;
-    cursor: pointer;
-    border-radius: 2px;
-    background-color: white;
-}
-
-.news-item:hover {
-    background-color: #E5FFF7;
-}
-
-.title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-weight: bold;
-}
-
 a {
     text-decoration: none;
     color: black;
 }
 
-.news-container::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 10px;
-}
-
-.news-container::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
-.loader {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #58C7C9;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    position: absolute;
-    top: 25%;
-    left: 40%;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.data-display-container {
-    position: relative;
-    padding: 0.5em;
-    margin-right: 1.3em;
-}
-
-.data-overlay {
-    background-color: rgba(255, 255, 255, 0.8);
-    position: absolute;
-    width: 640px;
-    height: 400px;
-    top: 0%;
-}
-
-.data-title {
-    display: flex;
-    flex-flow: row wrap;
-    /*justify-content: space-between;*/
-    justify-content: flex-start;
-    align-items: center;
-}
-
+/*Table styling*/
 th, td {
     border-bottom: 1px solid #ddd;
     padding-top: 5px;
@@ -180,57 +32,7 @@ tr:hover {
     cursor: pointer;
 }
 
-.table-header:hover {
-    background-color: white;
-    cursor: auto;
-}
-
-.table-date {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.table-container {
-    overflow-x: auto;
-}
-
-.panel-container {
-    width: 30%;
-}
-
-.panel-show {
-    display: inline;
-}
-
-.panel-hide {
-    display: none;
-    background-color: red;
-}
-
-.main {
-    width: 100%;
-    padding: 0.5em;
-}
-
-.coin-item {
-    padding: 5px;
-    margin: 2px;
-}
-
-.select, .unselect {
-    border: 1px solid #162521;
-    border-radius: 2px;
-    border-bottom: none;
-}
-
-.select {
-    background-color: #58C7C9;
-}
-
-.unselect {
-    background-color: white;
-}
-
+/*Nav bar styling*/
 .nav-bar {
     display: flex;
     flex-direction: row;
@@ -275,9 +77,180 @@ tr:hover {
     height: 50px;
 }
 
-/* D3 data display css */
+/*Container for page elements after nav bar*/
+.component-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-.axis { 
+/*Shared container styling*/
+.news-container, .data-display-container, .main {
+    background-color: white;
+    border: 1px solid #162521;
+    border-radius: 5px;
+}
+
+/*Button/icon selected styling*/
+.select, .unselect {
+    border: 1px solid #162521;
+    border-radius: 2px;
+    border-bottom: none;
+}
+
+.select {
+    background-color: #58C7C9;
+}
+
+.unselect {
+    background-color: white;
+}
+
+/*News container*/
+.news-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 15em;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+    background-color: #58C7C9;
+}
+
+/*News icons/buttons*/
+button img {
+    width: 100%;
+}
+
+.top-button-bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-button-bar > .select, .top-button-bar > .unselect {
+    border: 1px solid #162521;
+    border-right: none;
+    width: 5em;
+    border-bottom: 1px solid #162521;
+}
+
+/*News article panel*/
+.news-panel {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: start;
+    margin-left: 5em;
+    margin-top: 1.3em;
+}
+
+/*Individual articles*/
+.news-item {
+    width: 25%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.news-item:hover {
+    background-color: #E5FFF7;
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+/*Make scrollbar in news panel always visible*/
+.news-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+.news-container::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+/*Data container (graph and panel)*/
+.data-container {
+    margin-top: 1.3em;
+    display: flex;
+    flex-flow: row wrap;
+    width: 84%;
+}
+
+/*Button styling for data display and panel*/
+.data-button-bar button:hover, .wallet-entry button:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.data-button-bar > .select, .data-button-bar > .unselect {
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 3px;
+}
+
+/*Graph container*/
+.data-display-container {
+    position: relative;
+    padding: 0.5em;
+    margin-right: 1.3em;
+}
+
+/*Title bar for graph*/
+.data-title {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*Data range buttons on data display*/
+.data-button-bar {
+    margin-left: 10px;
+}
+
+/*Spinner for graph loading*/
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #58C7C9;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 25%;
+    left: 40%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/*Overlay for spinner on loading*/
+.data-overlay {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    width: 640px;
+    height: 400px;
+    top: 0%;
+}
+
+/* D3 data display styling*/
+
+.axis {
     font-family: 'Ubuntu', sans-serif;
     font-size: 12px;
     stroke-width: 1.25;
@@ -309,4 +282,50 @@ svg > .mouse-overlay {
 .pointer text {
     font-family: 'Ubuntu', sans-serif;
     font-size: 14px;
+}
+
+/*Data panel styling*/
+.panel-container {
+    width: 30%;
+}
+
+/*Overall panel container without buttons*/
+.main {
+    width: 100%;
+    padding: 0.5em;
+}
+
+/*Toggle panel visibility*/
+.panel-show {
+    display: inline;
+}
+
+.panel-hide {
+    display: none;
+    background-color: red;
+}
+
+/*Remove hover styling for table headers*/
+.table-header:hover {
+    background-color: white;
+    cursor: auto;
+}
+
+/*Overview table date styling*/
+.table-date {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/*Scroll overflow for dynamic page sizing*/
+.table-container {
+    overflow-x: auto;
+}
+
+/*Submit button in MyFinance*/
+.wallet-entry button {
+    border: 1px solid black;
+    border-radius: 2px;
+    background-color: white;
+    margin: 3px;
 }
