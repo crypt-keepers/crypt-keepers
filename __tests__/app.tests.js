@@ -94,6 +94,58 @@ describe('Reducer', () => {
       payload: { username: 'Spiderman' },
     })).to.equal('Spiderman');
   });
+
+  it('should handle NEWS_TRENDING_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.newsTrending([], {
+      type: 'NEWS_TRENDING_FETCH_DATA_SUCCESS',
+      news: [{title: 'testtitle', url:'www.hi.com'}],
+    })).to.deep.equal([{ title: 'testtitle', url: 'www.hi.com' }]);
+  });
+
+  it('should handle CHANGE_NEWS_SELECTION', () => {
+    expect(reducers.newsSelect('trending', {
+      type: 'CHANGE_NEWS_SELECTION',
+      payload: { selection: 'Bitcoin' },
+    })).to.equal('Bitcoin');
+  });
+
+  it('should handle NEWS_COIN_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.newsCoin({}, {
+      type: 'NEWS_COIN_FETCH_DATA_SUCCESS',
+      payload: { coin: 'Bitcoin', news: [{ title: 'bitcoin news' }] },
+    })).to.deep.equal({ Bitcoin: [{ title: 'bitcoin news' }] });
+
+    expect(reducers.newsCoin({ Bitcoin: [{ title: 'bitcoin news' }] }, {
+      type: 'NEWS_COIN_FETCH_DATA_SUCCESS',
+      payload: { coin: 'Litecoin', news: [{ title: 'litecoin news' }] },
+    })).to.deep.equal({ Bitcoin: [{ title: 'bitcoin news' }], Litecoin: [{ title: 'litecoin news' }] });
+  });
+
+  it('should handle CHANGE_PANEL_SELECTION', () => {
+    expect(reducers.panelSelect('overview', {
+      type: 'CHANGE_PANEL_SELECTION',
+      payload: { selection: 'finances' },
+    })).to.equal('finances');
+  });
+
+  it('should handle TICKER_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.tickerData({}, {
+      type: 'TICKER_FETCH_DATA_SUCCESS',
+      tickerData: [{ coin: 'LTC', data: { price: 1 } }],
+    })).to.deep.equal({ LTC: { price: 1 } });
+
+    expect(reducers.tickerData({ LTC: { price: 1 } }, {
+      type: 'TICKER_FETCH_DATA_SUCCESS',
+      tickerData: [{ coin: 'BTC', data: { price: 5 } }],
+    })).to.deep.equal({ LTC: { price: 1 }, BTC: { price: 5 } });
+  });
+
+  it('should handle USER_DB_GET_SUCCESS', () => {
+    expect(reducers.userData({}, {
+      type: 'USER_DB_GET_SUCCESS',
+      userData: { username: 'bob', position: {} },
+    })).to.deep.equal({ username: 'bob', position: {} });
+  });
 });
 
 
