@@ -47,7 +47,6 @@ class MyFinances extends React.Component {
       position: {},
       value: {},
       sum: 0,
-      showAlert: false,
     };
   }
 
@@ -66,13 +65,7 @@ class MyFinances extends React.Component {
     this.setState({
       coin: 'BTC',
       quantity: '',
-      showAlert: true,
     });
-    setTimeout(() => {
-      this.setState({
-        showAlert: false,
-      });
-    }, 5000);
   }
 
   generateTableAndChart(userData) {
@@ -208,9 +201,6 @@ class MyFinances extends React.Component {
   }
 
   render() {
-    const Alert = (this.state.showAlert)
-      ? <div>Coin added to {`${this.props.username}'`}s Wallet!</div>
-      : '';
     const TableData = Object.keys(this.state.position).map(key => (
       <tr key={key} onClick={() => this.props.handleClick(coinName[key])}>
         <td>{coinName[key]}</td>
@@ -237,7 +227,6 @@ class MyFinances extends React.Component {
           />
           <button onClick={() => this.addCoin()}>Add</button>
         </div>
-        {Alert}
         <div>{`${this.props.username}'`}s Wallet in USD</div>
         <table>
           <thead>
