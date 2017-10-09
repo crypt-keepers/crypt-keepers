@@ -102,14 +102,13 @@ class MyFinances extends React.Component {
     // process data
     const data = [];
     Object.keys(valueData).forEach((key) => {
-      if (valueData[key] !== '0.00') {
-        data.push({ coin: coinName[key], value: valueData[key] });
-      }
+      data.push({ coin: coinName[key], value: valueData[key] });
     });
 
-    // pie chart data (sort alphabetically)
+    // pie chart data (can choose to sort alphabetically)
     const pie = d3.pie().value(d => d.value)
-      .sort((a, b) => a.coin.localeCompare(b.coin));
+      .sort(null);
+      // .sort((a, b) => a.coin.localeCompare(b.coin));
 
     // pie chart with no hole
     const path = d3.arc()
@@ -191,12 +190,15 @@ class MyFinances extends React.Component {
       .attr('class', d => `text ${d.data.coin}`)
       .attr('text-anchor', 'middle')
       .attr('transform', d => `translate(${label.centroid(d)}) rotate(${rotateLabel(d)})`)
+      .style('display', 'none')
       .text(d => d.data.coin);
 
     d3.select('.pie')
       .selectAll('text')
+      .filter(d => d.value !== 0.00)
       .transition()
       .duration(750)
+      .style('display', null)
       .attr('transform', d => `translate(${label.centroid(d)}) rotate(${rotateLabel(d)})`);
   }
 
