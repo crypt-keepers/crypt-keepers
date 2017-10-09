@@ -41,7 +41,6 @@ module.exports = {
   search: {
     get: (req, res) => {
       const { currency } = req.query;
-
       models.search.get(currency)
         .then((data) => {
           res.status(200).send(data);
