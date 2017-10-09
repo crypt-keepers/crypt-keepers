@@ -206,6 +206,8 @@ button img {
     position: relative;
     padding: 0.5em;
     margin-right: 1.3em;
+    width: 640px;
+    height: 428px;
 }
 
 /*Title bar for graph*/
@@ -245,7 +247,6 @@ button img {
     position: absolute;
     width: 640px;
     height: 400px;
-/*    top: 0%;*/
 }
 
 /*Coin color scheme*/
@@ -303,18 +304,18 @@ svg > .mouse-overlay {
     r: 2;
 }
 
-.tooltip {   
-    position: absolute;         
-    text-align: center;         
-    width: 75px;                    
-    height: 50px;                   
-    padding: 5px;               
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 75px;
+    height: 50px;
+    padding: 5px;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 10px;    
+    font-size: 10px;
     background: lightgrey;
     opacity: 0.8;
-    border: 0px; 
-    border-radius: 8px;         
+    border: 0px;
+    border-radius: 8px;
 }
 
 /*Data panel styling*/
@@ -326,6 +327,7 @@ svg > .mouse-overlay {
 .main {
     width: 100%;
     padding: 0.5em;
+    overflow-x: scroll;
 }
 
 /*Toggle panel visibility*/
