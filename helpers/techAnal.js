@@ -49,6 +49,7 @@ const macd = (candleArray, short = 12, long = 26, sig = 9) => {
   return signal.map((s, i) => [s[0], macdLine[i], s[1], macdLine[i] - s[1]]);
 }
 
+
 module.exports = {
   sma: sma,
   ema: ema,
