@@ -39,7 +39,7 @@ class DataDisplay extends React.Component {
     this.spinner(true);
     helpers.getRangeData(coin, range)
       .then((coinData) => {
-        this.setState({ coinData, range }, () => this.renderTimeSeriesData(coin));
+        this.setState({ coinData, range }, () => this.renderTimeSeriesData());
         this.spinner(false);
       });
   }
@@ -48,7 +48,7 @@ class DataDisplay extends React.Component {
     this.setState({ isLoading: isSpinning });
   }
 
-  renderTimeSeriesData(coin) {
+  renderTimeSeriesData() {
     // svg / line graph settings, hardcoded, customizable
     const width = 640;
     const height = 400;
@@ -98,22 +98,33 @@ class DataDisplay extends React.Component {
       init.append('g')
         .attr('class', 'pointer')
         .style('display', 'none');
+
       d3.select('.pointer').append('circle');
-      d3.select('.pointer').append('text');
+
+      d3.select('#data-display').append('div')
+        .attr('class', 'tooltip')
+        .style('display', 'none');
 
       init.append('rect')
         .attr('class', 'mouse-overlay')
         .attr('width', width)
         .attr('height', height)
-        .on('mouseover', () => d3.selectAll('.pointer').style('display', null))
-        .on('mouseout', () => d3.selectAll('.pointer').style('display', 'none'));
+        .on('mouseover', () => d3.selectAll('.pointer, .tooltip').style('display', null))
+        .on('mouseout', () => d3.selectAll('.pointer, .tooltip').style('display', 'none'));
     }
 
     // extract time and close info from data
     // reverse data which is given reverse-chronologically
     const data = [];
     this.state.coinData.reverse().forEach((row) => {
-      data.push({ time: new Date(row[0] * 1000), close: row[4] });
+      data.push({
+        time: new Date(row[0] * 1000),
+        low: row[1],
+        high: row[2],
+        open: row[3],
+        close: row[4],
+        vol: row[5].toFixed(1),
+      });
     });
 
     // set x and y scale
@@ -133,11 +144,6 @@ class DataDisplay extends React.Component {
     const yAxis = d3
       .axisLeft(y.domain(yDom))
       .ticks(yTicks);
-
-    // generate initial flat line
-    // const flatLine = d3.line()
-    //   .x(d => x(d.time))
-    //   .y(() => y(yDom[0]));
 
     // generate data line
     const dataLine = d3.line()
@@ -181,9 +187,6 @@ class DataDisplay extends React.Component {
 
     d3.selectAll('.plot')
       .data([data])
-      // .transition()
-      // .duration(500)
-      // .attr('d', flatLine)
       .transition()
       .duration(1000)
       .attr('d', dataLine)
@@ -201,8 +204,11 @@ class DataDisplay extends React.Component {
         d3.select('.pointer')
           .attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
         // display data
-        d3.select('.pointer')
-          .select('text').text(`$${data[i].close}`);
+        d3.select('.tooltip')
+          .html(`low: $${data[i].low}<br>high: $${data[i].high}<br>open: $${data[i].open}<br>close: $${data[i].close}<br>vol: ${data[i].vol}`)
+          // .attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
+          .style('left', `${x(data[i].time) + 15}px`)
+          .style('top', `${y(data[i].close) - 15}px`);
       });
   }
 
