@@ -1,6 +1,6 @@
 # Cryptonium
 
-Track Bitcoin, Litecoin, and Etherium performance and news.
+Track Bitcoin, Litecoin, and Ethereum performance and news.
 
 ## Team
 
