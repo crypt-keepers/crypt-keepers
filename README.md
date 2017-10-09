@@ -53,9 +53,8 @@ Track Bitcoin, Litecoin, and Etherium performance and news.
 - React Redux ^5.0.6
 - Webpack 3.6.x
 
-Create 'config.js' file in Server folder and add your Cryptopanic Auth Token.
-Export this token with module.exports. See ./server/constants.js for details
-on what is expected in the token.
+Copy example.config.js in ./server folder and rename it to config.js. Include your
+Crytopanic API key here.
 
 ## Development
 
