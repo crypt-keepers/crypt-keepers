@@ -20,7 +20,7 @@ const defaultProps = {
   onClick: e => (e),
 };
 
-const nameToSymbol = { BTC: 'Bitcoin', LTC: 'Litecoin', ETH: 'Etherium' };
+const nameToSymbol = { BTC: 'Bitcoin', LTC: 'Litecoin', ETH: 'Ethereum' };
 
 const TableRow = props => (
   <tr onClick={props.onClick}>
