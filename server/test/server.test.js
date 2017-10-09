@@ -1,7 +1,5 @@
 const supertest = require('supertest');
 const mongoose = require('mongoose');
-// const assert = require('assert');
-// const expect = require('chai').expect;
 
 process.env.MONGODB_URI = 'mongodb://localhost:27017/cryptonium-test';
 
@@ -112,23 +110,6 @@ describe('Cryptonoium Server tests', () => {
       request
         .get('/range')
         .expect(404, done);
-    });
-  });
-
-  describe('Cryptonoium List tests', () => {
-    it('Should get list details');
-    it('Should post list details', (done) => {
-      request
-        .post('/list')
-        .send({ username: 'bob', coin: 'TST' })
-        .expect(201);
-      done();
-    });
-    xit('Adds coins to a user watchlist', (done) => {
-      done();
-    });
-    xit('Should not add duplicate coins to watchlist', (done) => {
-      done();
     });
   });
 });

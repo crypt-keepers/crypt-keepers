@@ -1,4 +1,3 @@
-const request = require('request');
 const rp = require('request-promise');
 
 const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, currency = 'USD') => {
