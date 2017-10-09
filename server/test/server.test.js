@@ -95,9 +95,8 @@ describe('Cryptonoium Server tests', () => {
 
   /**
    * Cryptonoium /range GET tests
-   * @type {String}
    */
-  describe('Cryptonoium Range tests', () => {
+  describe('Cryptonoium /range GET tests', () => {
     it('Should get range data for specific coin, an array of time series data', (done) => {
       request
         .get('/range?coin=BTC&dateStart=1507489906442&dateEnd=1507576306442&granularity=432000')
@@ -117,7 +116,10 @@ describe('Cryptonoium Server tests', () => {
     });
   });
 
-  describe('Cryptonoium Ticker tests', () => {
+  /**
+   * Cryptonoium /ticker GET tests
+   */
+  describe('Cryptonoium /ticker GET tests', () => {
     it('Should get ticker data for default coin (BTC)', (done) => {
       request
         .get('/ticker')
