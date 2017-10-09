@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const router = require('./routes');
 const path = require('path');
 const compression = require('compression');
+// const sock = require('./sock')
 
 const app = express();
 app.use(morgan('dev'));
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 app.use('/', router);
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {});
