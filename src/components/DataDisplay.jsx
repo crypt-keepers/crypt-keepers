@@ -18,131 +18,6 @@ const coinColor = {
   Litecoin: '#4B88A2',
 };
 
-const renderTimeSeriesData = (coin, coinData) => {
-  // clear svg before every render
-  d3.select('#data-display').selectAll('svg').remove();
-
-  // svg / line graph settings, hardcoded, customizable
-  const width = 640;
-  const height = 400;
-  const padding = 60;
-  const xTicks = 7;
-  const yTicks = 5;
-
-  // extract time and close info from data
-  // reverse data which is given reverse-chronologically
-  const data = [];
-  coinData.reverse().forEach((row) => {
-    data.push({ time: new Date(row[0] * 1000), close: row[4] });
-  });
-
-  const svg = d3.select('#data-display')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height);
-
-  const x = d3.scaleTime()
-    .range([padding, (width - padding)]);
-  const y = d3.scaleLinear()
-    .range([(height - padding), padding]);
-
-  // set x and y domain
-  const xDom = d3.extent(data, d => d.time);
-  const yDom = d3.extent(data, d => d.close);
-
-  // set x and y axis, use extend to calculate domain
-  const xAxis = d3
-    .axisBottom(x.domain(xDom))
-    .ticks(xTicks);
-  const yAxis = d3
-    .axisLeft(y.domain(yDom))
-    .ticks(yTicks);
-
-  // generate initial flat line
-  const flatLine = d3.line()
-    .x(d => x(d.time))
-    .y(() => y(yDom[0]));
-
-  // generate data line
-  const dataLine = d3.line()
-    .x(d => x(d.time))
-    .y(d => y(d.close));
-
-  // APPEND EVERYTHING
-  // x-axis with ticks
-  svg.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0, ${height - padding})`)
-    .call(xAxis);
-
-  // x-axis label
-  svg.append('text')
-    .attr('text-anchor', 'middle')
-    .attr('transform', `translate(${width / 2},${height - (padding / 4)})`)
-    .text('Time');
-
-  // x-axis gridlines
-  svg.append('g')
-    .attr('class', 'grid')
-    .attr('transform', `translate(0, ${height - padding})`)
-    .call(xAxis.tickSize((2 * padding) - height).tickFormat(''));
-
-  // y-axis with ticks
-  svg.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(${padding}, 0)`)
-    .call(yAxis);
-
-  // y-axis label
-  svg.append('text')
-    .attr('text-anchor', 'middle')
-    .attr('transform', `translate(${padding / 4},${height / 2}) rotate(-90)`)
-    .text('Price ($)');
-
-  // y-axis gridlines
-  svg.append('g')
-    .attr('class', 'grid')
-    .attr('transform', `translate(${padding}, 0)`)
-    .call(yAxis.tickSize((2 * padding) - width).tickFormat(''));
-
-  // animate from flat line to actual y values
-  svg.append('path')
-    .data([data])
-    .attr('class', 'plot')
-    .attr('stroke', coinColor[coin])
-    .attr('d', flatLine)
-    .transition()
-    .duration(1000)
-    .attr('d', dataLine);
-
-  // add a pointer with a dot and a text
-  const pointer = svg.append('g')
-    .attr('class', 'pointer')
-    .style('display', 'none');
-  pointer.append('circle');
-  pointer.append('text');
-
-  // create a mouse overlay to capture mouse movement, display
-  svg.append('rect')
-    .attr('class', 'mouse-overlay')
-    .attr('width', width)
-    .attr('height', height)
-    .on('mouseover', () => d3.selectAll('.pointer').style('display', null))
-    .on('mouseout', () => d3.selectAll('.pointer').style('display', 'none'))
-    .on('mousemove', () => {
-      // get x y position of where the mouse is
-      const pos = d3.mouse(d3.select('.mouse-overlay').node());
-      // invert x position to get corresponding time data
-      const xTime = x.invert(pos[0]);
-      // convert it to data index, limit it to the size of data array
-      const i = d3.bisector(d => d.time).left(data, xTime, 0, data.length - 1);
-      // move the pointer to the corresponding spot in the data line
-      pointer.attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
-      // display data
-      pointer.select('text').text(`$${data[i].close}`);
-    });
-};
-
 // DataDisplay maintains its own state since graph data is not shared between components
 class DataDisplay extends React.Component {
   constructor(props) {
@@ -170,13 +45,171 @@ class DataDisplay extends React.Component {
     this.spinner(true);
     helpers.getRangeData(coin, range)
       .then((coinData) => {
-        this.setState({ coinData, range }, () => renderTimeSeriesData(coin, this.state.coinData));
+        this.setState({ coinData, range }, () => this.renderTimeSeriesData(coin));
         this.spinner(false);
       });
   }
 
   spinner(isSpinning) {
     this.setState({ isLoading: isSpinning });
+  }
+
+  renderTimeSeriesData(coin) {
+    // svg / line graph settings, hardcoded, customizable
+    const width = 640;
+    const height = 400;
+    const padding = 60;
+    const xTicks = 7;
+    const yTicks = 5;
+
+    // if svg not found in the DOM, create one and append everything
+    const svg = d3.select('#data-display').selectAll('svg');
+    if (!svg.node()) {
+      const init = d3.select('#data-display')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      init.append('g')
+        .attr('class', 'xaxis')
+        .attr('transform', `translate(0, ${height - padding})`);
+
+      init.append('text')
+        .attr('class', 'xlabel')
+        .attr('text-anchor', 'middle')
+        .attr('transform', `translate(${width / 2},${height - (padding / 4)})`)
+        .text('Time');
+
+      init.append('g')
+        .attr('class', 'xgrid')
+        .attr('transform', `translate(0, ${height - padding})`);
+
+      init.append('g')
+        .attr('class', 'yaxis')
+        .attr('transform', `translate(${padding}, 0)`);
+
+      init.append('text')
+        .attr('class', 'ylabel')
+        .attr('text-anchor', 'middle')
+        .attr('transform', `translate(${padding / 4},${height / 2}) rotate(-90)`)
+        .text('Price ($)');
+
+      init.append('g')
+        .attr('class', 'ygrid')
+        .attr('transform', `translate(${padding}, 0)`);
+
+      init.append('path')
+        .attr('class', 'plot');
+
+      init.append('g')
+        .attr('class', 'pointer')
+        .style('display', 'none');
+      d3.select('.pointer').append('circle');
+      d3.select('.pointer').append('text');
+
+      init.append('rect')
+        .attr('class', 'mouse-overlay')
+        .attr('width', width)
+        .attr('height', height)
+        .on('mouseover', () => d3.selectAll('.pointer').style('display', null))
+        .on('mouseout', () => d3.selectAll('.pointer').style('display', 'none'));
+    }
+
+    // extract time and close info from data
+    // reverse data which is given reverse-chronologically
+    const data = [];
+    this.state.coinData.reverse().forEach((row) => {
+      data.push({ time: new Date(row[0] * 1000), close: row[4] });
+    });
+
+    // set x and y scale
+    const x = d3.scaleTime()
+      .range([padding, (width - padding)]);
+    const y = d3.scaleLinear()
+      .range([(height - padding), padding]);
+
+    // set x and y domain
+    const xDom = d3.extent(data, d => d.time);
+    const yDom = d3.extent(data, d => d.close);
+
+    // set x and y axis, use extend to calculate domain
+    const xAxis = d3
+      .axisBottom(x.domain(xDom))
+      .ticks(xTicks);
+    const yAxis = d3
+      .axisLeft(y.domain(yDom))
+      .ticks(yTicks);
+
+    // generate initial flat line
+    // const flatLine = d3.line()
+    //   .x(d => x(d.time))
+    //   .y(() => y(yDom[0]));
+
+    // generate data line
+    const dataLine = d3.line()
+      .x(d => x(d.time))
+      .y(d => y(d.close));
+
+    // select and update all elements, add transition
+    d3.select('.xaxis')
+      .attr('opacity', 0)
+      .call(xAxis)
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
+
+    d3.select('.xgrid')
+      .attr('opacity', 0)
+      .call(xAxis.tickSize((2 * padding) - height).tickFormat(''))
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
+
+    d3.select('.yaxis')
+      .attr('opacity', 0)
+      .call(yAxis)
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
+
+    d3.select('.ygrid')
+      .attr('opacity', 0)
+      .call(yAxis.tickSize((2 * padding) - width).tickFormat(''))
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
+
+    d3.selectAll('.xlabel,.ylabel')
+      .attr('opacity', 0)
+      .transition()
+      .duration(1000)
+      .attr('opacity', 1);
+
+    d3.selectAll('.plot')
+      .data([data])
+      // .transition()
+      // .duration(500)
+      // .attr('d', flatLine)
+      .transition()
+      .duration(1000)
+      .attr('stroke', coinColor[coin])
+      .attr('d', dataLine);
+
+    d3.select('.mouse-overlay')
+      .on('mousemove', () => {
+        // get x y position of where the mouse is
+        const pos = d3.mouse(d3.select('.mouse-overlay').node());
+        // invert x position to get corresponding time data
+        const xTime = x.invert(pos[0]);
+        // convert it to data index, limit it to the size of data array
+        const i = d3.bisector(d => d.time).left(data, xTime, 0, data.length - 1);
+        // move the pointer to the corresponding spot in the data line
+        d3.select('.pointer')
+          .attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
+        // display data
+        d3.select('.pointer')
+          .select('text').text(`$${data[i].close}`);
+      });
   }
 
   render() {
@@ -217,9 +250,10 @@ class DataDisplay extends React.Component {
             </button>
           </div>
         </div>
-        <div id="data-display" />
-        <div className={this.state.isLoading ? 'data-overlay' : ''} />
-        <div className={this.state.isLoading ? 'loader' : ''} />
+        <div id="data-display">
+          <div className={this.state.isLoading ? 'data-overlay' : ''} />
+          <div className={this.state.isLoading ? 'loader' : ''} />
+        </div>
       </div>
     );
   }
