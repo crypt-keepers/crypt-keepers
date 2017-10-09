@@ -261,3 +261,5 @@ const mapStateToProps = (state = {}) => (
     activeCoin: state.coin,
   }
 );
+
+export default connect(mapStateToProps)(DataDisplay);
