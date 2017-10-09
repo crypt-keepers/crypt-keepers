@@ -22,13 +22,19 @@ Track Bitcoin, Litecoin, and Etherium performance and news.
 ## Usage
 
   - Server Routes:
-    - get /range: Retrieve time series candlestick data in response to query. Query parameters are coin ['BTC', 'LTC', 'ETH'], dateStart (in milliseconds), dateEnd(in milliseconds), granularity (in milliseconds).
-    - get /ticker: Retrieve ticker data in response to query. Query parameter is coin ['BTC', 'LTC', 'ETH'].
-    - get /search: Retrieve new for a coin in response to query. Query parameter is currency.
-    - get /user: Retrieve user portfolio in response to query. Query parameter is username. If username is not found, one will be created and returned.
-    - post /user: Update a user's position. Request body is username, coin, position.
+    - get /range: Retrieve time series candlestick data in response to query. Query parameters are coin ('BTC', 'LTC', or 'ETH'), dateStart (in milliseconds), dateEnd(in milliseconds), granularity (in milliseconds)
+    - get /ticker: Retrieve ticker data in response to query. Query parameter is coin ('BTC', 'LTC', or 'ETH')
+    - get /search: Retrieve new for a coin in response to query. Query parameter is currency ('BTC', 'LTC', or 'ETH')
+    - get /user: Retrieve user portfolio in response to query. Query parameter is username. If username is not found, one will be created and returned
+    - post /user: Update a user's position. Request body is username, coin, position
 
   - Database:
+    - username: String,
+    position: {
+      BTC: { type: Number, default: 0 },
+      ETH: { type: Number, default: 0 },
+      LTC: { type: Number, default: 0 },
+    }
 
   - D3: Data-Driven Documents (D3.js) library is implemented inside DataDisplay component and Panel-MyFinances component to graphically visualize cryptocurrency data as well as to provide graphical interface to the user. Inside DataDisplay component, D3 is used to dynamically render time series plot of the selected cryptocurrency (default is Bitcoin). User can interact with the time series plot by changing the time range of the data and re-rendering the plot as well as moving the mouse around to see the detailed cryptocurrency data at a particular time. User can also select a different cryptocurrency in the side panel to render that cryptocurrency's time series plot. Inside Panel-MyFinances subpanel, D3 is used to dynamically visualize user's current cryptocurrency holdings using a pie chart. Pie chart is dynamically updated when user adds positions to their wallet as well as when the total value of their wallet changes due to market changes.  User can interact with the pie chart by moving the mouse over to the pie chart, resulting in the transition animation of the interacting pie slice. When the user clicks on the pie slice of the cryptocurrency they are interested in, the time series plot inside DataDisplay component is dynamically changed to reflect the selection.
 
