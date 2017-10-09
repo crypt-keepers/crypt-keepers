@@ -254,7 +254,7 @@ button img {
 }
 
 .slice.Ethereum path {
-    fill: #D3D4D9;
+    fill: #F0C7AB;
 }
 
 .slice.Litecoin path {
@@ -266,7 +266,7 @@ button img {
 }
 
 .plot.Ethereum {
-    stroke: #D3D4D9;
+    stroke: #F0C7AB;
 }
 
 .plot.Litecoin {
@@ -281,7 +281,7 @@ button img {
 }
 
 .xgrid line, .ygrid line {
-    opacity: 0.75;
+    opacity: 0.8;
     stroke: lightgrey;
     stroke-dasharray: 5;
 }
@@ -303,9 +303,18 @@ svg > .mouse-overlay {
     r: 2;
 }
 
-.pointer text {
+.tooltip {   
+    position: absolute;         
+    text-align: center;         
+    width: 75px;                    
+    height: 50px;                   
+    padding: 5px;               
     font-family: 'Ubuntu', sans-serif;
-    font-size: 14px;
+    font-size: 10px;    
+    background: lightgrey;
+    opacity: 0.8;
+    border: 0px; 
+    border-radius: 8px;         
 }
 
 /*Data panel styling*/
