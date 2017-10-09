@@ -16,11 +16,9 @@ module.exports = {
           })
           .catch((err) => {
             res.sendStatus(404);
-            // console.error(err);
           });
       } catch (e) {
         res.sendStatus(404);
-        // console.error(e);
       }
     },
   },
