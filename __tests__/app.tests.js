@@ -1,7 +1,4 @@
-import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import * as appActions from '../src/actions/appActions';
 import * as newsActions from '../src/actions/newsActions';
 import changePanelSelection from '../src/actions/panelActions';
