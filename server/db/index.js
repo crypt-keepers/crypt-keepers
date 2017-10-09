@@ -23,4 +23,4 @@ const updatePosition = (user, coin, quantity) => {
 };
 
 module.exports.User = User;
-module.exports.updateWatchList = updatePosition;
+module.exports.updatePosition = updatePosition;
