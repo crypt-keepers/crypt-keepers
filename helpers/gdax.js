@@ -17,7 +17,7 @@ const getTimeSeriesByRange = (coin = 'BTC', dateStart, dateEnd, granularity, cur
 
   return rp(options)
     .then(series => series)
-    .catch(err => console.error(err));
+    .catch(err => err);
 };
 
 

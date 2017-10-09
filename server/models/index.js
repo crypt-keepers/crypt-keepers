@@ -40,10 +40,10 @@ module.exports = {
 
       return new Promise((resolve, reject) => {
         request.get(options, (error, response, body) => {
-          if (error) {
-            reject(error);
-          } else if (response.statusCode === 200) {
+          if (response.statusCode === 200) {
             resolve(body);
+          } else {
+            reject(error || 'Invalid Currency');
           }
         });
       });
