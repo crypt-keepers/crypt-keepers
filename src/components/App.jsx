@@ -1,5 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/appActions';
 import DataDisplay from './DataDisplay';
 import Panel from './Panel';
 import News from './News';
@@ -13,44 +17,35 @@ const customStyles = {
   },
 };
 
-export default class App extends React.Component {
+const propTypes = {
+  username: PropTypes.string.isRequired,
+  changeUsername: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  username: '',
+  changeUsername: e => (e),
+};
+
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modalIsOpen: true,
-      username: '',
-      activeCoin: 'Bitcoin',
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePanelClick = this.handlePanelClick.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   handleSubmit(e) {
     const node = document.getElementById('username-field');
     const value = node ? node.value : '';
-    this.setState({ username: value });
+    this.props.changeUsername(value);
     e.preventDefault();
-    this.closeModal();
-  }
-
-  handlePanelClick(coin) {
-    if (this.state.activeCoin !== coin) {
-      this.setState({ activeCoin: coin });
-    }
-  }
-
-  openModal() {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal() {
     this.setState({ modalIsOpen: false });
   }
 
   render() {
+    const { username } = this.props;
     return (
       <div>
         <div className="nav-bar">
@@ -59,7 +54,7 @@ export default class App extends React.Component {
             <img src="logo.png" alt="" />
           </div>
           <div className="greeting">
-            <div>Hi {this.state.modalIsOpen ? '' : this.state.username}</div>
+            <div>Hi {username}</div>
             <img src="avatar.png" alt="" />
           </div>
         </div>
@@ -67,7 +62,7 @@ export default class App extends React.Component {
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
-            contentLabel="Example Modal"
+            contentLabel="Login"
             style={customStyles}
           >
             <form onSubmit={this.handleSubmit}>
@@ -83,15 +78,29 @@ export default class App extends React.Component {
             </form>
           </Modal>
           <div className="data-container">
-            <DataDisplay activeCoin={this.state.activeCoin} />
-            <Panel
-              handleClick={this.handlePanelClick}
-              username={this.state.username}
-            />
+            <DataDisplay />
+            <Panel username={username} />
           </div>
-          <News activeCoin={this.state.activeCoin} />
+          <News />
         </div>
       </div>
     );
   }
 }
+
+App.propTypes = propTypes;
+App.defaultProps = defaultProps;
+
+const mapStateToProps = (state = {}) => (
+  {
+    username: state.username,
+  }
+);
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    changeUsername: actions.changeUsername,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
