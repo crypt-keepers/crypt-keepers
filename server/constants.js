@@ -1,6 +1,12 @@
-const AUTH_TOKEN = process.env.AUTH_TOKEN ? process.env.AUTH_TOKEN : require('./config');
+// eslint-disable-line global-require
 
-// const AUTH_TOKEN = process.env.AUTH_TOKEN || LOCAL_TOKEN;
+let AUTH_TOKEN;
+try {
+  AUTH_TOKEN = require('./config');
+} catch (ex) {
+  AUTH_TOKEN = process.env.AUTH_TOKEN;
+}
+
 const CRYPTOPANIC_URI = 'https://cryptopanic.com/api/posts';
 
 module.exports = {
