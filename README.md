@@ -22,6 +22,11 @@ Track Bitcoin, Litecoin, and Etherium performance and news.
 ## Usage
 
   - Server Routes:
+  get /range: retrieve time series candlestick data in response to query. Query parameters are coin ['BTC', 'LTC', 'ETH'], dateStart (in milliseconds), dateEnd(in milliseconds), granularity (in milliseconds).
+  get /ticker: retrieve ticker data in response to query. Query parameter is coin ['BTC', 'LTC', 'ETH'].
+  get /search:
+  get /user: 
+  post /user:
 
   - Database:
 
