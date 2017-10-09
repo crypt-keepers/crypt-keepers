@@ -29,6 +29,7 @@ Track Bitcoin, Litecoin, and Etherium performance and news.
     - post /user: Update a user's position. Request body is username, coin, position
 
   - Database:
+    - mongodb and Mongoose
     - username: String,
     position: {
       BTC: { type: Number, default: 0 },
