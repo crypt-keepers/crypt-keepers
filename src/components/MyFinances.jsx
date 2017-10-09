@@ -79,19 +79,22 @@ class MyFinances extends React.Component {
     const value = {};
     let sum = 0;
     const { tickerData } = this.props;
-    Object.keys(tickerData).forEach((coin) => {
-      value[coin] = (userData.position[coin] * tickerData[coin].price).toFixed(2);
-      sum += userData.position[coin] * tickerData[coin].price;
-    });
-    sum = sum.toFixed(2);
     return this.setState({
       position: userData.position,
-      value,
-      sum,
     }, () => {
-      if (this.state.sum !== '0.00') {
-        this.renderPieChart(this.state.value);
-      }
+      Object.keys(tickerData).forEach((coin) => {
+        value[coin] = (userData.position[coin] * tickerData[coin].price).toFixed(2);
+        sum += userData.position[coin] * tickerData[coin].price;
+      });
+      sum = sum.toFixed(2);
+      return this.setState({
+        value,
+        sum,
+      }, () => {
+        if (this.state.sum !== '0.00') {
+          this.renderPieChart(this.state.value);
+        }
+      });
     });
   }
 
