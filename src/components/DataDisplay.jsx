@@ -99,7 +99,12 @@ class DataDisplay extends React.Component {
         .attr('class', 'pointer')
         .style('display', 'none');
       d3.select('.pointer').append('circle');
-      d3.select('.pointer').append('text');
+      d3.select('.pointer')
+        .append('rect')
+        .attr('width', 50)
+        .attr('height', 30)
+        .attr('fill', 'none')
+        .attr('stroke', 'black');
 
       init.append('rect')
         .attr('class', 'mouse-overlay')
@@ -202,7 +207,7 @@ class DataDisplay extends React.Component {
           .attr('transform', `translate(${x(data[i].time)}, ${y(data[i].close)})`);
         // display data
         d3.select('.pointer')
-          .select('text').text(`$${data[i].close}`);
+          .select('rect').html(`$${data[i].close}<br>$${data[i].close}`);
       });
   }
 
