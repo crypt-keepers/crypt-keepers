@@ -43,6 +43,7 @@ const coinColor = {
   Litecoin: '#4B88A2',
 };
 
+// MyFinance retains state since form and table data is not shared between components
 class MyFinances extends React.Component {
   constructor(props) {
     super(props);
