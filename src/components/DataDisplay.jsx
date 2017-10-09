@@ -12,12 +12,6 @@ const defaultProps = {
   activeCoin: 'Bitcoin',
 };
 
-const coinColor = {
-  Bitcoin: '#D3D4D9',
-  Ethereum: '#B95F89',
-  Litecoin: '#4B88A2',
-};
-
 // DataDisplay maintains its own state since graph data is not shared between components
 class DataDisplay extends React.Component {
   constructor(props) {
@@ -99,7 +93,7 @@ class DataDisplay extends React.Component {
         .attr('transform', `translate(${padding}, 0)`);
 
       init.append('path')
-        .attr('class', 'plot');
+        .attr('class', `plot ${this.props.activeCoin}`);
 
       init.append('g')
         .attr('class', 'pointer')
@@ -192,8 +186,8 @@ class DataDisplay extends React.Component {
       // .attr('d', flatLine)
       .transition()
       .duration(1000)
-      .attr('stroke', coinColor[coin])
-      .attr('d', dataLine);
+      .attr('d', dataLine)
+      .attr('class', `plot ${this.props.activeCoin}`);
 
     d3.select('.mouse-overlay')
       .on('mousemove', () => {

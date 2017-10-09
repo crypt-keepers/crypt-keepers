@@ -248,8 +248,32 @@ button img {
 /*    top: 0%;*/
 }
 
-/* D3 data display styling*/
+/*Coin color scheme*/
+.slice.Bitcoin path {
+    fill: #4B88A2;
+}
 
+.slice.Ethereum path {
+    fill: #D3D4D9;
+}
+
+.slice.Litecoin path {
+    fill: #B95F89;
+}
+
+.plot.Bitcoin {
+    stroke: #4B88A2;
+}
+
+.plot.Ethereum {
+    stroke: #D3D4D9;
+}
+
+.plot.Litecoin {
+    stroke: #B95F89;
+}
+
+/*D3 data display styling*/
 .xaxis, .yaxis {
     font-family: 'Ubuntu', sans-serif;
     font-size: 12px;
