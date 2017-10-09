@@ -37,12 +37,6 @@ const coinName = {
   LTC: 'Litecoin',
 };
 
-const coinColor = {
-  Bitcoin: '#D3D4D9',
-  Ethereum: '#B95F89',
-  Litecoin: '#4B88A2',
-};
-
 // MyFinance retains state since form and table data is not shared between components
 class MyFinances extends React.Component {
   constructor(props) {
@@ -102,8 +96,6 @@ class MyFinances extends React.Component {
   }
 
   renderPieChart(valueData) {
-    d3.select('#pie-chart').selectAll('svg').remove();
-
     // customizable parameters
     const width = 200;
     const height = 200;
@@ -119,35 +111,47 @@ class MyFinances extends React.Component {
       }
     });
 
-    const pie = d3.pie().value(d => d.value);
-
-    // append svg
-    const svg = d3.select('#pie-chart')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+    // pie chart data (sort alphabetically)
+    const pie = d3.pie().value(d => d.value)
+      .sort((a, b) => a.coin.localeCompare(b.coin));
 
     // pie chart with no hole
     const path = d3.arc()
       .outerRadius(radius)
       .innerRadius(0);
 
-    // text label position
-    const label = d3.arc()
-      .outerRadius(radius - labelPadding)
-      .innerRadius(radius - labelPadding);
+    // if svg not found in the DOM, create one and append everything
+    const svg = d3.select('#pie-chart').selectAll('svg');
+    if (!svg.node()) {
+      const init = d3.select('#pie-chart')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
 
-    // append everything
-    const g = svg.append('g').attr('transform', `translate(${width / 2}, ${height / 2})`);
+      init.append('g')
+        .attr('class', 'pie')
+        .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    const arc = g.selectAll('.slice')
+      d3.select('.pie')
+        .data(pie(data))
+        .enter()
+        .append('g')
+        .append('path');
+
+      d3.select('.pie')
+        .data(pie(data))
+        .enter()
+        .append('text');
+    }
+
+    d3.select('.pie').selectAll('.slice')
       .data(pie(data))
       .enter()
       .append('g')
       .attr('class', d => `slice ${d.data.coin}`)
       .on('click', d => this.props.handleClick(d.data.coin))
       .on('mouseover', (d) => {
-        d3.select(`.${d.data.coin}`)
+        d3.selectAll(`.slice.${d.data.coin}`)
           .transition()
           .duration(500)
           .attr('transform', () => {
@@ -158,25 +162,46 @@ class MyFinances extends React.Component {
           });
       })
       .on('mouseout', (d) => {
-        d3.select(`.${d.data.coin}`)
+        d3.select(`.slice.${d.data.coin}`)
           .transition()
           .duration(500)
           .attr('transform', 'translate(0, 0)');
-      });
+      })
+      .append('path');
 
-    arc.append('path')
-      .attr('d', path)
-      .attr('fill', d => coinColor[d.data.coin]);
+    d3.select('.pie')
+      .selectAll('path')
+      .data(pie(data))
+      .transition()
+      .duration(750)
+      .attr('d', path);
 
+    // text label position
+    const label = d3.arc()
+      .outerRadius(radius - labelPadding)
+      .innerRadius(radius - labelPadding);
+
+    // rotate text along mid angle of the slice
     const rotateLabel = (d) => {
       const midAngle = (180 * (d.startAngle + d.endAngle)) / (2 * Math.PI);
       return (midAngle > 180) ? midAngle + 90 : midAngle - 90;
     };
 
-    arc.append('text')
+    d3.select('.pie')
+      .selectAll('text')
+      .data(pie(data))
+      .enter()
+      .append('text')
+      .attr('class', d => `text ${d.data.coin}`)
       .attr('text-anchor', 'middle')
       .attr('transform', d => `translate(${label.centroid(d)}) rotate(${rotateLabel(d)})`)
       .text(d => d.data.coin);
+
+    d3.select('.pie')
+      .selectAll('text')
+      .transition()
+      .duration(750)
+      .attr('transform', d => `translate(${label.centroid(d)}) rotate(${rotateLabel(d)})`);
   }
 
   render() {
