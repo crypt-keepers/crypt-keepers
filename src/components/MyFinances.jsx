@@ -212,7 +212,7 @@ class MyFinances extends React.Component {
         <div>{`${this.props.username}'`}s Wallet in USD</div>
         <table>
           <thead>
-            <tr>
+            <tr className="table-header">
               <th>Coin</th>
               <th>Quantity</th>
               <th>Value</th>
@@ -221,7 +221,7 @@ class MyFinances extends React.Component {
           </thead>
           <tbody>
             {TableData}
-            <tr>
+            <tr className="table-header">
               <td>Total:</td>
               <td />
               <td>$ {this.state.sum}</td>
