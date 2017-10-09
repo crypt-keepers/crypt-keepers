@@ -95,18 +95,46 @@ describe('Cryptonoium Server tests', () => {
 
   /**
    * Cryptonoium /range GET tests
-   * @type {String}
    */
-  describe('Cryptonoium Range tests', () => {
+  describe('Cryptonoium /range GET tests', () => {
     it('Should get range data for specific coin, an array of time series data', (done) => {
       request
         .get('/range?coin=BTC&dateStart=1507489906442&dateEnd=1507576306442&granularity=432000')
         .expect(200, done);
     });
 
-    it('Should result in error for invalid range request', (done) => {
+    it('Should result in error for invalid range request without any query params', (done) => {
       request
         .get('/range')
+        .expect(404, done);
+    });
+
+    it('Should result in error for invalid range coin request', (done) => {
+      request
+        .get('/range?coin=foo&dateStart=1507489906442&dateEnd=1507576306442&granularity=432000')
+        .expect(404, done);
+    });
+  });
+
+  /**
+   * Cryptonoium /ticker GET tests
+   */
+  describe('Cryptonoium /ticker GET tests', () => {
+    it('Should get ticker data for default coin (BTC)', (done) => {
+      request
+        .get('/ticker')
+        .expect(200, done);
+    });
+
+    it('Should get ticker data for specific coin', (done) => {
+      request
+        .get('/ticker?coin=ETH')
+        .expect(200, done);
+    });
+
+    it('Should result in error for invalid ticker coin request', (done) => {
+      request
+        .get('/ticker?coin=foo')
         .expect(404, done);
     });
   });
