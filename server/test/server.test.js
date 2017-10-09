@@ -104,8 +104,6 @@ describe('Cryptonoium Server tests', () => {
         .expect(200, done);
     });
 
-    xit('Should get range details');
-
     it('Should result in error for invalid range request', (done) => {
       request
         .get('/range')
